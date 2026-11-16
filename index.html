@@ -434,7 +434,7 @@ function study(key){
     header({back:up,hideTabs:true,title:g.title});
     let h='<label class="toggle"><input type="checkbox" id="only"'+(onlyNew?' checked':'')+'> Chỉ câu chưa thuộc</label>';
     if(!list.length){
-      h+='<div class="empty"><p><b>'+(g.ids.length?'Đã thuộc hết nhóm này.':'Không còn câu nào trong nhóm này.')+'</b></p><p class="muted small">'+(g.ids.length?'Bỏ chọn “Chỉ câu chưa thuộc” để ôn lại, hoặc quay về.':'')+'</p><button class="btn" id="home2">'+(up?'Về Câu sai':'Về lộ trình')+'</button></div>';
+      h+='<div class="empty"><p><b>'+(g.ids.length?'Đã thuộc hết nhóm này.':'Không còn câu nào trong nhóm này.')+'</b></p><p class="muted small">'+(g.ids.length?'Bỏ chọn “Chỉ câu chưa thuộc” để ôn lại, hoặc quay về.':'')+'</p><button class="btn" id="home2">'+(key==='wrong'?'Về Câu sai':'Về lộ trình')+'</button></div>';
       view(h); $('#only').onchange=e=>{onlyNew=e.target.checked;build();render();}; $('#home2').onclick=()=>nav(up); keyHandler=null; return;
     }
     const id=list[pos];
@@ -506,11 +506,13 @@ function runExam(ids){
   tick(); tInt=setInterval(tick,1000);
   function render(){
     const id=ids[cur];
-    let h='<div class="grid">'+ids.map((x,i)=>'<button data-j="'+i+'" class="'+(ans[x]!==undefined?'ans ':'')+(i===cur?'cur ':'')+(CRIT.has(x)?'crit':'')+'">'+(i+1)+'</button>').join('')+'</div>';
+    let h='<div class="grid">'+ids.map((x,i)=>'<button data-j="'+i+'" class="'+(ans[x]!==undefined?'ans ':'')+(i===cur?'cur ':'')+(CRIT.has(x)?'crit':'')+'" aria-label="Câu '+(i+1)+(ans[x]!==undefined?', đã trả lời':', chưa trả lời')+(CRIT.has(x)?', điểm liệt':'')+'"'+(i===cur?' aria-current="true"':'')+'>'+(i+1)+'</button>').join('')+'</div>';
     h+='<div class="count">Câu '+(cur+1)+' trong đề</div>'+qBlock(id);
     h+='<div class="bar"><button class="btn ghost" id="prev"'+(cur?'':' disabled')+'>Trước</button><button class="btn ghost" id="next"'+(cur<ids.length-1?'':' disabled')+'>Sau</button><span class="grow"></span><button class="btn red" id="submit">Nộp bài</button></div>';
     view(h);
-    app.querySelectorAll('.opt').forEach(b=>{if(+b.dataset.i===ans[id]) b.classList.add('sel'); b.onclick=()=>{ans[id]=+b.dataset.i; if(cur<ids.length-1){cur++;} render();};});
+    app.querySelectorAll('.opt').forEach(b=>{const on=+b.dataset.i===ans[id]; b.classList.toggle('sel',on); b.setAttribute('aria-pressed',String(on)); b.onclick=()=>{ans[id]=+b.dataset.i; if(cur<ids.length-1){cur++;} render();};});
+    // the page is rebuilt on every answer: put focus back on the answers so keyboard users don't restart at the top
+    (app.querySelector('.opt.sel')||app.querySelector('.opt')).focus({preventScroll:true});
     app.querySelectorAll('.grid button').forEach(b=>b.onclick=()=>{cur=+b.dataset.j;render();});
     $('#prev').onclick=()=>{cur--;render();}; $('#next').onclick=()=>{cur++;render();};
     $('#submit').onclick=()=>{const miss=ids.filter(x=>ans[x]===undefined).length; if(!miss||confirm('Còn '+miss+' câu chưa làm. Nộp bài luôn?')) finish();};
@@ -532,7 +534,7 @@ function review(ids,ans,score,pass,critFail){
   function render(){
     let h='<h1>'+(pass?'Đạt':'Chưa đạt')+'</h1><div class="score" style="color:var('+(pass?'--green':'--red')+')">'+score+'/'+CL.n+'</div>'+
       '<p class="muted">'+(critFail?(score>=CL.pass?'Bạn đủ điểm nhưng sai câu điểm liệt, nên bài thi vẫn không đạt.':'Bạn sai câu điểm liệt và chưa đủ '+CL.pass+' câu.'):pass?'Giữ phong độ: làm thêm vài đề nữa.':'Cần đúng ít nhất '+CL.pass+' câu.')+' Chạm vào số câu để xem lại.</p>'+
-      '<div class="grid">'+ids.map((x,i)=>'<button data-j="'+i+'" class="'+(ans[x]===Q[x].c?'ok ':'bad ')+(i===cur?'cur ':'')+(CRIT.has(x)?'crit':'')+'">'+(i+1)+'</button>').join('')+'</div>';
+      '<div class="grid">'+ids.map((x,i)=>'<button data-j="'+i+'" class="'+(ans[x]===Q[x].c?'ok ':'bad ')+(i===cur?'cur ':'')+(CRIT.has(x)?'crit':'')+'" aria-label="Câu '+(i+1)+(ans[x]===Q[x].c?', đúng':ans[x]===undefined?', bỏ trống':', sai')+(CRIT.has(x)?', điểm liệt':'')+'">'+(i+1)+'</button>').join('')+'</div>';
     if(cur>=0){const id=ids[cur]; h+='<div class="count" id="rv">Câu '+(cur+1)+' trong đề</div>'+qBlock(id)+'<div id="fb"></div>';}
     h+='<div class="bar"><button class="btn ghost" id="again">Đề mới</button><span class="grow"></span><button class="btn" id="wr">Ôn câu sai</button></div>';
     view(h);
