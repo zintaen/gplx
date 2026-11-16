@@ -435,9 +435,10 @@ function groupOf(key){
 }
 function study(key){
   const g=groupOf(key), up=key==='wrong'?'cau-sai':'lo-trinh'; let onlyNew=false; let list=[], pos=0;
-  function build(){list=g.ids.filter(id=>!onlyNew||!known(id)); pos=0;}
+  let start=0;
+  function build(){list=g.ids.filter(id=>!onlyNew||!known(id)); pos=0; start=0;}
   build();
-  pos=Math.max(0,list.findIndex(id=>!known(id))); // pick up where the learner stopped instead of replaying known questions
+  pos=start=Math.max(0,list.findIndex(id=>!known(id))); // pick up where the learner stopped instead of replaying known questions
   function render(){
     header({back:up,hideTabs:true,title:g.title});
     let h='<label class="toggle"><input type="checkbox" id="only"'+(onlyNew?' checked':'')+'> Chỉ câu chưa thuộc</label>';
@@ -446,7 +447,7 @@ function study(key){
       view(h); $('#only').onchange=e=>{onlyNew=e.target.checked;build();render();$('#only').focus();}; $('#home2').onclick=()=>nav(up); keyHandler=null; return;
     }
     const id=list[pos];
-    if(key==='twins'&&(pos===0||TWIN_OF[list[pos-1]]!==TWIN_OF[id])){
+    if(key==='twins'&&(pos===0||pos===start||TWIN_OF[list[pos-1]]!==TWIN_OF[id])){
       const t=TW[TWIN_OF[id]]; h+='<div class="note twin" style="margin:0 0 14px">Chùm: <b>'+esc(t.label)+'</b> — câu '+t.ids.join(', ')+'</div>';
     }
     h+='<div class="count">'+(pos+1)+' / '+list.length+'</div>'+qBlock(id)+'<div id="fb"></div>'+
@@ -550,7 +551,7 @@ function review(ids,ans,score,pass,critFail){
     if(cur>=0){const id=ids[cur],q=Q[id];
       app.querySelectorAll('.opt').forEach((b,j)=>{b.disabled=true; if(j===q.c) b.classList.add('ok'); else if(j===ans[id]) b.classList.add('bad');});
       $('#fb').innerHTML=ans[id]===undefined?'<div class="note res-bad">Bạn bỏ trống câu này. Đáp án là ý '+(q.c+1)+'.</div>':feedback(id,ans[id]);}
-    app.querySelectorAll('.grid button').forEach(b=>b.onclick=()=>{cur=+b.dataset.j;render();if($('#rv')) $('#rv').scrollIntoView();});
+    app.querySelectorAll('.grid button').forEach(b=>b.onclick=()=>{cur=+b.dataset.j;render();if($('#rv')) $('#rv').scrollIntoView(); app.querySelector('.grid button[data-j="'+cur+'"]').focus({preventScroll:true});});
     $('#again').onclick=()=>runExam(makeExam()); $('#wr').onclick=()=>nav('cau-sai');
   }
   keyHandler=null; render();
@@ -703,10 +704,10 @@ function simExam(){
     const it=items[cur], s=SIM[it.id-1];
     let h='<div class="count">Tình huống '+(cur+1)+' / 10</div>';
     if(stage==='name'){
-      h+='<p class="qtext">Ý 1. Tên tình huống là gì?</p><div class="note twin" style="margin:0 0 12px">Gián tiếp: '+esc(s.g)+'<br>Trực tiếp: '+esc(s.t)+'</div>'+optsHtml('n',it.n)+
+      h+='<p class="qtext" tabindex="-1">Ý 1. Tên tình huống là gì?</p><div class="note twin" style="margin:0 0 12px">Gián tiếp: '+esc(s.g)+'<br>Trực tiếp: '+esc(s.t)+'</div>'+optsHtml('n',it.n)+
         '<p class="small muted" style="margin-top:10px">Trên trang này bạn nhận diện tên qua dấu hiệu thay cho video. Ở các ý sau, dấu hiệu sẽ được ẩn đi.</p>';
     } else {
-      h+='<p class="qtext">'+esc(simLabel(it.id))+'</p>';
+      h+='<p class="qtext" tabindex="-1">'+esc(simLabel(it.id))+'</p>';
       ['g','t','x'].forEach((f,k)=>{h+='<h3 style="margin:14px 0 8px">Ý '+(k+2)+'. '+FIELD[f]+'</h3>'+optsHtml(f,it[f]);});
     }
     h+='<div class="bar"><span class="grow"></span><button class="btn" id="next" disabled>Tiếp</button></div>';
@@ -717,6 +718,7 @@ function simExam(){
       b.onclick=()=>{it.a[f]=+b.dataset.i; box.querySelectorAll('.opt').forEach(x=>x.classList.toggle('sel',x===b)); $('#next').disabled=!need.every(k=>it.a[k]!==undefined);};});});
     $('#next').disabled=!need.every(k=>it.a[k]!==undefined);
     $('#next').onclick=()=>{ if(stage==='name'){stage='rest';render();} else if(cur<9){cur++;stage='name';render();} else finish(); };
+    focusQ();
   }
   function finish(){
     let pts=0; items.forEach(it=>{let ok=true; ['n','g','t','x'].forEach(f=>{if(it.a[f]===it[f].c) pts+=0.25; else ok=false;}); simMark(it.id,ok);});
