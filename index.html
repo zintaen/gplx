@@ -469,7 +469,7 @@ function wrong(){
   const c=ids.filter(id=>CRIT.has(id)).length;
   h+='<div class="groups"><button class="grp" id="go">'+icon('ban','')+'<span class="t"><b>Ôn '+ids.length+' câu sai</b><span>'+c+' câu điểm liệt, ưu tiên ôn trước</span></span></button></div>';
   h+='<h2>Sai nhiều lần nhất</h2><div class="tbl-wrap"><table><tr><th>Câu</th><th>Nội dung</th><th>Số lần sai</th></tr>'+
-    ids.slice().sort((a,b)=>S.res[b].w-S.res[a].w).slice(0,15).map(id=>'<tr><td class="num">'+id+(CRIT.has(id)?' ⦸':'')+'</td><td>'+esc(Q[id].q.slice(0,90))+(Q[id].q.length>90?'…':'')+'</td><td class="num">'+S.res[id].w+'</td></tr>').join('')+'</table></div>';
+    ids.slice().sort((a,b)=>S.res[b].w-S.res[a].w).slice(0,15).map(id=>'<tr><td class="num">'+id+(CRIT.has(id)?' <span class="tag crit">Điểm liệt</span>':'')+'</td><td>'+esc(Q[id].q.slice(0,90))+(Q[id].q.length>90?'…':'')+'</td><td class="num">'+S.res[id].w+'</td></tr>').join('')+'</table></div>';
   view(h);
   $('#go').onclick=()=>nav('nhom/wrong');
 }
@@ -550,12 +550,16 @@ function review(ids,ans,score,pass,critFail){
 /* ---------- notes ---------- */
 function notes(){
   header({tab:'so-tay'});
-  const N=D.notes;
-  let h='<h1>Sổ tay con số và quy tắc</h1><p class="muted">Mọi con số dưới đây lấy từ đáp án của chính bộ 600 câu. Số câu nằm ở cột bên phải để bạn mở lại.</p>';
-  N.forEach(sec=>{
+  // a "Câu" column lists question numbers ("145–148", "149, 153"); keep only rows (and numbers) in this class's question set
+  const ids=c=>c.split(',').flatMap(x=>{const m=x.trim().match(/^(\d+)(?:\s*[–-]\s*(\d+))?$/); if(!m) return []; const a=+m[1], z=+(m[2]||m[1]); return Array.from({length:z-a+1},(_,i)=>a+i);});
+  let h='<h1>Sổ tay con số và quy tắc</h1><p class="muted">Mọi con số dưới đây lấy từ đáp án của bộ '+POOL.length+' câu dùng cho hạng '+esc(CL.code)+'. Số câu nằm ở cột bên phải để bạn mở lại.</p>';
+  D.notes.forEach(sec=>{
+    const qc=sec.head?sec.head.indexOf('Câu'):-1;
+    const rows=sec.rows&&(qc<0?sec.rows:sec.rows.map(r=>{const keep=ids(r[qc]).filter(id=>POOLSET.has(id)); return keep.length?r.map((c,i)=>i===qc?keep.join(', '):c):null;}).filter(Boolean));
+    if(sec.rows&&!rows.length) return;
     h+='<h2>'+esc(sec.title)+'</h2>';
     if(sec.intro) h+='<p class="small muted">'+esc(sec.intro)+'</p>';
-    if(sec.rows) h+='<div class="tbl-wrap"><table><tr>'+sec.head.map(x=>'<th>'+esc(x)+'</th>').join('')+'</tr>'+sec.rows.map(r=>'<tr>'+r.map((c,i)=>'<td'+(i===1?' class="num"':'')+'>'+esc(c)+'</td>').join('')+'</tr>').join('')+'</table></div>';
+    if(rows) h+='<div class="tbl-wrap"><table><tr>'+sec.head.map(x=>'<th>'+esc(x)+'</th>').join('')+'</tr>'+rows.map(r=>'<tr>'+r.map((c,i)=>'<td'+(i===1?' class="num"':'')+'>'+esc(c)+'</td>').join('')+'</tr>').join('')+'</table></div>';
     if(sec.list) h+='<ol class="prio">'+sec.list.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ol>';
   });
   view(h);

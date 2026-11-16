@@ -36,6 +36,11 @@ for sec in notes:
     for qid, needle in sec.get("checks", []):
         ans = byid[qid]["a"][byid[qid]["c"]]
         if needle not in ans: err.append(f"Sổ tay '{sec['title']}': câu {qid} không chứa “{needle}” (đáp án: {ans})")
+    # trang lọc cột "Câu" theo bộ câu của từng hạng, nên ô phải là số, khoảng "a–b" hoặc danh sách cách nhau bởi dấu phẩy
+    if sec.get("head") and "Câu" in sec["head"]:
+        qc = sec["head"].index("Câu")
+        for r in sec["rows"]:
+            if not re.fullmatch(r"\s*\d+(\s*[–-]\s*\d+)?(\s*,\s*\d+(\s*[–-]\s*\d+)?)*\s*", r[qc]): err.append(f"Sổ tay '{sec['title']}': ô Câu không đọc được: {r[qc]}")
 
 # 4. mô phỏng
 if len(sim) != 120 or any(not all(s[k] for k in "ngtx") for s in sim): err.append("Dữ liệu mô phỏng phải đủ 120 tình huống, 4 trường")
