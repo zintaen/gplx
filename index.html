@@ -305,6 +305,8 @@ function route(){
     return;} active=null; stopTimer();}
   if(RUN_HOME[h]){history.replaceState(history.state,'',url(RUN_HOME[h])); return route();}
   keyHandler=null;
+  // simulation belongs to car classes only; a stale link or back step from a car class lands on the plan instead
+  if(!isCar()&&(v==='mo-phong'||v==='mp-ten'||v==='mp')){history.replaceState(history.state,'',url('lo-trinh')); return home();}
   const SCREENS={'':chooser,'lo-trinh':home,'thi-thu':examIntro,'mo-phong':simHome,'cau-sai':wrong,'so-tay':notes,'mp-ten':nameDrill};
   if(Object.hasOwn(SCREENS,v)) return SCREENS[v]();
   if(v==='nhom'&&groupOf(arg)) return study(arg);
