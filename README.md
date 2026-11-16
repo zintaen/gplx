@@ -4,7 +4,7 @@ Trang web tĩnh để ôn bộ 600 câu hỏi sát hạch lý thuyết (Cục CS
 
 ## Tính năng
 
-- Lộ trình ôn trong 1 ngày theo mức rủi ro: 60 câu điểm liệt chia 7 chủ đề, 52 chùm câu song sinh dễ nhầm, 34 câu bẫy “Cả … ý trên”, sa hình, biển báo, phần còn lại.
+- Lộ trình ôn theo mức rủi ro, có nút “Học tiếp” tới nhóm chưa thuộc: 60 câu điểm liệt chia 7 chủ đề, 52 chùm câu song sinh dễ nhầm, 34 câu bẫy “Cả … ý trên”, sa hình, biển báo, phần còn lại.
 - Thi thử 30 câu, 20 phút, đúng cấu trúc đề hạng B (8 quy tắc, 1 điểm liệt, 1 văn hóa, 1 kỹ thuật, 1 cấu tạo, 9 biển báo, 9 sa hình); đạt khi đúng từ 27 câu và không sai câu điểm liệt.
 - Mô phỏng: học 4 ý của từng tình huống (tên, dấu hiệu gián tiếp, dấu hiệu trực tiếp, xử lý), luyện nhận diện tên, kiểm tra thử 10 tình huống chấm 0,25 điểm mỗi ý.
 - Câu sai, sổ tay con số; mỗi câu có liên kết tới trang tương ứng trong PDF gốc.

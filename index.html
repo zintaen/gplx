@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Ôn lý thuyết lái xe hạng B trong 1 ngày</title>
+<title>Ôn lý thuyết lái xe hạng B</title>
+<meta name="description" content="Ôn 600 câu lý thuyết và 120 tình huống mô phỏng lái xe hạng B: lộ trình theo mức rủi ro, thi thử 30 câu, ôn câu sai.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -74,7 +75,10 @@ p{margin:0 0 10px}
 .stop .dot{position:absolute;left:4px;top:2px;width:26px;height:26px;border-radius:50%;background:var(--surface);border:3px solid var(--asphalt);display:grid;place-items:center;font-size:12px;font-weight:800}
 :root[data-theme="dark"] .stop .dot{border-color:var(--muted)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .stop .dot{border-color:var(--muted)}}
-.stop .time{font-size:13px;color:var(--muted);font-weight:600}
+.stop.done .dot{background:var(--green);border-color:var(--green);color:#fff}
+.cta{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--asphalt);color:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:16px 0 4px}
+.cta .t{flex:1;min-width:0}.cta small{display:block;color:#B9C0C6;font-size:13px;font-weight:500}.cta b{font-size:17px;line-height:1.3}
+.cta .go{flex:none;font-size:24px;font-weight:800;color:var(--stripe)}
 .groups{display:flex;flex-direction:column;gap:8px;margin-top:8px}
 .grp{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:11px 12px}
 .grp:hover{border-color:var(--muted)}
@@ -110,6 +114,7 @@ p{margin:0 0 10px}
 .opt.ok{border-color:var(--green);background:var(--green-soft)}
 .opt.bad{border-color:var(--red);background:var(--red-soft)}
 .opt:disabled{cursor:default}
+#fb{scroll-margin-bottom:96px}
 .note{margin-top:12px;padding:10px 12px;border-radius:10px;font-size:14px;border-left:4px solid}
 .note.twin{background:var(--blue-soft);border-color:var(--blue)}
 .note.trap{background:var(--yellow-soft);border-color:var(--yellow)}
@@ -164,11 +169,11 @@ td:first-child{min-width:150px}
   </div>
   <div class="lane"><div class="lane-fill" id="lane" style="width:0"></div></div>
   <nav class="tabs" id="tabs">
-    <button data-v="home">Lộ trình</button>
-    <button data-v="exam">Thi thử</button>
-    <button data-v="sim">Mô phỏng</button>
-    <button data-v="wrong">Câu sai</button>
-    <button data-v="notes">Sổ tay</button>
+    <button data-v="">Lộ trình</button>
+    <button data-v="thi-thu">Thi thử</button>
+    <button data-v="mo-phong">Mô phỏng</button>
+    <button data-v="cau-sai">Câu sai</button>
+    <button data-v="so-tay">Sổ tay</button>
   </nav>
 </header>
 <main id="app"></main>
@@ -192,8 +197,9 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 
 /* ---------- progress, kept on this device ---------- */
 const KEY='gplxB_v1';
-let S={res:{},exams:[]};
-try{const raw=localStorage.getItem(KEY); if(raw){const p=JSON.parse(raw); if(p&&p.res) S=p;}}catch(e){}
+const fresh=()=>({res:{},exams:[],sim:{},simExams:[]});
+let S=fresh();
+try{const raw=localStorage.getItem(KEY); if(raw){const p=JSON.parse(raw); if(p&&p.res) S=Object.assign(fresh(),p);}}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
 function mark(id,ok){const r=S.res[id]||{n:0,w:0,ok:false}; r.n++; if(!ok) r.w++; r.ok=ok; S.res[id]=r; save();}
 const known=id=>!!(S.res[id]&&S.res[id].ok);
@@ -214,12 +220,12 @@ grp('qt',{title:'Quy tắc còn lại',ids:ALL.filter(id=>Q[id].ch===1&&!covered
 grp('rest',{title:'Văn hóa, kỹ thuật, cấu tạo',ids:ALL.filter(id=>Q[id].ch>=2&&Q[id].ch<=4&&!covered.has(id)),icon:'grey',desc:'Phần dễ lấy điểm, lướt nhanh'});
 
 const PLAN=[
- {time:'Sáng, khoảng 2 giờ',title:'60 câu điểm liệt',text:'Sai một câu là trượt cả bài. Làm hai vòng, vòng sau bật “Chỉ câu chưa thuộc”.',keys:D.critThemes.map((_,i)=>'c'+i)},
- {time:'Cuối sáng, khoảng 1,5 giờ',title:'Câu dễ nhầm',text:'Đọc bảng con số trong Sổ tay trước, rồi làm các chùm song sinh và câu bẫy.',keys:['twins','traps']},
- {time:'Đầu chiều, khoảng 2 giờ',title:'Sa hình',text:'Mỗi đề có 9 câu sa hình. Áp thứ tự ưu tiên trong Sổ tay cho từng hình.',keys:['sh']},
- {time:'Cuối chiều, khoảng 2 giờ',title:'Biển báo',text:'Mỗi đề có 9 câu biển báo. Nhìn hình dạng, màu trước rồi mới đọc chữ.',keys:['bb']},
- {time:'Đầu tối, khoảng 1,5 giờ',title:'Mô phỏng 120 tình huống',text:'Học 44 tình huống xử lý riêng trước, sau đó đến các tình huống dùng công thức có đuôi, rồi làm 2 lần kiểm tra thử.',keys:[],sim:true},
- {time:'Tối, khoảng 2 giờ',title:'Lướt phần còn lại, rồi thi thử lý thuyết',text:'Làm ít nhất 5 đề thi thử. Mỗi đề xong thì ôn lại tab Câu sai.',keys:['qt','rest'],exam:true}
+ {title:'60 câu điểm liệt',text:'Sai một câu là trượt cả bài. Làm hai vòng, vòng sau bật “Chỉ câu chưa thuộc”.',keys:D.critThemes.map((_,i)=>'c'+i)},
+ {title:'Câu dễ nhầm',text:'Đọc bảng con số trong Sổ tay trước, rồi làm các chùm song sinh và câu bẫy.',keys:['twins','traps']},
+ {title:'Sa hình',text:'Mỗi đề có 9 câu sa hình. Áp thứ tự ưu tiên trong Sổ tay cho từng hình.',keys:['sh']},
+ {title:'Biển báo',text:'Mỗi đề có 9 câu biển báo. Nhìn hình dạng, màu trước rồi mới đọc chữ.',keys:['bb']},
+ {title:'Mô phỏng 120 tình huống',text:'Học 44 tình huống xử lý riêng trước, sau đó đến các tình huống dùng công thức có đuôi, rồi làm 2 lần kiểm tra thử.',keys:[],sim:true},
+ {title:'Lướt phần còn lại, rồi thi thử lý thuyết',text:'Làm ít nhất 5 đề thi thử. Mỗi đề xong thì ôn lại tab Câu sai.',keys:['qt','rest'],exam:true}
 ];
 
 /* ---------- header ---------- */
@@ -228,16 +234,43 @@ function header(opts){
   const k=ALL.filter(known).length;
   $('#sub').textContent=k+'/600 câu đã thuộc';
   $('#lane').style.width=(k/6)+'%';
-  $('#back').hidden=!opts.back;
+  backTo=opts.back===undefined?null:opts.back;
+  $('#back').hidden=backTo===null;
   $('#tabs').hidden=!!opts.hideTabs;
   $('#timer').hidden=!opts.timer;
   $('#brand').firstChild.textContent=opts.title||'Ôn lý thuyết hạng B';
   document.querySelectorAll('#tabs button').forEach(b=>b.setAttribute('aria-current',String(b.dataset.v===opts.tab)));
 }
-$('#back').onclick=()=>{stopTimer();home();};
-$('#tabs').onclick=e=>{const v=e.target.dataset&&e.target.dataset.v; if(!v) return; ({home,exam:examIntro,sim:simHome,wrong,notes})[v]();};
-window.addEventListener('keydown',e=>{if(keyHandler) keyHandler(e);});
-let keyHandler=null;
+/* ---------- navigation: each screen has a #hash so the browser/phone back button works ---------- */
+// history.state.d = how many in-app screens sit behind this entry, so ‹ never steps out of the site
+let backTo=null, active=null, keyHandler=null;
+const depth=()=>(history.state&&history.state.d)||0;
+const url=h=>h?'#'+h:location.pathname+location.search;
+function push(h){history.pushState({d:depth()+1},'',url(h));}
+function nav(h){if(location.hash.slice(1)!==h) push(h); route();}
+function goBack(){if(depth()>0) history.back(); else {history.replaceState(null,'',url(backTo)); route();}}
+function startRun(hash,msg){active={hash,msg}; push(hash);}
+function endRun(hash){active=null; stopTimer(); history.replaceState(history.state,'',url(hash));}
+const RUN_HOME={'dang-thi':'thi-thu','mp-kiem-tra':'mo-phong'};
+function route(){
+  const h=location.hash.slice(1), [v,arg]=h.split('/');
+  if(active){if(h===active.hash) return; if(!confirm(active.msg)){history.forward(); return;} active=null; stopTimer();}
+  if(RUN_HOME[h]){history.replaceState(history.state,'',url(RUN_HOME[h])); return route();}
+  keyHandler=null;
+  const SCREENS={'':home,'thi-thu':examIntro,'mo-phong':simHome,'cau-sai':wrong,'so-tay':notes,'mp-ten':nameDrill};
+  if(Object.hasOwn(SCREENS,v)) return SCREENS[v]();
+  if(v==='nhom'&&groupOf(arg)) return study(arg);
+  if(v==='mp'&&Object.hasOwn(SG,arg)) return simStudy(arg);
+  history.replaceState(history.state,'',url('')); home();
+}
+$('#back').onclick=goBack;
+$('#tabs').onclick=e=>{const b=e.target.closest('button'); if(b) nav(b.dataset.v);};
+window.addEventListener('keydown',e=>{
+  if(!keyHandler||e.ctrlKey||e.metaKey||e.altKey) return;
+  if((e.key==='Enter'||e.key===' ')&&e.target.closest('button,input,a,summary,label')) return;
+  keyHandler(e);
+});
+window.addEventListener('beforeunload',e=>{if(active){e.preventDefault(); e.returnValue='';}});
 function view(html){app.innerHTML=html; window.scrollTo(0,0);}
 
 function icon(t,label){
@@ -246,38 +279,42 @@ function icon(t,label){
 }
 function grpBtn(g){
   const k=g.ids.filter(known).length, done=k===g.ids.length;
-  return '<button class="grp" data-g="'+g.key+'">'+icon(g.icon,g.icon==='ban'?'':'')+
+  return '<button class="grp" data-g="'+g.key+'">'+icon(g.icon)+
     '<span class="t"><b>'+esc(g.title)+'</b><span>'+esc(g.desc)+'</span></span>'+
     '<span class="meter'+(done?' done':'')+'">'+k+'/'+g.ids.length+'</span></button>';
 }
 
 /* ---------- home ---------- */
 function home(){
-  keyHandler=null; header({tab:'home'});
+  header({tab:''});
   const critK=crit.filter(known).length;
-  let h='<h1>Lộ trình ôn trong 1 ngày</h1>'+
-   '<p class="muted">Đề thi hạng B có 30 câu, làm trong 20 phút. Muốn đạt phải đúng ít nhất 27 câu và không sai câu điểm liệt nào. Mô phỏng không còn trong kỳ sát hạch nhưng vẫn được kiểm tra tại cơ sở đào tạo, xem tab Mô phỏng.</p>'+
-   '<div class="facts">'+
+  const next=PLAN.flatMap(p=>p.keys).map(k=>G[k]).find(g=>g.ids.some(id=>!known(id)));
+  const cta=next?'<button class="cta" data-g="'+next.key+'"><span class="t"><small>Học tiếp</small><b>'+esc(next.title)+'</b><small>'+next.ids.filter(known).length+'/'+next.ids.length+' câu đã thuộc</small></span><span class="go" aria-hidden="true">›</span></button>'
+    :'<button class="cta" data-exam="1"><span class="t"><small>Đã thuộc cả 600 câu</small><b>Làm đề thi thử</b></span><span class="go" aria-hidden="true">›</span></button>';
+  let h='<h1>Lộ trình ôn</h1>'+
+   '<p class="muted">Đề thi hạng B có 30 câu, làm trong 20 phút. Muốn đạt phải đúng ít nhất 27 câu và không sai câu điểm liệt nào. Học theo thứ tự dưới đây: phần dễ làm trượt nhất đi trước.</p>'+cta+
+   '<h2>Các chặng</h2><ol class="route">';
+  PLAN.forEach((p,i)=>{
+    const done=p.keys.length&&p.keys.every(k=>G[k].ids.every(known));
+    h+='<li class="stop'+(done?' done':'')+'"><span class="dot">'+(done?'✓':i+1)+'</span><h3>'+p.title+'</h3><p class="small muted">'+p.text+'</p><div class="groups">'+
+      p.keys.map(k=>grpBtn(G[k])).join('')+
+      (p.sim?'<button class="grp" data-simgo="1">'+icon('cmd','')+'<span class="t"><b>Mở phần Mô phỏng</b><span>Không còn trong kỳ sát hạch nhưng cơ sở đào tạo vẫn kiểm tra. 4 nhóm học, luyện nhận diện tên, kiểm tra thử 10 tình huống</span></span><span class="meter">'+simIds(simKnown).length+'/120</span></button>':'')+
+      (p.exam?'<button class="grp" data-exam="1">'+icon('cmd','30')+'<span class="t"><b>Thi thử đề ngẫu nhiên</b><span>Đúng cấu trúc: 8 quy tắc, 1 điểm liệt, 1 văn hóa, 1 kỹ thuật, 1 cấu tạo, 9 biển báo, 9 sa hình</span></span><span class="meter">'+S.exams.length+' đề</span></button>':'')+
+      '</div></li>';
+  });
+  h+='</ol><h2>Vì sao không học mẹo</h2><div class="facts">'+
     '<div class="fact"><b>60</b><span>câu điểm liệt, mỗi đề có 1 câu</span></div>'+
     '<div class="fact"><b>'+D.twins.length+'</b><span>chùm câu song sinh dễ nhầm</span></div>'+
     '<div class="fact"><b>'+TRAPS.size+'/'+D.stats.caTotal+'</b><span>câu có phương án “Cả … ý trên” mà đáp án lại là ý khác</span></div>'+
     '<div class="fact"><b>'+D.stats.longPct+'%</b><span>tỷ lệ đúng của mẹo “chọn câu dài nhất”</span></div>'+
    '</div><p class="small muted">Hai con số cuối cho thấy học mẹo với bộ đề mới không còn an toàn. Hãy hiểu câu hỏi.</p>'+
-   '<h2>Các chặng trong ngày</h2><ol class="route">';
-  PLAN.forEach((p,i)=>{
-    h+='<li class="stop"><span class="dot">'+(i+1)+'</span><div class="time">'+p.time+'</div><h3>'+p.title+'</h3><p class="small muted">'+p.text+'</p><div class="groups">'+
-      p.keys.map(k=>grpBtn(G[k])).join('')+
-      (p.sim?'<button class="grp" data-simgo="1">'+icon('cmd','')+'<span class="t"><b>Mở phần Mô phỏng</b><span>4 nhóm học, luyện nhận diện tên, kiểm tra thử 10 tình huống</span></span><span class="meter">'+SIM.filter((s,i)=>simKnown(i+1)).length+'/120</span></button>':'')+
-      (p.exam?'<button class="grp" data-exam="1">'+icon('cmd','30')+'<span class="t"><b>Thi thử đề ngẫu nhiên</b><span>Đúng cấu trúc: 8 quy tắc, 1 điểm liệt, 1 văn hóa, 1 kỹ thuật, 1 cấu tạo, 9 biển báo, 9 sa hình</span></span><span class="meter">'+S.exams.length+' đề</span></button>':'')+
-      '</div></li>';
-  });
-  h+='</ol><p class="foot">Dữ liệu trích tự động từ PDF “600 câu hỏi dùng cho sát hạch lái xe cơ giới đường bộ” của Cục CSGT – Bộ Công an (2025); đáp án là phương án được gạch chân trong tài liệu gốc; 60 câu điểm liệt theo Phụ lục III Công văn 2262/CSGT-P5. Tiến độ chỉ lưu trên trình duyệt này. Điểm liệt đã thuộc: '+critK+'/60.</p>'+
+   '<p class="foot">Dữ liệu trích tự động từ PDF “600 câu hỏi dùng cho sát hạch lái xe cơ giới đường bộ” của Cục CSGT – Bộ Công an (2025); đáp án là phương án được gạch chân trong tài liệu gốc; 60 câu điểm liệt theo Phụ lục III Công văn 2262/CSGT-P5. Tiến độ chỉ lưu trên trình duyệt này. Điểm liệt đã thuộc: '+critK+'/60.</p>'+
    '<p class="foot"><button class="btn ghost" id="reset">Xóa tiến độ</button></p>';
   view(h);
-  app.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>study(b.dataset.g));
-  app.querySelectorAll('[data-exam]').forEach(b=>b.onclick=examIntro);
-  app.querySelectorAll('[data-simgo]').forEach(b=>b.onclick=simHome);
-  $('#reset').onclick=()=>{if(confirm('Xóa toàn bộ tiến độ và lịch sử thi thử trên thiết bị này?')){S={res:{},exams:[],sim:{},simExams:[]};save();home();}};
+  app.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>nav('nhom/'+b.dataset.g));
+  app.querySelectorAll('[data-exam]').forEach(b=>b.onclick=()=>nav('thi-thu'));
+  app.querySelectorAll('[data-simgo]').forEach(b=>b.onclick=()=>nav('mo-phong'));
+  $('#reset').onclick=()=>{if(confirm('Xóa toàn bộ tiến độ và lịch sử thi thử trên thiết bị này?')){S=fresh();save();home();}};
 }
 
 /* ---------- question rendering ---------- */
@@ -301,16 +338,20 @@ function feedback(id,chosen){
 }
 
 /* ---------- study mode ---------- */
+function groupOf(key){
+  if(key==='wrong') return {key,title:'Câu sai cần ôn',ids:wrongIds().sort((a,b)=>Q[b].k-Q[a].k||a-b)};
+  return Object.hasOwn(G,key)?G[key]:null;
+}
 function study(key){
-  const g=G[key]; let onlyNew=false; let list=[], pos=0;
+  const g=groupOf(key), up=key==='wrong'?'cau-sai':''; let onlyNew=false; let list=[], pos=0;
   function build(){list=g.ids.filter(id=>!onlyNew||!known(id)); pos=0;}
   build();
   function render(){
-    header({back:true,hideTabs:true,title:g.title});
+    header({back:up,hideTabs:true,title:g.title});
     let h='<label class="toggle"><input type="checkbox" id="only"'+(onlyNew?' checked':'')+'> Chỉ câu chưa thuộc</label>';
     if(!list.length){
-      h+='<div class="empty"><p><b>Đã thuộc hết nhóm này.</b></p><p class="muted small">Bỏ chọn “Chỉ câu chưa thuộc” để ôn lại, hoặc quay về lộ trình.</p><button class="btn" id="home2">Về lộ trình</button></div>';
-      view(h); $('#only').onchange=e=>{onlyNew=e.target.checked;build();render();}; $('#home2').onclick=home; keyHandler=null; return;
+      h+='<div class="empty"><p><b>'+(g.ids.length?'Đã thuộc hết nhóm này.':'Không còn câu nào trong nhóm này.')+'</b></p><p class="muted small">'+(g.ids.length?'Bỏ chọn “Chỉ câu chưa thuộc” để ôn lại, hoặc quay về.':'')+'</p><button class="btn" id="home2">'+(up?'Về Câu sai':'Về lộ trình')+'</button></div>';
+      view(h); $('#only').onchange=e=>{onlyNew=e.target.checked;build();render();}; $('#home2').onclick=()=>nav(up); keyHandler=null; return;
     }
     const id=list[pos];
     if(key==='twins'&&(pos===0||TWIN_OF[list[pos-1]]!==TWIN_OF[id])){
@@ -325,11 +366,11 @@ function study(key){
       if(answered) return; answered=true;
       const q=Q[id]; mark(id,i===q.c);
       app.querySelectorAll('.opt').forEach((b,j)=>{b.disabled=true; if(j===q.c) b.classList.add('ok'); else if(j===i) b.classList.add('bad');});
-      $('#fb').innerHTML=feedback(id,i); header({back:true,hideTabs:true,title:g.title});
+      $('#fb').innerHTML=feedback(id,i); header({back:up,hideTabs:true,title:g.title}); $('#fb').scrollIntoView({block:'nearest'}); $('#next').focus({preventScroll:true});
     }
     app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>choose(+b.dataset.i));
     $('#prev').onclick=()=>{pos--;render();};
-    $('#next').onclick=()=>{if(pos<list.length-1){pos++;render();}else home();};
+    $('#next').onclick=()=>{if(pos<list.length-1){pos++;render();}else nav(up);};
     keyHandler=e=>{const n=parseInt(e.key,10); if(n>=1&&n<=Q[id].a.length) choose(n-1); else if(e.key==='Enter'||e.key==='ArrowRight') $('#next').click(); else if(e.key==='ArrowLeft'&&pos) $('#prev').click();};
   }
   render();
@@ -337,17 +378,16 @@ function study(key){
 
 /* ---------- wrong answers ---------- */
 function wrong(){
-  keyHandler=null; header({tab:'wrong'});
+  header({tab:'cau-sai'});
   const ids=wrongIds();
   let h='<h1>Câu sai cần ôn</h1><p class="muted">Câu nào bạn trả lời sai ở lần gần nhất sẽ nằm ở đây. Trả lời đúng thì câu tự rời khỏi danh sách.</p>';
   if(!ids.length){h+='<div class="empty"><p><b>Chưa có câu sai.</b></p><p class="muted small">Làm một nhóm ở Lộ trình hoặc một đề Thi thử, các câu sai sẽ hiện ở đây.</p></div>'; view(h); return;}
-  G.wrong={key:'wrong',title:'Câu sai cần ôn',ids:ids};
   const c=ids.filter(id=>Q[id].k).length;
   h+='<div class="groups"><button class="grp" id="go">'+icon('ban','')+'<span class="t"><b>Ôn '+ids.length+' câu sai</b><span>'+c+' câu điểm liệt, ưu tiên ôn trước</span></span></button></div>';
   h+='<h2>Sai nhiều lần nhất</h2><div class="tbl-wrap"><table><tr><th>Câu</th><th>Nội dung</th><th>Số lần sai</th></tr>'+
     ids.slice().sort((a,b)=>S.res[b].w-S.res[a].w).slice(0,15).map(id=>'<tr><td class="num">'+id+(Q[id].k?' ⦸':'')+'</td><td>'+esc(Q[id].q.slice(0,90))+(Q[id].q.length>90?'…':'')+'</td><td class="num">'+S.res[id].w+'</td></tr>').join('')+'</table></div>';
   view(h);
-  $('#go').onclick=()=>{G.wrong.ids=wrongIds().sort((a,b)=>Q[b].k-Q[a].k||a-b);study('wrong');};
+  $('#go').onclick=()=>nav('nhom/wrong');
 }
 
 /* ---------- exam ---------- */
@@ -366,17 +406,20 @@ function makeExam(){
 let tInt=null;
 function stopTimer(){if(tInt){clearInterval(tInt);tInt=null;}}
 function examIntro(){
-  keyHandler=null; stopTimer(); header({tab:'exam'});
+  header({tab:'thi-thu'});
   const last=S.exams.slice(-5).reverse();
   let h='<h1>Thi thử</h1><p class="muted">30 câu, 20 phút, cấu trúc như đề thật. Đạt khi đúng từ 27 câu và không sai câu điểm liệt. Một nửa số câu mỗi phần được lấy từ những câu bạn chưa thuộc.</p>'+
     '<div class="bar" style="position:static;padding:4px 0 0"><button class="btn red" id="start">Bắt đầu đề mới</button></div>';
   if(last.length) h+='<h2>Lần thi gần đây</h2><div class="tbl-wrap"><table><tr><th>Thời điểm</th><th>Điểm</th><th>Kết quả</th></tr>'+last.map(e=>'<tr><td>'+esc(e.at)+'</td><td class="num">'+e.score+'/30</td><td>'+(e.pass?'Đạt':'Trượt'+(e.critFail?' (sai điểm liệt)':''))+'</td></tr>').join('')+'</table></div>';
   view(h); $('#start').onclick=()=>runExam(makeExam());
+  $('#start').focus({preventScroll:true});
 }
 function runExam(ids){
-  const ans={}; let cur=0, left=20*60, done=false;
-  header({hideTabs:true,timer:true,back:false,title:'Đề thi thử'});
-  function tick(){const m=Math.floor(left/60),s=left%60; $('#timer').textContent=m+':'+String(s).padStart(2,'0'); if(left<=0){finish();} left--;}
+  const ans={}, end=Date.now()+20*60e3; let cur=0, done=false;
+  startRun('dang-thi','Thoát bài thi? Bài đang làm sẽ không được lưu.');
+  header({hideTabs:true,timer:true,back:'thi-thu',title:'Đề thi thử'});
+  // wall-clock deadline: interval ticks pause while the phone is locked, the exam clock must not
+  function tick(){const left=Math.max(0,Math.ceil((end-Date.now())/1000)),m=Math.floor(left/60),s=left%60; $('#timer').textContent=m+':'+String(s).padStart(2,'0'); if(!left) finish();}
   tick(); tInt=setInterval(tick,1000);
   function render(){
     const id=ids[cur];
@@ -391,7 +434,7 @@ function runExam(ids){
     keyHandler=e=>{const n=parseInt(e.key,10); if(n>=1&&n<=Q[id].a.length){app.querySelectorAll('.opt')[n-1].click();} else if(e.key==='ArrowRight'&&cur<ids.length-1){cur++;render();} else if(e.key==='ArrowLeft'&&cur){cur--;render();}};
   }
   function finish(){
-    if(done) return; done=true; stopTimer();
+    if(done) return; done=true; endRun('thi-thu');
     let score=0, critFail=false;
     ids.forEach(x=>{const ok=ans[x]===Q[x].c; if(ok) score++; else if(Q[x].k) critFail=true; mark(x,ok);});
     const pass=score>=27&&!critFail;
@@ -401,27 +444,27 @@ function runExam(ids){
   render();
 }
 function review(ids,ans,score,pass,critFail){
-  header({tab:'exam'});
+  header({tab:'thi-thu'});
   let cur=-1;
   function render(){
     let h='<h1>'+(pass?'Đạt':'Chưa đạt')+'</h1><div class="score" style="color:var('+(pass?'--green':'--red')+')">'+score+'/30</div>'+
       '<p class="muted">'+(critFail?(score>=27?'Bạn đủ điểm nhưng sai câu điểm liệt, nên bài thi vẫn không đạt.':'Bạn sai câu điểm liệt và chưa đủ 27 câu.'):pass?'Giữ phong độ: làm thêm vài đề nữa.':'Cần đúng ít nhất 27 câu.')+' Chạm vào số câu để xem lại.</p>'+
       '<div class="grid">'+ids.map((x,i)=>'<button data-j="'+i+'" class="'+(ans[x]===Q[x].c?'ok ':'bad ')+(i===cur?'cur ':'')+(Q[x].k?'crit':'')+'">'+(i+1)+'</button>').join('')+'</div>';
-    if(cur>=0){const id=ids[cur]; h+=qBlock(id)+'<div id="fb"></div>';}
+    if(cur>=0){const id=ids[cur]; h+='<div class="count" id="rv">Câu '+(cur+1)+' trong đề</div>'+qBlock(id)+'<div id="fb"></div>';}
     h+='<div class="bar"><button class="btn ghost" id="again">Đề mới</button><span class="grow"></span><button class="btn" id="wr">Ôn câu sai</button></div>';
     view(h);
     if(cur>=0){const id=ids[cur],q=Q[id];
       app.querySelectorAll('.opt').forEach((b,j)=>{b.disabled=true; if(j===q.c) b.classList.add('ok'); else if(j===ans[id]) b.classList.add('bad');});
       $('#fb').innerHTML=ans[id]===undefined?'<div class="note res-bad">Bạn bỏ trống câu này. Đáp án là ý '+(q.c+1)+'.</div>':feedback(id,ans[id]);}
-    app.querySelectorAll('.grid button').forEach(b=>b.onclick=()=>{cur=+b.dataset.j;render();});
-    $('#again').onclick=()=>runExam(makeExam()); $('#wr').onclick=wrong;
+    app.querySelectorAll('.grid button').forEach(b=>b.onclick=()=>{cur=+b.dataset.j;render();if($('#rv')) $('#rv').scrollIntoView();});
+    $('#again').onclick=()=>runExam(makeExam()); $('#wr').onclick=()=>nav('cau-sai');
   }
   keyHandler=null; render();
 }
 
 /* ---------- notes ---------- */
 function notes(){
-  keyHandler=null; header({tab:'notes'});
+  header({tab:'so-tay'});
   const N=D.notes;
   let h='<h1>Sổ tay con số và quy tắc</h1><p class="muted">Mọi con số dưới đây lấy từ đáp án của chính bộ 600 câu. Số câu nằm ở cột bên phải để bạn mở lại.</p>';
   N.forEach(sec=>{
@@ -436,7 +479,6 @@ function notes(){
 /* ---------- mô phỏng: 120 tình huống (Phụ lục I, Thông tư 17/2026/TT-BXD) ---------- */
 const SIM=SIMDATA.situations;
 const SF='Giảm tốc, giữ khoảng cách an toàn';
-const SIMN=SIM.length;
 const simTwin={}; SIM.forEach((s,i)=>SIM.forEach((o,j)=>{if(i!==j&&s.n===o.n) simTwin[i+1]=j+1;}));
 const simIds=f=>SIM.map((s,i)=>i+1).filter(f);
 const SG={
@@ -478,7 +520,7 @@ function simFull(id){const s=SIM[id-1];
    (simTwin[id]?'<br><br>Trùng tên với tình huống '+simTwin[id]+'. Phân biệt bằng dấu hiệu.':'')+'</div>';}
 
 function simHome(){
-  keyHandler=null; stopTimer(); header({tab:'sim'});
+  header({tab:'mo-phong'});
   const k=simIds(simKnown).length;
   let h='<h1>Mô phỏng 120 tình huống</h1>'+
    '<p class="muted">Không còn trong kỳ sát hạch, nhưng cơ sở đào tạo vẫn kiểm tra để xét hoàn thành khóa học. Đề có 10 tình huống. Mỗi tình huống được tối đa 1 điểm, chia đều cho 4 ý: tên tình huống, dấu hiệu gián tiếp, dấu hiệu trực tiếp và phương án xử lý. Ngưỡng đạt do trung tâm quy định, bạn hỏi thầy để chắc chắn.</p>'+
@@ -495,17 +537,17 @@ function simHome(){
    '<button class="grp" id="simExam">'+icon('cmd','10')+'<span class="t"><b>Kiểm tra thử 10 tình huống</b><span>Mỗi tình huống 4 ý, chấm 0,25 điểm mỗi ý, thang 10</span></span><span class="meter">'+(S.simExams||[]).length+' lần</span></button>'+
    '</div><p class="foot">Đã thuộc '+k+'/120 tình huống. Nguồn: Phụ lục I, Thông tư 17/2026/TT-BXD ngày 29/4/2026 của Bộ Xây dựng.</p>';
   view(h);
-  app.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>simStudy(b.dataset.s));
-  $('#nameDrill').onclick=nameDrill; $('#simExam').onclick=simExam;
+  app.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>nav('mp/'+b.dataset.s));
+  $('#nameDrill').onclick=()=>nav('mp-ten'); $('#simExam').onclick=simExam;
 }
 
 function simStudy(key){
   const g=SG[key]; let pos=0, onlyNew=false, list=g.ids.slice();
   function build(){list=g.ids.filter(id=>!onlyNew||!simKnown(id)); pos=0;}
   function render(){
-    header({back:true,hideTabs:true,title:g.title}); $('#back').onclick=()=>{$('#back').onclick=()=>{stopTimer();home();};simHome();};
+    header({back:'mo-phong',hideTabs:true,title:g.title});
     let h='<label class="toggle"><input type="checkbox" id="only"'+(onlyNew?' checked':'')+'> Chỉ tình huống chưa thuộc</label>';
-    if(!list.length){h+='<div class="empty"><p><b>Đã thuộc hết nhóm này.</b></p><button class="btn" id="bk">Về Mô phỏng</button></div>'; view(h); $('#only').onchange=e=>{onlyNew=e.target.checked;build();render();}; $('#bk').onclick=simHome; return;}
+    if(!list.length){h+='<div class="empty"><p><b>Đã thuộc hết nhóm này.</b></p><button class="btn" id="bk">Về Mô phỏng</button></div>'; view(h); $('#only').onchange=e=>{onlyNew=e.target.checked;build();render();}; $('#bk').onclick=()=>nav('mo-phong'); return;}
     const id=list[pos]; const qs={g:simOptions(id,'g'),t:simOptions(id,'t'),x:simOptions(id,'x')}; const got={};
     h+='<div class="count">'+(pos+1)+' / '+list.length+'</div><p class="qtext">'+esc(simLabel(id))+'</p>';
     ['g','t','x'].forEach(f=>{h+='<h3 style="margin:14px 0 8px">'+FIELD[f]+'</h3>'+optsHtml(f,qs[f]);});
@@ -518,7 +560,7 @@ function simStudy(key){
         $('#fb').innerHTML='<div class="note '+(ok?'res-ok':'res-bad')+'">'+(ok?'Đúng cả 3 ý.':'Chưa đúng hết. Đọc lại đáp án đầy đủ bên dưới.')+'</div>'+simFull(id);}
     });});
     $('#prev').onclick=()=>{pos--;render();};
-    $('#next').onclick=()=>{if(pos<list.length-1){pos++;render();}else simHome();};
+    $('#next').onclick=()=>{if(pos<list.length-1){pos++;render();}else nav('mo-phong');};
     keyHandler=e=>{if(e.key==='Enter'||e.key==='ArrowRight') $('#next').click(); else if(e.key==='ArrowLeft'&&pos) $('#prev').click();};
   }
   build(); render();
@@ -527,7 +569,7 @@ function simStudy(key){
 function nameDrill(){
   let order=shuffle(SIM.map((s,i)=>i+1)), pos=0, right=0;
   function render(){
-    header({back:true,hideTabs:true,title:'Nhận diện tên'}); $('#back').onclick=()=>{$('#back').onclick=()=>{stopTimer();home();};simHome();};
+    header({back:'mo-phong',hideTabs:true,title:'Nhận diện tên'});
     const id=order[pos], s=SIM[id-1], o=nameOptions(id);
     let h='<div class="count">'+(pos+1)+' / 120, đúng '+right+'</div><p class="qtext">Tình huống nào có các dấu hiệu sau?</p>'+
       '<div class="note twin" style="margin:0 0 12px">Gián tiếp: '+esc(s.g)+'<br>Trực tiếp: '+esc(s.t)+'</div>'+optsHtml('n',o)+'<div id="fb"></div>'+
@@ -535,7 +577,7 @@ function nameDrill(){
     view(h); let done=false;
     app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{if(done) return; done=true; const i=+b.dataset.i; lockOpts(app.querySelector('.opts'),o.c,i); if(i===o.c) right++;
       $('#fb').innerHTML='<div class="note '+(i===o.c?'res-ok':'res-bad')+'">'+(i===o.c?'Đúng.':'Chưa đúng.')+' Đây là tình huống '+id+'.</div>';});
-    $('#next').onclick=()=>{if(pos<119){pos++;render();}else simHome();};
+    $('#next').onclick=()=>{if(pos<119){pos++;render();}else nav('mo-phong');};
     keyHandler=e=>{const n=parseInt(e.key,10); if(n>=1&&n<=4) app.querySelectorAll('.opt')[n-1].click(); else if(e.key==='Enter') $('#next').click();};
   }
   render();
@@ -547,8 +589,9 @@ function simExam(){
   const ids=weak.concat(shuffle(simIds(id=>!weak.includes(id))).slice(0,10-weak.length));
   const items=ids.map(id=>({id,n:nameOptions(id),g:simOptions(id,'g'),t:simOptions(id,'t'),x:simOptions(id,'x'),a:{}}));
   let cur=0, stage='name';
+  startRun('mp-kiem-tra','Thoát bài kiểm tra? Bài đang làm sẽ không được lưu.');
   function render(){
-    header({hideTabs:true,title:'Kiểm tra thử mô phỏng'});
+    header({back:'mo-phong',hideTabs:true,title:'Kiểm tra thử mô phỏng'});
     const it=items[cur], s=SIM[it.id-1];
     let h='<div class="count">Tình huống '+(cur+1)+' / 10</div>';
     if(stage==='name'){
@@ -569,18 +612,19 @@ function simExam(){
   }
   function finish(){
     let pts=0; items.forEach(it=>{let ok=true; ['n','g','t','x'].forEach(f=>{if(it.a[f]===it[f].c) pts+=0.25; else ok=false;}); simMark(it.id,ok);});
-    S.simExams=S.simExams||[]; const d=new Date(); S.simExams.push({at:d.toLocaleDateString('vi-VN'),pts}); save();
-    header({tab:'sim'});
+    endRun('mo-phong'); const d=new Date(); S.simExams.push({at:d.toLocaleDateString('vi-VN'),pts}); save();
+    header({tab:'mo-phong'});
     let h='<h1>Kết quả kiểm tra thử</h1><div class="score">'+pts.toLocaleString('vi-VN')+'/10</div><p class="muted">Mỗi ý đúng được 0,25 điểm. Ngưỡng đạt do trung tâm quy định.</p><h2>Xem lại</h2>';
     items.forEach(it=>{const wrongF=['n','g','t','x'].filter(f=>it.a[f]!==it[f].c);
-      h+=(wrongF.length?simFull(it.id).replace('<div class="note twin">','<div class="note '+(wrongF.length?'trap':'twin')+'">').replace('</b>','</b> — sai '+wrongF.length+' ý'):'<div class="note res-ok">'+esc(simLabel(it.id))+': đúng cả 4 ý</div>');});
+      h+=(wrongF.length?simFull(it.id).replace('<div class="note twin">','<div class="note trap">').replace('</b>','</b> — sai '+wrongF.length+' ý'):'<div class="note res-ok">'+esc(simLabel(it.id))+': đúng cả 4 ý</div>');});
     h+='<div class="bar"><button class="btn ghost" id="bk">Về Mô phỏng</button><span class="grow"></span><button class="btn red" id="again">Làm lần nữa</button></div>';
-    view(h); $('#bk').onclick=simHome; $('#again').onclick=simExam; keyHandler=null;
+    view(h); $('#bk').onclick=()=>nav('mo-phong'); $('#again').onclick=simExam; keyHandler=null;
   }
   keyHandler=null; render();
 }
 
-home();
+window.addEventListener('popstate',route);
+route();
 })();
 </script>
 </body>
