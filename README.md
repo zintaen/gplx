@@ -1,12 +1,25 @@
-# Ôn lý thuyết lái xe hạng B
+# Ôn lý thuyết lái xe mọi hạng (gplx)
 
-Trang web tĩnh để ôn bộ 600 câu hỏi sát hạch lý thuyết (Cục CSGT, 2025) và 120 tình huống mô phỏng (Thông tư 17/2026/TT-BXD), chạy trên GitHub Pages.
+Trang web tĩnh để ôn sát hạch lý thuyết cho cả 15 hạng giấy phép lái xe (A1, A, B1, B, C1, C, D1, D2, D, BE, C1E, CE, D1E, D2E, DE) từ bộ 600 câu hỏi của Cục CSGT (2025), kèm 120 tình huống mô phỏng (Thông tư 17/2026/TT-BXD) cho các hạng ô tô. Chạy trên GitHub Pages: https://zintaen.github.io/gplx/
 
 ## Tính năng
 
-- Lộ trình ôn theo mức rủi ro, có nút “Học tiếp” tới nhóm chưa thuộc: 60 câu điểm liệt chia 7 chủ đề, 52 chùm câu song sinh dễ nhầm, 34 câu bẫy “Cả … ý trên”, sa hình, biển báo, phần còn lại.
-- Thi thử 30 câu, 20 phút, đúng cấu trúc đề hạng B (8 quy tắc, 1 điểm liệt, 1 văn hóa, 1 kỹ thuật, 1 cấu tạo, 9 biển báo, 9 sa hình); đạt khi đúng từ 27 câu và không sai câu điểm liệt.
-- Mô phỏng: học 4 ý của từng tình huống (tên, dấu hiệu gián tiếp, dấu hiệu trực tiếp, xử lý), luyện nhận diện tên, kiểm tra thử 10 tình huống chấm 0,25 điểm mỗi ý.
+- Trang chủ cho chọn hạng. Mỗi hạng dùng đúng bộ câu của mình (A1, A: 250 câu; B1: 300 câu; các hạng ô tô: 600 câu), đúng danh sách câu điểm liệt (20, 30 hoặc 60) và đúng cấu trúc đề.
+
+| Hạng | Bộ câu | Điểm liệt | Đề | Thời gian | Đạt |
+| --- | --- | --- | --- | --- | --- |
+| A1 | 250 | 20 | 25 | 19 phút | 21 |
+| A | 250 | 20 | 25 | 19 phút | 23 |
+| B1 | 300 | 30 | 25 | 19 phút | 23 |
+| B | 600 | 60 | 30 | 20 phút | 27 |
+| C1 | 600 | 60 | 35 | 22 phút | 32 |
+| C | 600 | 60 | 40 | 24 phút | 36 |
+| D1, D2, D, BE, C1E, CE, D1E, D2E, DE | 600 | 60 | 45 | 26 phút | 41 |
+
+- Phân tích đề theo hạng: số câu mỗi nhóm trong đề và trong bộ, phần đã thuộc, số câu đúng dự kiến và khả năng đạt ước tính nếu thi ngay.
+- Lộ trình thông minh: điểm liệt trước, rồi câu dễ nhầm (song sinh, bẫy “Cả … ý trên”), rồi các nhóm còn lại xếp theo số câu ra đề trên mỗi câu học. Nút “Học tiếp” ưu tiên câu điểm liệt đang sai.
+- Thi thử đúng cấu trúc, thời gian và điểm đạt của từng hạng; một nửa số câu mỗi nhóm lấy từ câu chưa thuộc.
+- Mô phỏng (hạng ô tô): học 4 ý của từng tình huống (tên, dấu hiệu gián tiếp, dấu hiệu trực tiếp, xử lý), luyện nhận diện tên, kiểm tra thử 10 tình huống chấm 0,25 điểm mỗi ý.
 - Câu sai, sổ tay con số; mỗi câu có liên kết tới trang tương ứng trong PDF gốc.
 - Tiến độ lưu trong `localStorage` của trình duyệt, không gửi đi đâu.
 
@@ -16,6 +29,7 @@ Trang web tĩnh để ôn bộ 600 câu hỏi sát hạch lý thuyết (Cục CS
 | --- | --- | --- |
 | `data/questions.json`, `assets/q/*.jpg` | PDF 600 câu (`data/source/`) | `tools/extract_600.py`: đọc chữ, đáp án = phương án gạch chân, cắt vùng hình |
 | `data/critical.json` | Phụ lục III Công văn 2262/CSGT-P5 | nhập tay 60 số câu |
+| `data/classes.json` | Công văn 2262/CSGT-P5 (Phụ lục I, II, mục II), Thông tư 12/2025/TT-BCA | bộ câu A1/A và B1, câu điểm liệt từng bộ, cấu trúc đề, thời gian, điểm đạt của 15 hạng; build kiểm tra số câu và đủ câu cho mọi nhóm |
 | `data/sim.json` | Phụ lục I Thông tư 17/2026/TT-BXD | chép từ văn bản (480/480 trường khớp nguyên văn) |
 | `data/videos.json` | YouTube, kênh “Ôn Thi Lái Xe - Lý thuyết & Mô phỏng” | đối chiếu thủ công cảnh quay với nội dung từng tình huống |
 | `data/groups.json` | tự biên soạn | chủ đề điểm liệt, chùm song sinh |
@@ -45,7 +59,7 @@ GitHub Actions trích xuất lại từ PDF ở mỗi lần push và chặn đă
 ## Đăng lên GitHub Pages
 
 ```sh
-git init -b main && git add . && git commit -m "Trang ôn lý thuyết lái xe hạng B"
+git init -b main && git add . && git commit -m "Trang ôn lý thuyết lái xe"
 gh repo create <tên-repo> --public --source=. --push
 ```
 
@@ -55,5 +69,5 @@ Sau đó vào **Settings → Pages → Build and deployment → Source: GitHub A
 
 - **Video mô phỏng có cho 53/120 tình huống**, nhúng từ YouTube (kênh “Ôn Thi Lái Xe - Lý thuyết & Mô phỏng”, quay từ phần mềm v2.0.0), chỉ tải khi bấm xem. Phần mềm v2.0.0 khác Phụ lục I Thông tư 17/2026 ở nhiều tình huống (nhất là 80–120), nên chỉ gắn video khi cảnh quay khớp nội dung; danh sách ở `data/videos.json`. Không lưu video trong repo.
 - Cục Đường bộ Việt Nam đang rà soát đáp án một số tình huống Chương 6 trong Thông tư 17/2026 (tin ngày 29/7/2026). Nếu khác với hướng dẫn của giáo viên, theo giáo viên.
-- Từ 01/3/2027 đề hạng B tăng lên 50 câu, 33 phút, đạt 45 câu, kèm ngân hàng câu hỏi mới (Thông tư 108/2026/TT-BCA). Khi đó cần thay PDF và cập nhật cấu trúc đề trong `index.html`.
+- Từ 01/3/2027 cấu trúc đề và ngân hàng câu hỏi thay đổi (Thông tư 108/2026/TT-BCA; ví dụ hạng B lên 50 câu, 33 phút, đạt 45). Khi đó cần thay PDF và cập nhật `data/classes.json`.
 - Ngưỡng đạt bài kiểm tra mô phỏng do cơ sở đào tạo quy định.
