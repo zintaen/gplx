@@ -4,7 +4,7 @@ Trang web tĩnh để ôn sát hạch lý thuyết cho cả 15 hạng giấy ph�
 
 ## Tính năng
 
-- Trang chủ cho chọn hạng. Mỗi hạng dùng đúng bộ câu của mình (A1, A: 250 câu; B1: 300 câu; các hạng ô tô: 600 câu), đúng danh sách câu điểm liệt (20, 30 hoặc 60) và đúng cấu trúc đề.
+- Trang chủ cho chọn hạng. Mỗi hạng dùng đúng bộ câu của mình (A1, A: 250 câu; B1: 300 câu; các hạng ô tô: 600 câu), đúng danh sách câu điểm liệt (20, 30 hoặc 60) và đúng cấu trúc đề. Thẻ hạng ghi cả tên hạng cũ (B1, B2 → B; A2 → A; A3 → B1…) theo Điều 89 Luật TTATGTĐB 2024.
 
 | Hạng | Bộ câu | Điểm liệt | Đề | Thời gian | Đạt |
 | --- | --- | --- | --- | --- | --- |
@@ -16,11 +16,11 @@ Trang web tĩnh để ôn sát hạch lý thuyết cho cả 15 hạng giấy ph�
 | C | 600 | 60 | 40 | 24 phút | 36 |
 | D1, D2, D, BE, C1E, CE, D1E, D2E, DE | 600 | 60 | 45 | 26 phút | 41 |
 
-- Phân tích đề theo hạng: số câu mỗi nhóm trong đề và trong bộ, phần đã thuộc, số câu đúng dự kiến và khả năng đạt ước tính nếu thi ngay.
-- Lộ trình thông minh: điểm liệt trước, rồi câu dễ nhầm (song sinh, bẫy “Cả … ý trên”), rồi các nhóm còn lại xếp theo số câu ra đề trên mỗi câu học. Nút “Học tiếp” ưu tiên câu điểm liệt đang sai.
-- Thi thử đúng cấu trúc, thời gian và điểm đạt của từng hạng; một nửa số câu mỗi nhóm lấy từ câu chưa thuộc.
-- Mô phỏng (hạng ô tô): học 4 ý của từng tình huống (tên, dấu hiệu gián tiếp, dấu hiệu trực tiếp, xử lý), luyện nhận diện tên, kiểm tra thử 10 tình huống chấm 0,25 điểm mỗi ý.
-- Câu sai, sổ tay con số; mỗi câu có liên kết tới trang tương ứng trong PDF gốc.
+- Phân tích đề theo hạng: số câu mỗi nhóm trong đề và trong bộ, phần đã thuộc, số câu đúng dự kiến và khả năng đạt ước tính nếu thi ngay (hiện sau khi đã làm hết câu điểm liệt một lượt).
+- Lộ trình thông minh: điểm liệt trước, rồi câu dễ nhầm (song sinh, bẫy “Cả … ý trên”), rồi các nhóm còn lại xếp theo số câu ra đề trên mỗi câu học. Trong lượt đầu qua câu điểm liệt, nút “Học tiếp” giữ chỗ đang học và câu điểm liệt sai hiện ở nút phụ; sau lượt đầu, ôn câu điểm liệt sai được đưa lên trước.
+- Thi thử đúng cấu trúc, thời gian và điểm đạt của từng hạng; một nửa số câu mỗi nhóm lấy từ câu chưa thuộc. Chạm chỉ chọn đáp án (phím số thì chọn và sang câu), đồng hồ báo khi còn 2 phút và 30 giây. Câu bỏ trống tính sai trong điểm nhưng không ghi vào tiến độ.
+- Mô phỏng (hạng ô tô): học 4 ý của từng tình huống (tên, dấu hiệu gián tiếp, dấu hiệu trực tiếp, xử lý), tình huống chưa làm lần nào hiện đáp án trước rồi mới hỏi; luyện nhận diện tên theo vòng 20 câu, có lưu kết quả; kiểm tra thử 10 tình huống chấm 0,25 điểm mỗi ý.
+- Câu sai, sổ tay con số (trên điện thoại hiện dạng thẻ); bấm số câu để mở lại câu đó (`#cau/<số>`). Khi trả lời, câu có trong sổ tay hiện kèm quy tắc liên quan; câu sa hình, biển báo có liên kết tới phần sổ tay tương ứng. Mỗi câu có liên kết tới trang tương ứng trong PDF gốc.
 - Tiến độ lưu trong `localStorage` của trình duyệt, không gửi đi đâu.
 
 ## Dữ liệu được tạo ra thế nào

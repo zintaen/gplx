@@ -47,7 +47,9 @@ img{max-width:100%;height:auto;display:block}
 .brand{font-weight:800;font-size:17px;letter-spacing:-.01em;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .brand small{display:block;font-weight:500;font-size:12px;color:#B9C0C6}
 .chg{flex:none;background:none;border:1px solid #5B636B;color:#fff;border-radius:999px;padding:5px 12px;font-size:13px;font-weight:600}
-.back{background:none;border:0;color:#fff;font-size:22px;line-height:1;padding:4px 8px 4px 0}
+.back{flex:none;display:flex;align-items:center;gap:4px;min-height:44px;min-width:44px;background:none;border:1px solid #5B636B;border-radius:999px;color:#fff;font-size:13px;font-weight:600;padding:0 12px 0 8px;margin-left:-4px}
+.back span{font-size:22px;line-height:1;margin-top:-2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .lane{height:6px;background:#41474D;position:relative;overflow:hidden}
 .lane-fill{position:absolute;inset:0 auto 0 0;background:repeating-linear-gradient(90deg,var(--stripe) 0 18px,transparent 18px 30px);transition:width .4s ease}
 .tabs{display:flex;max-width:760px;margin:0 auto}
@@ -80,11 +82,14 @@ p{margin:0 0 10px}
 .cta{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--asphalt);color:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:16px 0 4px}
 .cta .t{flex:1;min-width:0}.cta small{display:block;color:#B9C0C6;font-size:13px;font-weight:500}.cta b{font-size:17px;line-height:1.3}
 .cta .go{flex:none;font-size:24px;font-weight:800;color:var(--stripe)}
+.cta.alt{background:var(--surface);color:var(--ink);border:2px solid var(--red);margin-top:8px;padding:10px 16px}
+.cta.alt small{color:var(--muted)}.cta.alt b{font-size:15px}.cta.alt .go{color:var(--red)}
 .groups{display:flex;flex-direction:column;gap:8px;margin-top:8px}
 .grp{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:11px 12px}
 .grp:hover{border-color:var(--muted)}
 .grp .ic{flex:none}
 .grp .code{flex:none;min-width:46px;height:36px;padding:0 8px;border-radius:8px;background:var(--asphalt);color:#fff;display:grid;place-items:center;font-weight:800;font-size:15px}
+.grp .t .old{display:block;margin-top:2px;color:var(--ink);font-weight:600}
 .grp.on{border-color:var(--blue);background:var(--blue-soft)}
 .grp .t{flex:1;min-width:0}
 .grp .t b{display:block;font-weight:600;font-size:15px;line-height:1.3}
@@ -107,7 +112,8 @@ p{margin:0 0 10px}
 .tag{font-size:12px;font-weight:600;padding:3px 8px;border-radius:999px;background:var(--blue-soft);color:var(--blue)}
 .tag.crit{background:var(--red-soft);color:var(--red)}
 .tag.trap{background:var(--yellow-soft);color:var(--ink)}
-.qtext:focus{outline:none}
+.qtext:focus,h2[tabindex]:focus{outline:none}
+h2[id^="st-"]{scroll-margin-top:120px}
 .qtext{font-size:18px;font-weight:600;line-height:1.45;margin:0 0 12px}
 .qimgs{display:flex;flex-direction:column;gap:8px;margin:0 0 14px}
 .qimgs img{border-radius:8px;border:1px solid var(--line);background:#fff;margin:0 auto}
@@ -129,12 +135,14 @@ p{margin:0 0 10px}
 .note.trap{background:var(--yellow-soft);border-color:var(--yellow)}
 .note.res-ok{background:var(--green-soft);border-color:var(--green);font-weight:600}
 .note.res-bad{background:var(--red-soft);border-color:var(--red);font-weight:600}
+.note.rule{background:var(--green-soft);border-color:var(--green)}
 details.why{margin-top:10px;font-size:14px;color:var(--muted)}
 details.why summary{cursor:pointer;font-weight:600;color:var(--ink)}
 .bar{position:sticky;bottom:0;background:linear-gradient(transparent,var(--bg) 30%);padding:18px 0 calc(10px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;margin-top:8px}
 .btn{border:0;border-radius:10px;padding:12px 16px;font-weight:700;font-size:15px;background:var(--asphalt);color:#fff}
 .btn.ghost{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
 .btn.red{background:var(--red);color:#fff}
+.btn.go{background:var(--blue);color:var(--surface)}
 .btn:disabled{opacity:.45;cursor:default}
 .grow{flex:1}
 .count{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
@@ -148,7 +156,10 @@ details.why summary{cursor:pointer;font-weight:600;color:var(--ink)}
 .grid button.crit{box-shadow:inset 0 -3px 0 var(--red)}
 .grid button.ok{background:var(--green-soft);border-color:var(--green)}
 .grid button.bad{background:var(--red-soft);border-color:var(--red)}
-.timer{font-variant-numeric:tabular-nums;font-weight:800;font-size:16px;color:#fff}
+.gridbox summary{cursor:pointer;font-size:14px;font-weight:600;padding:10px 0;min-height:44px}
+@media (max-width:479px){.grid{grid-template-columns:repeat(6,1fr)}.grid button{font-size:14px}}
+.timer{font-variant-numeric:tabular-nums;font-weight:800;font-size:16px;color:#fff;padding:2px 8px;border-radius:6px}
+.timer.warn{background:var(--red);color:#fff}
 .score{font-size:44px;font-weight:800;line-height:1;margin:8px 0}
 
 /* Notes */
@@ -164,6 +175,17 @@ td:first-child{min-width:150px}
 .prio{counter-reset:p;list-style:none;padding:0;margin:6px 0 12px}
 .prio li{counter-increment:p;position:relative;padding:8px 0 8px 40px;border-bottom:1px dashed var(--line)}
 .prio li::before{content:counter(p);position:absolute;left:0;top:7px;width:28px;height:28px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-weight:800;font-size:14px}
+td a{color:var(--blue);font-weight:700}
+/* phones: long tables become one card per row, column names inline */
+@media (max-width:479px){
+  .tbl-wrap.cards{overflow:visible;border:0;background:none}
+  table.cards{min-width:0}
+  table.cards tr:first-child{display:none}
+  table.cards tr{display:block;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px}
+  table.cards td{display:block;border:0;padding:2px 0;white-space:normal;min-width:0}
+  table.cards td:first-child{font-weight:700}
+  table.cards td+td::before{content:attr(data-h) ": ";color:var(--muted);font-weight:500}
+}
 .empty{background:var(--surface);border:1px dashed var(--line);border-radius:10px;padding:20px;text-align:center}
 .foot{margin-top:32px;font-size:13px;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -173,7 +195,7 @@ td:first-child{min-width:150px}
 <body>
 <header class="road">
   <div class="road-in">
-    <button class="back" id="back" aria-label="Quay lại" hidden>‹</button>
+    <button class="back" id="back" hidden><span aria-hidden="true">‹</span><b id="backTxt">Quay lại</b></button>
     <div class="brand" id="brand">Ôn lý thuyết lái xe<small id="sub"></small></div>
     <button class="chg" id="chg" hidden>Đổi hạng</button>
     <div class="timer" id="timer" hidden></div>
@@ -188,6 +210,7 @@ td:first-child{min-width:150px}
   </nav>
 </header>
 <main id="app"></main>
+<div class="sr" id="live" aria-live="polite"></div>
 
 <script>
 (async function(){
@@ -208,7 +231,7 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 
 /* ---------- progress, kept on this device ---------- */
 const KEY='gplxB_v1';
-const fresh=()=>({res:{},exams:[],sim:{},simExams:[],cls:''});
+const fresh=()=>({res:{},exams:[],sim:{},simExams:[],nm:{},cls:''});
 let S=fresh();
 try{const raw=localStorage.getItem(KEY); if(raw){const p=JSON.parse(raw); if(p&&p.res) S=Object.assign(fresh(),p);}}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
@@ -282,12 +305,14 @@ function header(opts){
   $('#chg').hidden=!!(opts.chooser||opts.hideTabs);
   backTo=opts.back===undefined?null:opts.back;
   $('#back').hidden=backTo===null;
+  $('#backTxt').textContent=opts.backLabel||BACK_LABEL[backTo]||'Quay lại';
   $('#tabs').hidden=!!(opts.hideTabs||opts.chooser);
   document.title=opts.chooser?'Ôn lý thuyết lái xe':'Ôn lý thuyết lái xe hạng '+CL.code;
   $('#timer').hidden=!opts.timer;
   $('#brand').firstChild.textContent=opts.title||(opts.chooser?'Ôn lý thuyết lái xe':'Ôn lý thuyết hạng '+CL.code);
   document.querySelectorAll('#tabs button').forEach(b=>b.setAttribute('aria-current',String(b.dataset.v===opts.tab)));
 }
+const BACK_LABEL={'lo-trinh':'Lộ trình','thi-thu':'Thi thử','mo-phong':'Mô phỏng','cau-sai':'Câu sai','so-tay':'Sổ tay'};
 /* ---------- navigation: each screen has a #hash so the browser/phone back button works ---------- */
 // history.state.d = how many in-app screens sit behind this entry, so ‹ never steps out of the site
 let backTo=null, active=null, keyHandler=null, curD=0;
@@ -299,7 +324,22 @@ function goBack(){if(depth()>0) history.back(); else {history.replaceState({d:0}
 function startRun(hash,msg){active={hash,msg,d:depth()+1}; push(hash);}
 function endRun(hash){active=null; stopTimer(); history.replaceState(history.state,'',url(hash));}
 const RUN_HOME={'dang-thi':'thi-thu','mp-kiem-tra':'mo-phong'};
+// following an in-page link (a question, a notebook section) and coming back puts the screen where it was:
+// RET keeps the scroll of each screen a link was followed from, STUDY the place and answers of each study screen.
+// Both last only while the learner stays on link targets; going anywhere else forgets them.
+// Keyed by history depth and hash, so the same question opened twice along a chain keeps two separate entries.
+const RET={}, STUDY={}; let resume=false;
+const LINK='a[href^="#cau/"],a[href^="#so-tay/"]';
+const here=()=>depth()+location.hash;
+app.addEventListener('click',e=>{if(e.target.closest(LINK)) RET[here()]=scrollY;});
 function route(){
+  const h=location.hash, k=here(), back=Object.hasOwn(RET,k);
+  resume=back; const r=route0(); resume=false;
+  if(back){scrollTo(0,RET[k]); delete RET[k];}
+  else if(!/^#(cau|so-tay)\//.test(h)) Object.keys(RET).forEach(k=>delete RET[k]);
+  return r;
+}
+function route0(){
   const h=location.hash.slice(1), [v,arg]=h.split('/');
   // a URL typed into the address bar has no state: stamp it one deeper than the screen it was typed over
   if(!history.state) history.replaceState({d:curD+1},'',location.href);
@@ -312,8 +352,9 @@ function route(){
   // simulation belongs to car classes only; a stale link or back step from a car class lands on the plan instead
   if(!isCar()&&(v==='mo-phong'||v==='mp-ten'||v==='mp')){history.replaceState(history.state,'',url('lo-trinh')); return home();}
   const SCREENS={'':chooser,'lo-trinh':home,'thi-thu':examIntro,'mo-phong':simHome,'cau-sai':wrong,'so-tay':notes,'mp-ten':nameDrill};
-  if(Object.hasOwn(SCREENS,v)) return SCREENS[v]();
+  if(Object.hasOwn(SCREENS,v)) return SCREENS[v](arg);
   if(v==='nhom'&&groupOf(arg)) return study(arg);
+  if(v==='cau'&&/^\d+$/.test(arg||'')&&POOLSET.has(+arg)) return study('q'+arg);
   if(v==='mp'&&Object.hasOwn(SG,arg)) return simStudy(arg);
   history.replaceState(history.state,'',url('')); chooser();
 }
@@ -345,14 +386,15 @@ function grpBtn(g){
 function chooser(){
   header({chooser:true});
   const by={}; D.classes.forEach(c=>(by[c.group]=by[c.group]||[]).push(c));
-  let h='<h1>Bạn ôn thi bằng hạng nào?</h1><p class="muted">Mỗi hạng có bộ câu, số câu, thời gian và điểm đạt riêng. Trang tự dựng lộ trình và đề thi thử đúng cấu trúc của hạng bạn chọn. Tiến độ dùng chung giữa các hạng vì cùng một bộ câu hỏi.</p>';
+  let h='<h1>Bạn ôn thi bằng hạng nào?</h1><p class="muted">Mỗi hạng có bộ câu, số câu, thời gian và điểm đạt riêng. Trang tự dựng lộ trình và đề thi thử đúng cấu trúc của hạng bạn chọn. Tiến độ dùng chung giữa các hạng vì cùng một bộ câu hỏi.</p>'+
+    '<div class="note twin">Từ 01/01/2025 tên hạng đã đổi. Học lái ô tô con, số sàn hay số tự động (trước đây gọi là B1, B2): chọn <b>hạng B</b>. Mô tô trên 125 cm³ (trước đây A2): chọn <b>hạng A</b>. Xe máy điện: xem công suất ghi trong giấy tờ xe, đến 11 kW là hạng A1.</div>';
   if(S.cls&&Object.hasOwn(CLASSES,S.cls)) h+='<button class="cta" data-c="'+esc(S.cls)+'"><span class="t"><small>Tiếp tục</small><b>Ôn hạng '+esc(S.cls)+'</b><small>'+POOL.filter(known).length+'/'+POOL.length+' câu đã thuộc</small></span><span class="go" aria-hidden="true">›</span></button>';
   Object.keys(by).forEach(gname=>{
     h+='<h2>'+esc(gname)+'</h2><div class="groups">'+by[gname].map(c=>{
       const n=c.pool==='all'?600:D.pools[c.pool].ids.length;
-      return '<button class="grp'+(c.code===S.cls?' on':'')+'" data-c="'+esc(c.code)+'"><span class="code">'+esc(c.code)+'</span><span class="t"><b>'+esc(c.desc)+'</b><span>'+c.n+' câu, '+c.min+' phút, đạt từ '+c.pass+' câu · bộ '+n+' câu</span></span></button>';}).join('')+'</div>';
+      return '<button class="grp'+(c.code===S.cls?' on':'')+'" data-c="'+esc(c.code)+'"><span class="code">'+esc(c.code)+'</span><span class="t"><b>'+esc(c.desc)+'</b><span>'+c.n+' câu, '+c.min+' phút, đạt từ '+c.pass+' câu · bộ '+n+' câu'+(c.old?'<span class="old">'+esc(c.old)+'</span>':'')+'</span></span></button>';}).join('')+'</div>';
   });
-  h+='<p class="foot">Bộ câu, câu điểm liệt và cấu trúc đề theo Công văn 2262/CSGT-P5 (07/5/2025) của Cục CSGT; thời gian làm bài và điểm đạt theo Thông tư 12/2025/TT-BCA. Phạm vi xe của từng hạng theo Luật Trật tự, an toàn giao thông đường bộ 2024.</p>';
+  h+='<p class="foot">Bộ câu, câu điểm liệt và cấu trúc đề theo Công văn 2262/CSGT-P5 (07/5/2025) của Cục CSGT; thời gian làm bài và điểm đạt theo Thông tư 12/2025/TT-BCA. Phạm vi xe của từng hạng theo Luật Trật tự, an toàn giao thông đường bộ 2024; tên hạng cũ theo Điều 89 khoản 3 của Luật này.</p>';
   view(h);
   app.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{S.cls=b.dataset.c; setClass(S.cls); save(); nav('lo-trinh');});
 }
@@ -364,18 +406,23 @@ function home(){
   // first unfinished stage, in order; inside it, the first unfinished group (the sim stage opens Mô phỏng)
   const stage=PLAN.find(p=>p.sim?simIds(simKnown).length<SIM.length:p.keys.some(k=>G[k].ids.some(id=>!known(id))));
   const next=stage&&!stage.sim?stage.keys.map(k=>G[k]).find(g=>g.ids.some(id=>!known(id))):null;
-  const btn=(attr,small,title,sub)=>'<button class="cta" '+attr+'><span class="t"><small>'+small+'</small><b>'+title+'</b>'+(sub?'<small>'+sub+'</small>':'')+'</span><span class="go" aria-hidden="true">›</span></button>';
-  // a critical question you got wrong can fail the whole exam, so it jumps the queue
-  const cta=wrC?btn('data-g="wrong"','Ưu tiên','Ôn lại '+wr.length+' câu đang sai',wrC+' câu điểm liệt trong số đó')
-    :stage&&stage.sim?btn('data-simgo="1"','Học tiếp','Mô phỏng 120 tình huống',simIds(simKnown).length+'/120 tình huống đã thuộc')
+  const btn=(attr,small,title,sub,cls)=>'<button class="cta'+(cls?' '+cls:'')+'" '+attr+'><span class="t"><small>'+small+'</small><b>'+title+'</b>'+(sub?'<small>'+sub+'</small>':'')+'</span><span class="go" aria-hidden="true">›</span></button>';
+  const go=stage&&stage.sim?btn('data-simgo="1"','Học tiếp','Mô phỏng 120 tình huống',simIds(simKnown).length+'/120 tình huống đã thuộc')
     :next?btn('data-g="'+next.key+'"','Học tiếp',esc(next.title),next.ids.filter(known).length+'/'+next.ids.length+' câu đã thuộc')
     :btn('data-exam="1"','Đã thuộc cả bộ '+POOL.length+' câu','Làm đề thi thử','');
+  // a critical question you got wrong can fail the whole exam: during the first pass over the critical questions it waits
+  // in a second button so the learner keeps their place; once every critical question has been seen it takes the lead
+  const critSeen=CRITS.filter(id=>S.res[id]).length, critRound=critSeen===CRIT.size;
+  const fix=wrC?btn('data-g="wrong"','Ưu tiên','Ôn lại '+wr.length+' câu đang sai',wrC+' câu điểm liệt trong số đó',critRound?'':'alt'):'';
+  const cta=critRound?fix+(fix?'':go):go+fix;
   const r=readiness(), pct=Math.round(r.pass*100);
   let h='<h1>Lộ trình ôn hạng '+esc(CL.code)+'</h1>'+
    '<p class="muted">'+esc(CL.desc)+'. Đề có '+CL.n+' câu, làm trong '+CL.min+' phút, đạt khi đúng từ '+CL.pass+' câu và không sai câu điểm liệt. Bộ câu của hạng này: '+POOL.length+' câu, trong đó '+CRIT.size+' câu điểm liệt.</p>'+cta+
    '<h2>Phân tích đề hạng '+esc(CL.code)+'</h2>'+
-   '<div class="facts"><div class="fact"><b style="color:var('+(pct>=80?'--green':pct>=40?'--ink':'--red')+')">'+pct+'%</b><span>khả năng đạt nếu thi ngay (ước tính)</span></div>'+
-   '<div class="fact"><b>'+r.expect.toFixed(1).replace('.',',')+'/'+CL.n+'</b><span>số câu đúng dự kiến, cần '+CL.pass+'</span></div>'+
+   // before the critical questions have all been seen the estimate is mostly guessing, so say what unlocks it instead
+   '<div class="facts">'+(critRound?'<div class="fact"><b style="color:var('+(pct>=80?'--green':pct>=40?'--ink':'--red')+')">'+pct+'%</b><span>khả năng đạt nếu thi ngay (ước tính)</span></div>'+
+   '<div class="fact"><b>'+r.expect.toFixed(1).replace('.',',')+'/'+CL.n+'</b><span>số câu đúng dự kiến, cần '+CL.pass+'</span></div>'
+   :'<div class="fact" style="grid-column:span 2"><b style="font-size:18px">Chưa có ước tính</b><span>Làm hết '+CRIT.size+' câu điểm liệt một lượt (đã làm '+critSeen+') để xem khả năng đạt nếu thi ngay.</span></div>')+
    '<div class="fact"><b>'+critK+'/'+CRIT.size+'</b><span>câu điểm liệt đã thuộc</span></div>'+
    '<div class="fact"><b>'+wr.length+'</b><span>câu đang sai cần ôn lại</span></div></div>'+
    '<div class="tbl-wrap"><table class="fit"><tr><th>Nhóm câu</th><th>Mỗi đề</th><th>Trong bộ</th><th>Đã thuộc</th></tr>'+
@@ -396,52 +443,74 @@ function home(){
     '<div class="fact"><b>'+TRAPS.size+'</b><span>câu có phương án gộp (“Cả … ý trên”, “Ý … và ý …”) mà đáp án lại là ý khác</span></div>'+
     '<div class="fact"><b>'+D.stats.longPct+'%</b><span>tỷ lệ đúng của mẹo “chọn câu dài nhất” trên cả bộ 600 câu</span></div>'+
    '</div><p class="small muted">Hai con số cuối cho thấy học mẹo với bộ đề mới không còn an toàn. Hãy hiểu câu hỏi.</p>'+
-   '<p class="foot">Dữ liệu trích tự động từ PDF “600 câu hỏi dùng cho sát hạch lái xe cơ giới đường bộ” của Cục CSGT – Bộ Công an (2025); đáp án là phương án được gạch chân trong tài liệu gốc. Bộ câu và câu điểm liệt của hạng '+esc(CL.code)+' theo Công văn 2262/CSGT-P5. Tiến độ chỉ lưu trên trình duyệt này.</p>'+
+   '<p class="foot">Dữ liệu trích tự động từ PDF “600 câu hỏi dùng cho sát hạch lái xe cơ giới đường bộ” của Cục CSGT – Bộ Công an (2025); đáp án là phương án được gạch chân trong tài liệu gốc. Bộ câu và câu điểm liệt của hạng '+esc(CL.code)+' theo Công văn 2262/CSGT-P5. Tiến độ chỉ lưu trên trình duyệt này. Hai người dùng chung một máy: mỗi người mở trang bằng một trình duyệt riêng để tiến độ không lẫn vào nhau.</p>'+
    '<p class="foot"><button class="btn ghost" id="reset">Xóa tiến độ</button></p>';
   view(h);
   app.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>nav('nhom/'+b.dataset.g));
   app.querySelectorAll('[data-exam]').forEach(b=>b.onclick=()=>nav('thi-thu'));
   app.querySelectorAll('[data-simgo]').forEach(b=>b.onclick=()=>nav('mo-phong'));
-  $('#reset').onclick=()=>{if(confirm('Xóa toàn bộ tiến độ và lịch sử thi thử trên thiết bị này?')){const c=CL.code; S=fresh(); S.cls=c; save(); home();}};
-}
+  $('#reset').onclick=()=>{if(confirm('Xóa toàn bộ tiến độ và lịch sử thi thử trên thiết bị này?')){const c=CL.code; S=fresh(); S.cls=c; save(); home();}};}
 const slotText=()=>CL.slots.map(([cat,n])=>n+' '+CATNAME[cat].toLowerCase()).join(', ');
 const myExams=()=>S.exams.filter(e=>(e.cls||'B')===CL.code);
 
 /* ---------- question rendering ---------- */
+// a "Câu" cell lists question numbers ("145–148", "149, 153")
+const parseIds=c=>String(c).split(',').flatMap(x=>{const m=x.trim().match(/^(\d+)(?:\s*[–-]\s*(\d+))?$/); if(!m) return []; const a=+m[1], z=+(m[2]||m[1]); return Array.from({length:z-a+1},(_,i)=>a+i);});
+const qLink=id=>'<a href="#cau/'+id+'">'+id+'</a>';
+// the notebook row that states the rule behind a question, shown when it is answered
+const RULE={};
+D.notes.forEach((sec,si)=>{const qc=sec.head?sec.head.indexOf('Câu'):-1; if(qc<0) return;
+  const cols=sec.head.map((x,i)=>i).filter(i=>i!==qc);
+  (sec.rows||[]).forEach(r=>{
+    const text=cols.length===2?r[cols[0]]+': '+r[cols[1]]:r[cols[0]]+'. '+cols.slice(1).map(i=>sec.head[i]+': '+r[i]).join('; ');
+    parseIds(r[qc]).forEach(id=>{RULE[id]={si,title:sec.title,text};});});});
+const SEC=re=>D.notes.findIndex(s=>re.test(s.title));
+const SEC_SH=SEC(/sa hình/i), SEC_SIGN=SEC(/biển báo/i);
 function qBlock(id,opts){
   const q=Q[id]; opts=opts||{};
-  let h='<div class="qhead"><span class="qno">Câu '+id+'</span><span class="tag">'+CH[q.ch]+'</span>'+
+  let h='<div class="qhead">'+(opts.noNum?'':'<span class="qno">Câu '+id+'</span>')+'<span class="tag">'+CH[q.ch]+'</span>'+
     (CRIT.has(id)?'<span class="tag crit">Điểm liệt</span>':'')+'</div>';
   h+='<p class="qtext" tabindex="-1">'+esc(q.q)+'</p>';
-  if(q.im.length) h+='<div class="qimgs">'+q.im.map(k=>'<img src="assets/q/'+k+'" alt="Hình minh họa câu '+id+'" decoding="async">').join('')+'</div>';
+  if(q.im.length) h+='<div class="qimgs">'+q.im.map(k=>'<img src="assets/q/'+k+'" alt="Hình minh họa'+(opts.noNum?'':' câu '+id)+'" decoding="async">').join('')+'</div>';
   h+='<div class="opts">'+q.a.map((a,i)=>'<button class="opt" data-i="'+i+'"><span class="n">'+(i+1)+'</span><span>'+esc(a)+'</span></button>').join('')+'</div>';
   return h;
 }
-function feedback(id,chosen){
-  const q=Q[id], ok=chosen===q.c;
-  let h='<div class="note '+(ok?'res-ok':'res-bad')+'">'+(ok?'Đúng.':'Chưa đúng. Đáp án là ý '+(q.c+1)+'.')+'</div>';
+// links:false where leaving the screen would lose it (the exam review is not a page of its own)
+function feedback(id,chosen,links){
+  const q=Q[id], ok=chosen===q.c, L=links!==false;
+  let h='<div class="note '+(ok?'res-ok':'res-bad')+'">'+(chosen===undefined?'Bạn bỏ trống câu này. Đáp án là ý '+(q.c+1)+'.':ok?'Đúng.':'Chưa đúng. Đáp án là ý '+(q.c+1)+'.')+'</div>';
+  const rule=RULE[id], sec=q.ch===6?SEC_SH:q.ch===5?SEC_SIGN:-1;
+  if(rule) h+='<div class="note rule"><b>Quy tắc liên quan (Sổ tay, '+esc(rule.title.toLowerCase())+'):</b> '+esc(rule.text)+'</div>';
+  else if(sec>=0&&L) h+='<div class="note rule">Ôn lại cách giải trong Sổ tay: <a href="#so-tay/'+sec+'">'+esc(D.notes[sec].title)+'</a>.</div>';
   // quote this question's own combined option ("Cả hai ý trên", "Ý 2 và ý 3"…), which is the tempting wrong pick
   if(TRAPS.has(id)){const combo=q.a.find(a=>/^(Cả (hai|ba) ý trên|Ý \d và ý \d)/.test(a)); h+='<div class="note trap">Câu bẫy: phương án gộp “'+esc((combo||'').replace(/\.$/,''))+'” không phải đáp án ở câu này.</div>';}
   if(TWIN_OF[id]!==undefined){const t=TW[TWIN_OF[id]]; const o=t.ids.filter(x=>x!==id);
-    h+='<div class="note twin">Song sinh với câu '+o.join(', ')+' ('+esc(t.label)+'). Nhớ chỗ khác nhau giữa các câu.</div>';}
-  h+='<p class="small" style="margin-top:10px"><a href="data/source/600-cau-hoi.pdf#page='+q.page+'" target="_blank" rel="noopener">Xem câu '+id+' trong tài liệu gốc, trang '+q.page+' của PDF</a></p>';
+    h+='<div class="note twin">Song sinh với câu '+o.map(x=>L?qLink(x):x).join(', ')+' ('+esc(t.label)+'). Nhớ chỗ khác nhau giữa các câu.</div>';}
+  h+='<p class="small" style="margin-top:10px"><a href="data/source/600-cau-hoi.pdf#page='+q.page+'" target="_blank" rel="noopener">Xem câu '+id+' trong tài liệu gốc (PDF khoảng 6 MB, trang '+q.page+')</a></p>';
   return h;
 }
 
 /* ---------- study mode ---------- */
 function groupOf(key){
   if(key==='wrong') return {key,title:'Câu sai cần ôn',ids:wrongIds().sort((a,b)=>CRIT.has(b)-CRIT.has(a)||a-b)};
+  const m=/^q(\d+)$/.exec(key); if(m) return POOLSET.has(+m[1])?{key,title:'Câu '+m[1],ids:[+m[1]],one:true}:null;
   return Object.hasOwn(G,key)?G[key]:null;
 }
 function study(key){
   const g=groupOf(key), up=key==='wrong'?'cau-sai':'lo-trinh'; let onlyNew=false; let list=[], pos=0;
   let start=0;
+  const given={}; // answers picked in this sitting: stepping back shows them again instead of a blank question
+  // a single question opened from a link goes back to wherever the link was
+  const hd=()=>header(g.one?{back:up,backLabel:'Quay lại',hideTabs:true,title:g.title}:{back:up,hideTabs:true,title:g.title});
+  const leave=()=>g.one?goBack():nav(up);
   function build(){list=g.ids.filter(id=>!onlyNew||!known(id)); pos=0; start=0;}
-  build();
-  pos=start=Math.max(0,list.findIndex(id=>!known(id))); // pick up where the learner stopped instead of replaying known questions
+  const at=here(), kept=resume&&STUDY[at];
+  if(kept){({list,pos,start,onlyNew}=kept); Object.assign(given,kept.given);} // back from a link followed in the feedback
+  else {build(); pos=start=Math.max(0,list.findIndex(id=>!known(id)));} // pick up where the learner stopped instead of replaying known questions
   function render(){
-    header({back:up,hideTabs:true,title:g.title});
-    let h='<label class="toggle"><input type="checkbox" id="only"'+(onlyNew?' checked':'')+'> Chỉ câu chưa thuộc</label>';
+    STUDY[at]={list,pos,start,onlyNew,given};
+    hd();
+    let h=g.one?'':'<label class="toggle"><input type="checkbox" id="only"'+(onlyNew?' checked':'')+'> Chỉ câu chưa thuộc</label>';
     if(!list.length){
       h+='<div class="empty"><p><b>'+(g.ids.length?'Đã thuộc hết nhóm này.':'Không còn câu nào trong nhóm này.')+'</b></p><p class="muted small">'+(g.ids.length?'Bỏ chọn “Chỉ câu chưa thuộc” để ôn lại, hoặc quay về.':'')+'</p><button class="btn" id="home2">'+(key==='wrong'?'Về Câu sai':'Về lộ trình')+'</button></div>';
       view(h); $('#only').onchange=e=>{onlyNew=e.target.checked;build();render();$('#only').focus();}; $('#home2').onclick=()=>nav(up); keyHandler=null; return;
@@ -450,20 +519,26 @@ function study(key){
     if(key==='twins'&&(pos===0||pos===start||TWIN_OF[list[pos-1]]!==TWIN_OF[id])){
       const t=TW[TWIN_OF[id]]; h+='<div class="note twin" style="margin:0 0 14px">Chùm: <b>'+esc(t.label)+'</b> — câu '+t.ids.join(', ')+'</div>';
     }
-    h+='<div class="count">'+(pos+1)+' / '+list.length+'</div>'+qBlock(id)+'<div id="fb"></div>'+
-      '<div class="bar"><button class="btn ghost" id="prev"'+(pos?'':' disabled')+'>Câu trước</button><span class="grow"></span><button class="btn" id="next">'+(pos<list.length-1?'Câu tiếp':'Xong nhóm')+'</button></div>';
+    const last=pos>=list.length-1;
+    h+=(g.one?'':'<div class="count">'+(pos+1)+' / '+list.length+'</div>')+qBlock(id)+'<div id="fb"></div>'+
+      '<div class="bar">'+(g.one?'':'<button class="btn ghost" id="prev"'+(pos?'':' disabled')+'>Câu trước</button>')+'<span class="grow"></span><button class="btn" id="next">'+(g.one?'Quay lại':last?'Xong nhóm':'Câu tiếp')+'</button></div>';
     view(h);
-    $('#only').onchange=e=>{onlyNew=e.target.checked;build();render();$('#only').focus();};
-    let answered=false;
-    function choose(i){
-      if(answered) return; answered=true;
-      const q=Q[id]; mark(id,i===q.c);
+    if(!g.one) $('#only').onchange=e=>{onlyNew=e.target.checked;build();render();$('#only').focus();};
+    function show(i){
+      const q=Q[id];
       app.querySelectorAll('.opt').forEach((b,j)=>{b.disabled=true; if(j===q.c) b.classList.add('ok'); else if(j===i) b.classList.add('bad');});
-      $('#fb').innerHTML=feedback(id,i); header({back:up,hideTabs:true,title:g.title}); $('#fb').scrollIntoView({block:'nearest'}); $('#next').focus({preventScroll:true});
+      $('#fb').innerHTML=feedback(id,i)+'<p class="small"><button class="btn ghost" id="redo" type="button">Làm lại câu này</button></p>';
+      $('#redo').onclick=()=>{delete given[id]; render();};
+    }
+    function choose(i){
+      if(given[id]!==undefined) return; given[id]=i;
+      mark(id,i===Q[id].c); show(i);
+      hd(); $('#fb').scrollIntoView({block:'nearest'}); $('#next').focus({preventScroll:true});
     }
     app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>choose(+b.dataset.i));
-    $('#prev').onclick=()=>{pos--;render();};
-    $('#next').onclick=()=>{if(pos<list.length-1){pos++;render();}else nav(up);};
+    if(!g.one) $('#prev').onclick=()=>{pos--;render();};
+    $('#next').onclick=()=>{if(!last){pos++;render();}else leave();};
+    if(given[id]!==undefined) show(given[id]);
     focusQ();
     keyHandler=e=>{const n=parseInt(e.key,10); if(n>=1&&n<=Q[id].a.length) choose(n-1); else if(e.key==='Enter'||e.key==='ArrowRight') $('#next').click(); else if(e.key==='ArrowLeft'&&pos) $('#prev').click();};
   }
@@ -478,8 +553,8 @@ function wrong(){
   if(!ids.length){h+='<div class="empty"><p><b>Chưa có câu sai.</b></p><p class="muted small">Làm một nhóm ở Lộ trình hoặc một đề Thi thử, các câu sai sẽ hiện ở đây.</p></div>'; view(h); return;}
   const c=ids.filter(id=>CRIT.has(id)).length;
   h+='<div class="groups"><button class="grp" id="go">'+icon('ban','')+'<span class="t"><b>Ôn '+ids.length+' câu sai</b><span>'+c+' câu điểm liệt, ưu tiên ôn trước</span></span></button></div>';
-  h+='<h2>Sai nhiều lần nhất</h2><div class="tbl-wrap"><table><tr><th>Câu</th><th>Nội dung</th><th>Số lần sai</th></tr>'+
-    ids.slice().sort((a,b)=>S.res[b].w-S.res[a].w).slice(0,15).map(id=>'<tr><td class="num">'+id+(CRIT.has(id)?' <span class="tag crit">Điểm liệt</span>':'')+'</td><td>'+esc(Q[id].q.slice(0,90))+(Q[id].q.length>90?'…':'')+'</td><td class="num">'+S.res[id].w+'</td></tr>').join('')+'</table></div>';
+  h+='<h2>Sai nhiều lần nhất</h2><p class="small muted">Bấm số câu để mở lại câu đó.</p><div class="tbl-wrap cards"><table class="cards"><tr><th>Câu</th><th>Nội dung</th><th>Số lần sai</th></tr>'+
+    ids.slice().sort((a,b)=>S.res[b].w-S.res[a].w).slice(0,15).map(id=>'<tr><td class="num">Câu '+qLink(id)+(CRIT.has(id)?' <span class="tag crit">Điểm liệt</span>':'')+'</td><td data-h="Nội dung">'+esc(Q[id].q.slice(0,90))+(Q[id].q.length>90?'…':'')+'</td><td class="num" data-h="Số lần sai">'+S.res[id].w+'</td></tr>').join('')+'</table></div>';
   view(h);
   $('#go').onclick=()=>nav('nhom/wrong');
 }
@@ -503,35 +578,48 @@ function examIntro(){
   const last=myExams().slice(-5).reverse();
   let h='<h1>Thi thử hạng '+esc(CL.code)+'</h1><p class="muted">'+CL.n+' câu, '+CL.min+' phút, cấu trúc như đề thật: '+slotText()+'. Đạt khi đúng từ '+CL.pass+' câu và không sai câu điểm liệt. Một nửa số câu mỗi phần được lấy từ những câu bạn chưa thuộc.</p>'+
     '<div class="bar" style="position:static;padding:4px 0 0"><button class="btn red" id="start">Bắt đầu đề mới</button></div>';
-  if(last.length) h+='<h2>Lần thi gần đây</h2><div class="tbl-wrap"><table><tr><th>Thời điểm</th><th>Điểm</th><th>Kết quả</th></tr>'+last.map(e=>'<tr><td>'+esc(e.at)+'</td><td class="num">'+e.score+'/'+CL.n+'</td><td>'+(e.pass?'Đạt':'Trượt'+(e.critFail?' (sai điểm liệt)':''))+'</td></tr>').join('')+'</table></div>';
+  if(last.length) h+='<h2>Lần thi gần đây</h2><div class="tbl-wrap"><table class="fit"><tr><th>Thời điểm</th><th>Điểm</th><th>Kết quả</th></tr>'+last.map(e=>'<tr><td>'+esc(e.at)+'</td><td class="num">'+e.score+'/'+CL.n+'</td><td>'+(e.pass?'Đạt':'Trượt'+(e.critFail?' (sai điểm liệt)':''))+'</td></tr>').join('')+'</table></div>';
   view(h); $('#start').onclick=()=>runExam(makeExam());
   $('#start').focus({preventScroll:true});
 }
 function runExam(ids){
   const ans={}, end=Date.now()+CL.min*60e3; let cur=0, done=false;
+  // the question list folds away on phones so the question stays on screen; desktop keeps it open
+  let gridOpen=matchMedia('(min-width:640px)').matches;
+  const said=new Set(), live=$('#live'); live.textContent='';
   startRun('dang-thi','Thoát bài thi? Bài đang làm sẽ không được lưu.');
   header({hideTabs:true,timer:true,back:'thi-thu',title:'Đề thi thử'});
   // wall-clock deadline: interval ticks pause while the phone is locked, the exam clock must not
-  function tick(){const left=Math.max(0,Math.ceil((end-Date.now())/1000)),m=Math.floor(left/60),s=left%60; $('#timer').textContent=m+':'+String(s).padStart(2,'0'); if(!left&&location.hash.slice(1)===active?.hash) finish();}
+  function tick(){const left=Math.max(0,Math.ceil((end-Date.now())/1000)),m=Math.floor(left/60),s=left%60;
+    const t=$('#timer'); t.textContent=m+':'+String(s).padStart(2,'0'); t.classList.toggle('warn',left<=120);
+    // say each milestone once, also when the phone wakes up past it; not every second
+    [[120,'Còn 2 phút'],[30,'Còn 30 giây']].forEach(([at,msg])=>{if(left<=at&&left>0&&!said.has(at)){said.add(at); if(left>at-15) live.textContent=msg+' làm bài.';}});
+    if(!left&&location.hash.slice(1)===active?.hash) finish();}
   tick(); tInt=setInterval(tick,1000);
+  function go(j){cur=j; render();}
   function render(){
-    const id=ids[cur];
-    let h='<div class="grid">'+ids.map((x,i)=>'<button data-j="'+i+'" class="'+(ans[x]!==undefined?'ans ':'')+(i===cur?'cur ':'')+(CRIT.has(x)?'crit':'')+'" aria-label="Câu '+(i+1)+(ans[x]!==undefined?', đã trả lời':', chưa trả lời')+(CRIT.has(x)?', điểm liệt':'')+'"'+(i===cur?' aria-current="true"':'')+'>'+(i+1)+'</button>').join('')+'</div>';
-    h+='<div class="count">Câu '+(cur+1)+' trong đề</div>'+qBlock(id);
-    h+='<div class="bar"><button class="btn ghost" id="prev"'+(cur?'':' disabled')+'>Trước</button><button class="btn ghost" id="next"'+(cur<ids.length-1?'':' disabled')+'>Sau</button><span class="grow"></span><button class="btn red" id="submit">Nộp bài</button></div>';
+    const id=ids[cur], nDone=ids.filter(x=>ans[x]!==undefined).length;
+    let h='<details class="gridbox"'+(gridOpen?' open':'')+'><summary>Danh sách câu · đã làm '+nDone+'/'+ids.length+'</summary><div class="grid">'+ids.map((x,i)=>'<button data-j="'+i+'" class="'+(ans[x]!==undefined?'ans ':'')+(i===cur?'cur ':'')+(CRIT.has(x)?'crit':'')+'" aria-label="Câu '+(i+1)+(ans[x]!==undefined?', đã trả lời':', chưa trả lời')+(CRIT.has(x)?', điểm liệt':'')+'"'+(i===cur?' aria-current="true"':'')+'>'+(i+1)+'</button>').join('')+'</div></details>';
+    h+='<div class="count">Câu '+(cur+1)+'/'+ids.length+'</div>'+qBlock(id,{noNum:true});
+    const picked=ans[id]!==undefined;
+    h+='<div class="bar"><button class="btn ghost" id="prev"'+(cur?'':' disabled')+'>Câu trước</button><button class="btn '+(picked?'go':'ghost')+'" id="next"'+(cur<ids.length-1?'':' disabled')+'>Câu tiếp</button><span class="grow"></span><button class="btn red" id="submit">Nộp bài</button></div>';
     view(h);
-    app.querySelectorAll('.opt').forEach(b=>{const on=+b.dataset.i===ans[id]; b.classList.toggle('sel',on); b.setAttribute('aria-pressed',String(on)); b.onclick=()=>{ans[id]=+b.dataset.i; if(cur<ids.length-1){cur++;} render();};});
+    $('.gridbox').ontoggle=e=>{gridOpen=e.target.open;};
+    // a tap only selects, so a slip is visible and can be changed; number keys select and move on
+    const pick=(i,adv)=>{ans[id]=i; if(adv&&cur<ids.length-1) cur++; render();};
+    app.querySelectorAll('.opt').forEach(b=>{const on=+b.dataset.i===ans[id]; b.classList.toggle('sel',on); b.setAttribute('aria-pressed',String(on)); b.onclick=()=>pick(+b.dataset.i,false);});
     // the page is rebuilt on every answer: put focus back on the answers so keyboard users don't restart at the top
     (app.querySelector('.opt.sel')||app.querySelector('.opt')).focus({preventScroll:true});
-    app.querySelectorAll('.grid button').forEach(b=>b.onclick=()=>{cur=+b.dataset.j;render();});
-    $('#prev').onclick=()=>{cur--;render();}; $('#next').onclick=()=>{cur++;render();};
-    $('#submit').onclick=()=>{const miss=ids.filter(x=>ans[x]===undefined).length; if(!miss||confirm('Còn '+miss+' câu chưa làm. Nộp bài luôn?')) finish();};
-    keyHandler=e=>{const n=parseInt(e.key,10); if(n>=1&&n<=Q[id].a.length){app.querySelectorAll('.opt')[n-1].click();} else if(e.key==='ArrowRight'&&cur<ids.length-1){cur++;render();} else if(e.key==='ArrowLeft'&&cur){cur--;render();}};
+    app.querySelectorAll('.grid button').forEach(b=>b.onclick=()=>go(+b.dataset.j));
+    $('#prev').onclick=()=>go(cur-1); $('#next').onclick=()=>go(cur+1);
+    $('#submit').onclick=()=>{const miss=ids.filter(x=>ans[x]===undefined).length; if(!miss||confirm('Còn '+miss+' câu chưa làm. Câu bỏ trống tính là sai trong điểm của đề, nhưng không đưa vào danh sách Câu sai. Nộp bài luôn?')) finish();};
+    keyHandler=e=>{const n=parseInt(e.key,10); if(n>=1&&n<=Q[id].a.length) pick(n-1,true); else if(e.key==='ArrowRight'&&cur<ids.length-1) go(cur+1); else if(e.key==='ArrowLeft'&&cur) go(cur-1);};
   }
   function finish(){
-    if(done) return; done=true; endRun('thi-thu');
+    if(done) return; done=true; endRun('thi-thu'); live.textContent='';
     let score=0, critFail=false;
-    ids.forEach(x=>{const ok=ans[x]===Q[x].c; if(ok) score++; else if(CRIT.has(x)) critFail=true; mark(x,ok);});
+    // a blank counts against this exam's score, but says nothing about what the learner knows: leave their progress alone
+    ids.forEach(x=>{const ok=ans[x]===Q[x].c; if(ok) score++; else if(CRIT.has(x)) critFail=true; if(ans[x]!==undefined) mark(x,ok);});
     const pass=score>=CL.pass&&!critFail;
     const d=new Date(); S.exams.push({cls:CL.code,at:d.toLocaleDateString('vi-VN')+' '+d.toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'}),score,pass,critFail}); save();
     review(ids,ans,score,pass,critFail);
@@ -541,16 +629,18 @@ function runExam(ids){
 function review(ids,ans,score,pass,critFail){
   header({tab:'thi-thu'});
   let cur=-1;
+  const blank=ids.filter(x=>ans[x]===undefined).length;
   function render(){
     let h='<h1>'+(pass?'Đạt':'Chưa đạt')+'</h1><div class="score" style="color:var('+(pass?'--green':'--red')+')">'+score+'/'+CL.n+'</div>'+
-      '<p class="muted">'+(critFail?(score>=CL.pass?'Bạn đủ điểm nhưng sai câu điểm liệt, nên bài thi vẫn không đạt.':'Bạn sai câu điểm liệt và chưa đủ '+CL.pass+' câu.'):pass?'Giữ phong độ: làm thêm vài đề nữa.':'Cần đúng ít nhất '+CL.pass+' câu.')+' Chạm vào số câu để xem lại.</p>'+
+      '<p class="muted">'+(critFail?(score>=CL.pass?'Bạn đủ điểm nhưng sai câu điểm liệt, nên bài thi vẫn không đạt.':'Bạn sai câu điểm liệt và chưa đủ '+CL.pass+' câu.'):pass?'Giữ phong độ: làm thêm vài đề nữa.':'Cần đúng ít nhất '+CL.pass+' câu.')+
+      (blank?' '+blank+' câu bỏ trống được tính sai trong điểm, nhưng không đưa vào Câu sai.':'')+' Chạm vào số câu để xem lại.</p>'+
       '<div class="grid">'+ids.map((x,i)=>'<button data-j="'+i+'" class="'+(ans[x]===Q[x].c?'ok ':'bad ')+(i===cur?'cur ':'')+(CRIT.has(x)?'crit':'')+'" aria-label="Câu '+(i+1)+(ans[x]===Q[x].c?', đúng':ans[x]===undefined?', bỏ trống':', sai')+(CRIT.has(x)?', điểm liệt':'')+'">'+(i+1)+'</button>').join('')+'</div>';
-    if(cur>=0){const id=ids[cur]; h+='<div class="count" id="rv">Câu '+(cur+1)+' trong đề</div>'+qBlock(id)+'<div id="fb"></div>';}
+    if(cur>=0){const id=ids[cur]; h+='<div class="count" id="rv">Câu '+(cur+1)+'/'+ids.length+' · số '+id+' trong bộ '+POOL.length+' câu</div>'+qBlock(id,{noNum:true})+'<div id="fb"></div>';}
     h+='<div class="bar"><button class="btn ghost" id="again">Đề mới</button><span class="grow"></span><button class="btn" id="wr">Ôn câu sai</button></div>';
     view(h);
     if(cur>=0){const id=ids[cur],q=Q[id];
       app.querySelectorAll('.opt').forEach((b,j)=>{b.disabled=true; if(j===q.c) b.classList.add('ok'); else if(j===ans[id]) b.classList.add('bad');});
-      $('#fb').innerHTML=ans[id]===undefined?'<div class="note res-bad">Bạn bỏ trống câu này. Đáp án là ý '+(q.c+1)+'.</div>':feedback(id,ans[id]);}
+      $('#fb').innerHTML=feedback(id,ans[id],false);}
     app.querySelectorAll('.grid button').forEach(b=>b.onclick=()=>{cur=+b.dataset.j;render();if($('#rv')) $('#rv').scrollIntoView(); app.querySelector('.grid button[data-j="'+cur+'"]').focus({preventScroll:true});});
     $('#again').onclick=()=>runExam(makeExam()); $('#wr').onclick=()=>nav('cau-sai');
   }
@@ -558,21 +648,22 @@ function review(ids,ans,score,pass,critFail){
 }
 
 /* ---------- notes ---------- */
-function notes(){
+function notes(arg){
   header({tab:'so-tay'});
-  // a "Câu" column lists question numbers ("145–148", "149, 153"); keep only rows (and numbers) in this class's question set
-  const ids=c=>c.split(',').flatMap(x=>{const m=x.trim().match(/^(\d+)(?:\s*[–-]\s*(\d+))?$/); if(!m) return []; const a=+m[1], z=+(m[2]||m[1]); return Array.from({length:z-a+1},(_,i)=>a+i);});
-  let h='<h1>Sổ tay con số và quy tắc</h1><p class="muted">Mọi con số dưới đây lấy từ đáp án của bộ '+POOL.length+' câu dùng cho hạng '+esc(CL.code)+'. Số câu nằm ở cột bên phải để bạn mở lại.</p>';
-  D.notes.forEach(sec=>{
+  let h='<h1>Sổ tay con số và quy tắc</h1><p class="muted">Mọi con số dưới đây lấy từ đáp án của bộ '+POOL.length+' câu dùng cho hạng '+esc(CL.code)+'. Bấm số câu để mở lại câu đó.</p>';
+  D.notes.forEach((sec,si)=>{
+    // keep only rows (and numbers) in this class's question set
     const qc=sec.head?sec.head.indexOf('Câu'):-1;
-    const rows=sec.rows&&(qc<0?sec.rows:sec.rows.map(r=>{const keep=ids(r[qc]).filter(id=>POOLSET.has(id)); return keep.length?r.map((c,i)=>i===qc?keep.join(', '):c):null;}).filter(Boolean));
+    const rows=sec.rows&&(qc<0?sec.rows:sec.rows.map(r=>{const keep=parseIds(r[qc]).filter(id=>POOLSET.has(id)); return keep.length?r.map((c,i)=>i===qc?keep:c):null;}).filter(Boolean));
     if(sec.rows&&!rows.length) return;
-    h+='<h2>'+esc(sec.title)+'</h2>';
+    h+='<h2 id="st-'+si+'" tabindex="-1">'+esc(sec.title)+'</h2>';
     if(sec.intro) h+='<p class="small muted">'+esc(sec.intro)+'</p>';
-    if(rows) h+='<div class="tbl-wrap"><table><tr>'+sec.head.map(x=>'<th>'+esc(x)+'</th>').join('')+'</tr>'+rows.map(r=>'<tr>'+r.map((c,i)=>'<td'+(i===1?' class="num"':'')+'>'+esc(c)+'</td>').join('')+'</tr>').join('')+'</table></div>';
+    if(rows) h+='<div class="tbl-wrap cards"><table class="cards"><tr>'+sec.head.map(x=>'<th>'+esc(x)+'</th>').join('')+'</tr>'+rows.map(r=>'<tr>'+r.map((c,i)=>'<td'+(i===1?' class="num"':'')+(i?' data-h="'+esc(sec.head[i])+'"':'')+'>'+(i===qc?c.map(qLink).join(', '):esc(c))+'</td>').join('')+'</tr>').join('')+'</table></div>';
     if(sec.list) h+='<ol class="prio">'+sec.list.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ol>';
   });
   view(h);
+  // #so-tay/<n> (from a question's feedback) opens at that section
+  const t=arg&&document.getElementById('st-'+arg); if(t){t.scrollIntoView(); t.focus({preventScroll:true});}
 }
 
 /* ---------- mô phỏng: 120 tình huống (Phụ lục I, Thông tư 17/2026/TT-BXD) ---------- */
@@ -640,7 +731,7 @@ function simHome(){
    '<h2>Học theo nhóm</h2><div class="groups">'+
    ['rieng','duoi','trung','tron'].map(key=>{const g=SG[key],kk=g.ids.filter(simKnown).length;
      return '<button class="grp" data-s="'+key+'">'+icon(g.icon,'')+'<span class="t"><b>'+esc(g.title)+'</b><span>'+esc(g.desc)+'</span></span><span class="meter'+(kk===g.ids.length?' done':'')+'">'+kk+'/'+g.ids.length+'</span></button>';}).join('')+
-   '<button class="grp" id="nameDrill">'+icon('info','')+'<span class="t"><b>Nhận diện tên tình huống</b><span>Đọc 2 dấu hiệu, chọn đúng tên. Luyện cho ý thứ nhất.</span></span><span class="meter">120</span></button>'+
+   '<button class="grp" id="nameDrill">'+icon('info','')+'<span class="t"><b>Nhận diện tên tình huống</b><span>Đọc 2 dấu hiệu, chọn đúng tên. Luyện cho ý thứ nhất, mỗi vòng '+NM_ROUND+' câu.</span></span><span class="meter">'+nmRight()+'/120</span></button>'+
    '<button class="grp" id="simExam">'+icon('cmd','10')+'<span class="t"><b>Kiểm tra thử 10 tình huống</b><span>Mỗi tình huống 4 ý, chấm 0,25 điểm mỗi ý, thang 10</span></span><span class="meter">'+(S.simExams||[]).length+' lần</span></button>'+
    '</div><p class="foot">Đã thuộc '+k+'/120 tình huống. Nguồn: Phụ lục I, Thông tư 17/2026/TT-BXD ngày 29/4/2026 của Bộ Xây dựng.</p>';
   view(h);
@@ -650,42 +741,67 @@ function simHome(){
 
 function simStudy(key){
   const g=SG[key]; let pos=0, onlyNew=false, list=g.ids.slice();
+  const read=new Set(); // situations whose answer card was read in this sitting
   function build(){list=g.ids.filter(id=>!onlyNew||!simKnown(id)); pos=0;}
   function render(){
     header({back:'mo-phong',hideTabs:true,title:g.title});
     let h='<label class="toggle"><input type="checkbox" id="only"'+(onlyNew?' checked':'')+'> Chỉ tình huống chưa thuộc</label>';
     if(!list.length){h+='<div class="empty"><p><b>Đã thuộc hết nhóm này.</b></p><button class="btn" id="bk">Về Mô phỏng</button></div>'; view(h); $('#only').onchange=e=>{onlyNew=e.target.checked;build();render();$('#only').focus();}; $('#bk').onclick=()=>nav('mo-phong'); keyHandler=null; return;}
-    const id=list[pos]; const qs={g:simOptions(id,'g'),t:simOptions(id,'t'),x:simOptions(id,'x')}; const got={};
+    const id=list[pos], last=pos>=list.length-1;
+    const nav2='<button class="btn ghost" id="prev"'+(pos?'':' disabled')+'>Trước</button><span class="grow"></span>';
     h+='<div class="count">'+(pos+1)+' / '+list.length+'</div><p class="qtext" tabindex="-1">'+esc(simLabel(id))+'</p>'+simVideo(id);
-    ['g','t','x'].forEach(f=>{h+='<h3 style="margin:14px 0 8px">'+FIELD[f]+'</h3>'+optsHtml(f,qs[f]);});
-    h+='<div id="fb"></div><div class="bar"><button class="btn ghost" id="prev"'+(pos?'':' disabled')+'>Trước</button><span class="grow"></span><button class="btn" id="next">'+(pos<list.length-1?'Tình huống tiếp':'Xong nhóm')+'</button></div>';
-    view(h); bindVideo();
+    // a situation never tried before is shown first, then asked: guessing blind teaches nothing
+    const learn=!(S.sim&&S.sim[id])&&!read.has(id);
+    if(learn){
+      h+='<p class="small muted" style="margin:0 0 8px">Lần đầu gặp tình huống này: đọc kỹ 3 ý, rồi bấm để tự kiểm tra.</p>'+simFull(id)+
+        '<div class="bar">'+nav2+'<button class="btn" id="quiz">Đã đọc, kiểm tra tôi</button></div>';
+      view(h); bindVideo();
+      $('#quiz').onclick=()=>{read.add(id); render();};
+    } else {
+      const qs={g:simOptions(id,'g'),t:simOptions(id,'t'),x:simOptions(id,'x')}; const got={};
+      ['g','t','x'].forEach(f=>{h+='<h3 style="margin:14px 0 8px">'+FIELD[f]+'</h3>'+optsHtml(f,qs[f]);});
+      h+='<div id="fb"></div><div class="bar">'+nav2+'<button class="btn" id="next">'+(last?'Xong nhóm':'Tình huống tiếp')+'</button></div>';
+      view(h); bindVideo();
+      app.querySelectorAll('.opts').forEach(box=>{const f=box.dataset.q; box.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+        if(got[f]!==undefined) return; got[f]=+b.dataset.i; lockOpts(box,qs[f].c,got[f]);
+        if(Object.keys(got).length===3){const ok=['g','t','x'].every(k=>got[k]===qs[k].c); simMark(id,ok);
+          $('#fb').innerHTML='<div class="note '+(ok?'res-ok':'res-bad')+'">'+(ok?'Đúng cả 3 ý.':'Chưa đúng hết. Đọc lại đáp án đầy đủ bên dưới.')+'</div>'+simFull(id);}
+      });});
+      $('#next').onclick=()=>{if(!last){pos++;render();}else nav('mo-phong');};
+    }
     $('#only').onchange=e=>{onlyNew=e.target.checked;build();render();$('#only').focus();};
-    app.querySelectorAll('.opts').forEach(box=>{const f=box.dataset.q; box.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
-      if(got[f]!==undefined) return; got[f]=+b.dataset.i; lockOpts(box,qs[f].c,got[f]);
-      if(Object.keys(got).length===3){const ok=['g','t','x'].every(k=>got[k]===qs[k].c); simMark(id,ok);
-        $('#fb').innerHTML='<div class="note '+(ok?'res-ok':'res-bad')+'">'+(ok?'Đúng cả 3 ý.':'Chưa đúng hết. Đọc lại đáp án đầy đủ bên dưới.')+'</div>'+simFull(id);}
-    });});
     $('#prev').onclick=()=>{pos--;render();};
-    $('#next').onclick=()=>{if(pos<list.length-1){pos++;render();}else nav('mo-phong');};
     focusQ();
-    keyHandler=e=>{if(e.key==='Enter'||e.key==='ArrowRight') $('#next').click(); else if(e.key==='ArrowLeft'&&pos) $('#prev').click();};
+    keyHandler=e=>{if(e.key==='Enter'||e.key==='ArrowRight') ($('#next')||$('#quiz')).click(); else if(e.key==='ArrowLeft'&&pos) $('#prev').click();};
   }
   build(); render();
 }
 
+// rounds of 20, those not yet named right first; S.nm keeps each situation's last result
+const NM_ROUND=20;
+const nmRight=()=>SIM.filter((s,i)=>S.nm&&S.nm[i+1]).length;
 function nameDrill(){
-  let order=shuffle(SIM.map((s,i)=>i+1)), pos=0, right=0;
+  S.nm=S.nm||{};
+  const all=SIM.map((s,i)=>i+1), todo=shuffle(all.filter(id=>!S.nm[id]));
+  const order=todo.concat(shuffle(all.filter(id=>S.nm[id]))).slice(0,NM_ROUND);
+  let pos=0, right=0;
   function render(){
     header({back:'mo-phong',hideTabs:true,title:'Nhận diện tên'});
+    if(pos>=order.length){
+      view('<h1>Xong vòng</h1><div class="score">'+right+'/'+order.length+'</div><p class="muted">Đã nhận đúng tên '+nmRight()+'/120 tình huống (tính theo lần gần nhất). Vòng sau ưu tiên tình huống bạn chưa nhận đúng.</p>'+
+        '<div class="bar"><button class="btn ghost" id="bk">Về Mô phỏng</button><span class="grow"></span><button class="btn" id="again">Vòng mới</button></div>');
+      $('#bk').onclick=()=>nav('mo-phong'); $('#again').onclick=nameDrill; $('#again').focus({preventScroll:true});
+      keyHandler=e=>{if(e.key==='Enter') $('#again').click();}; return;
+    }
     const id=order[pos], s=SIM[id-1], o=nameOptions(id);
-    let h='<div class="count">'+(pos+1)+' / 120, đúng '+right+'</div><p class="qtext" tabindex="-1">Tình huống nào có các dấu hiệu sau?</p>'+
+    let h='<div class="count">Câu '+(pos+1)+'/'+order.length+' · đúng '+right+'</div><p class="qtext" tabindex="-1">Tình huống nào có các dấu hiệu sau?</p>'+
       '<div class="note twin" style="margin:0 0 12px">Gián tiếp: '+esc(s.g)+'<br>Trực tiếp: '+esc(s.t)+'</div>'+optsHtml('n',o)+'<div id="fb"></div>'+
-      '<div class="bar"><span class="grow"></span><button class="btn" id="next">'+(pos<119?'Câu tiếp':'Xong')+'</button></div>';
+      '<div class="bar"><span class="grow"></span><button class="btn" id="next">'+(pos<order.length-1?'Câu tiếp':'Xem kết quả vòng')+'</button></div>';
     view(h); let done=false;
-    app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{if(done) return; done=true; const i=+b.dataset.i; lockOpts(app.querySelector('.opts'),o.c,i); if(i===o.c) right++;
-      $('#fb').innerHTML='<div class="note '+(i===o.c?'res-ok':'res-bad')+'">'+(i===o.c?'Đúng.':'Chưa đúng.')+' Đây là tình huống '+id+'.</div>';});
-    $('#next').onclick=()=>{if(pos<119){pos++;render();}else nav('mo-phong');};
+    app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{if(done) return; done=true; const i=+b.dataset.i, ok=i===o.c; lockOpts(app.querySelector('.opts'),o.c,i); if(ok) right++;
+      S.nm[id]=ok; save();
+      $('#fb').innerHTML='<div class="note '+(ok?'res-ok':'res-bad')+'">'+(ok?'Đúng.':'Chưa đúng.')+' Đây là tình huống '+id+'.</div>';});
+    $('#next').onclick=()=>{pos++; render();};
     focusQ();
     keyHandler=e=>{const n=parseInt(e.key,10); if(n>=1&&n<=4) app.querySelectorAll('.opt')[n-1].click(); else if(e.key==='Enter') $('#next').click();};
   }
