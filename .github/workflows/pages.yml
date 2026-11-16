@@ -1,0 +1,57 @@
+name: Kiểm tra và đăng GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Trích xuất lại từ PDF gốc và so khớp với dữ liệu đã commit
+        run: |
+          pip install -r requirements.txt
+          cp data/questions.json /tmp/questions.committed.json
+          python tools/extract_600.py data/source/600-cau-hoi.pdf
+          python - <<'PY'
+          import json
+          a=json.load(open('/tmp/questions.committed.json'))['questions']
+          b=json.load(open('data/questions.json'))['questions']
+          assert a==b, 'data/questions.json không khớp kết quả trích xuất từ PDF. Chạy make data rồi commit lại.'
+          print('Khớp với PDF gốc.')
+          PY
+      - name: Kiểm tra dữ liệu và dựng data/app.json
+        run: python tools/build_app_data.py
+      - name: So khớp data/app.json đã commit
+        run: git diff --exit-code -- data/app.json
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: check
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4

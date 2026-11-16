@@ -1,0 +1,517 @@
+{
+ "twins": [
+  {
+   "ids": [
+    6,
+    13
+   ],
+   "label": "Người điều khiển phương tiện / người điều khiển giao thông"
+  },
+  {
+   "ids": [
+    7,
+    14,
+    15
+   ],
+   "label": "Định nghĩa: người lái xe, dừng xe, đỗ xe"
+  },
+  {
+   "ids": [
+    8,
+    9
+   ],
+   "label": "Xe cơ giới hay xe thô sơ"
+  },
+  {
+   "ids": [
+    19,
+    28
+   ],
+   "label": "Hành vi bị nghiêm cấm"
+  },
+  {
+   "ids": [
+    32,
+    52
+   ],
+   "label": "Hành vi bị cấm khi đang lái"
+  },
+  {
+   "ids": [
+    36,
+    37
+   ],
+   "label": "Hiệu lệnh của CSGT"
+  },
+  {
+   "ids": [
+    59,
+    62
+   ],
+   "label": "Nơi không được dừng, đỗ"
+  },
+  {
+   "ids": [
+    64,
+    65
+   ],
+   "label": "Xe máy: hành vi không được phép"
+  },
+  {
+   "ids": [
+    70,
+    71,
+    72
+   ],
+   "label": "Xe máy: hành vi không được thực hiện"
+  },
+  {
+   "ids": [
+    81,
+    82
+   ],
+   "label": "Xe sau xin vượt: đủ hay không đủ điều kiện"
+  },
+  {
+   "ids": [
+    92,
+    93
+   ],
+   "label": "Vòng xuyến có báo hiệu / không có báo hiệu"
+  },
+  {
+   "ids": [
+    97,
+    98
+   ],
+   "label": "Vượt xe CSGT / vượt xe cứu thương"
+  },
+  {
+   "ids": [
+    118,
+    119,
+    120,
+    121,
+    122
+   ],
+   "label": "Độ tuổi theo hạng xe"
+  },
+  {
+   "ids": [
+    124,
+    125,
+    126,
+    127,
+    128,
+    129,
+    130,
+    131,
+    132,
+    133,
+    134,
+    135
+   ],
+   "label": "Hạng GPLX được lái loại xe nào"
+  },
+  {
+   "ids": [
+    136,
+    137
+   ],
+   "label": "Người tập lái / người lái xe"
+  },
+  {
+   "ids": [
+    144,
+    145,
+    146,
+    147,
+    148,
+    157
+   ],
+   "label": "Tốc độ trong khu đông dân cư"
+  },
+  {
+   "ids": [
+    149,
+    150,
+    151,
+    152,
+    153,
+    154,
+    155,
+    156
+   ],
+   "label": "Tốc độ ngoài khu đông dân cư"
+  },
+  {
+   "ids": [
+    158,
+    159,
+    160,
+    161,
+    162
+   ],
+   "label": "Khoảng cách an toàn theo tốc độ"
+  },
+  {
+   "ids": [
+    169,
+    170
+   ],
+   "label": "Hành vi cấm trong vận tải"
+  },
+  {
+   "ids": [
+    171,
+    172
+   ],
+   "label": "Lái liên tục / làm việc trong ngày"
+  },
+  {
+   "ids": [
+    190,
+    191
+   ],
+   "label": "Ứng xử có văn hóa"
+  },
+  {
+   "ids": [
+    212,
+    213,
+    223,
+    252
+   ],
+   "label": "Lên dốc, xuống dốc"
+  },
+  {
+   "ids": [
+    216,
+    217
+   ],
+   "label": "Rẽ phải / rẽ trái"
+  },
+  {
+   "ids": [
+    220,
+    221,
+    222
+   ],
+   "label": "Xe tự đổ, tăng số, giảm số"
+  },
+  {
+   "ids": [
+    227,
+    228,
+    229,
+    230,
+    231,
+    286,
+    287,
+    288,
+    289,
+    295,
+    300
+   ],
+   "label": "Đèn báo trên bảng đồng hồ"
+  },
+  {
+   "ids": [
+    248,
+    249
+   ],
+   "label": "Nhập vào / ra khỏi cao tốc"
+  },
+  {
+   "ids": [
+    273,
+    274
+   ],
+   "label": "Ống xả"
+  },
+  {
+   "ids": [
+    280,
+    283,
+    284
+   ],
+   "label": "Hệ thống truyền lực và bộ phận xe"
+  },
+  {
+   "ids": [
+    291,
+    292,
+    294
+   ],
+   "label": "Ắc quy"
+  },
+  {
+   "ids": [
+    296,
+    297,
+    298
+   ],
+   "label": "Thiết bị trang bị trên xe"
+  },
+  {
+   "ids": [
+    302,
+    310,
+    311
+   ],
+   "label": "Biển cấm xe tải"
+  },
+  {
+   "ids": [
+    307,
+    349,
+    350
+   ],
+   "label": "Biển cho xe mô tô đi vào"
+  },
+  {
+   "ids": [
+    308,
+    309,
+    312
+   ],
+   "label": "Biển cho phép vượt"
+  },
+  {
+   "ids": [
+    313,
+    323
+   ],
+   "label": "Biển cấm quay đầu"
+  },
+  {
+   "ids": [
+    314,
+    316
+   ],
+   "label": "Biển cấm rẽ trái"
+  },
+  {
+   "ids": [
+    327,
+    328
+   ],
+   "label": "Cấm đỗ ngày chẵn / ngày lẻ"
+  },
+  {
+   "ids": [
+    332,
+    333
+   ],
+   "label": "Biển cho xe xích lô đi vào"
+  },
+  {
+   "ids": [
+    371,
+    374
+   ],
+   "label": "Giao nhau với đường sắt"
+  },
+  {
+   "ids": [
+    382,
+    383,
+    386,
+    388
+   ],
+   "label": "Giao nhau với đường không ưu tiên"
+  },
+  {
+   "ids": [
+    389,
+    396,
+    434
+   ],
+   "label": "Đường hai chiều"
+  },
+  {
+   "ids": [
+    392,
+    393,
+    394
+   ],
+   "label": "Đường đôi"
+  },
+  {
+   "ids": [
+    395,
+    397
+   ],
+   "label": "Giao nhau với đường hai chiều"
+  },
+  {
+   "ids": [
+    404,
+    405
+   ],
+   "label": "Kè, vực sâu"
+  },
+  {
+   "ids": [
+    415,
+    416
+   ],
+   "label": "Dốc nguy hiểm"
+  },
+  {
+   "ids": [
+    426,
+    427
+   ],
+   "label": "Làn đường và tốc độ"
+  },
+  {
+   "ids": [
+    428,
+    429
+   ],
+   "label": "Đường dành cho ô tô"
+  },
+  {
+   "ids": [
+    435,
+    437
+   ],
+   "label": "Hết tốc độ tối đa"
+  },
+  {
+   "ids": [
+    447,
+    448
+   ],
+   "label": "Làn dành cho ô tô khách"
+  },
+  {
+   "ids": [
+    450,
+    451
+   ],
+   "label": "Cầu vượt cho người đi bộ"
+  },
+  {
+   "ids": [
+    462,
+    463
+   ],
+   "label": "Xe tải, xe khách có được vào không"
+  },
+  {
+   "ids": [
+    470,
+    471,
+    472
+   ],
+   "label": "Cao tốc: hướng tránh"
+  },
+  {
+   "ids": [
+    480,
+    481,
+    483
+   ],
+   "label": "Vạch kẻ đường"
+  }
+ ],
+ "critThemes": [
+  {
+   "title": "Rượu bia, ma túy và hành vi bị cấm",
+   "ids": [
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    30,
+    32,
+    52
+   ]
+  },
+  {
+   "title": "Người đi bộ, quan sát và giảm tốc",
+   "ids": [
+    34,
+    35,
+    167,
+    163,
+    165,
+    198
+   ]
+  },
+  {
+   "title": "Vượt xe, quay đầu, lùi xe",
+   "ids": [
+    47,
+    48,
+    53,
+    55,
+    58,
+    85,
+    86
+   ]
+  },
+  {
+   "title": "Xe mô tô, xe gắn máy",
+   "ids": [
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    70,
+    71,
+    72,
+    73,
+    74
+   ]
+  },
+  {
+   "title": "Nhường đường, xe ưu tiên, đường sắt, cao tốc",
+   "ids": [
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    93,
+    97,
+    98,
+    102,
+    117
+   ]
+  },
+  {
+   "title": "Tai nạn giao thông",
+   "ids": [
+    197
+   ]
+  },
+  {
+   "title": "Kỹ thuật lái an toàn",
+   "ids": [
+    206,
+    215,
+    226,
+    234,
+    245,
+    246,
+    252,
+    253,
+    254,
+    255,
+    260
+   ]
+  }
+ ]
+}

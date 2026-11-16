@@ -1,0 +1,846 @@
+{
+ "source": "Phụ lục I, Thông tư 17/2026/TT-BXD ngày 29/4/2026 của Bộ Xây dựng (https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/4/17-bxd-kem.pdf)",
+ "scoring": "10 tình huống, mỗi tình huống tối đa 1 điểm: tên 0,25; dấu hiệu gián tiếp 0,25; dấu hiệu trực tiếp 0,25; phương án xử lý 0,25",
+ "situations": [
+  {
+   "id": 1,
+   "n": "Người đi bộ sau xe tải",
+   "g": "Xe tải lớn phía trước che khuất hoàn toàn tầm nhìn bên phải",
+   "t": "Người đi bộ bất ngờ bước ra từ sau xe tải",
+   "x": "Chủ động rà phanh trước khi vượt qua điểm khuất, hạ tốc độ sâu, giữ khoảng cách an toàn và ưu tiên nhường đường"
+  },
+  {
+   "id": 2,
+   "n": "Người đi bộ qua dải phân cách",
+   "g": "Khu vực có dải phân cách, thường có người băng qua không đúng nơi",
+   "t": "Người đi bộ bước xuống phần đường xe chạy",
+   "x": "Giảm tốc từ sớm, quan sát hướng di chuyển của người đi bộ và dừng lại nếu họ tiếp tục sang đường"
+  },
+  {
+   "id": 3,
+   "n": "Xe buýt dừng phía trước",
+   "g": "Xe buýt đang dừng tại điểm đón trả khách",
+   "t": "Xe phía trước phanh lại hoặc người có thể bước ra từ đầu xe buýt",
+   "x": "Giữ khoảng cách rộng hơn bình thường, giảm tốc và quan sát hai bên đầu xe buýt để phòng người đi bộ"
+  },
+  {
+   "id": 4,
+   "n": "Xe con từ đường nhánh đi ra",
+   "g": "Xuất hiện giao lộ hoặc đường nhánh nhỏ bên phải",
+   "t": "Đầu xe con nhô ra, có xu hướng nhập vào đường chính",
+   "x": "Nhả ga sớm, rà phanh nhẹ và sẵn sàng dừng nếu xe kia tiếp tục tiến ra"
+  },
+  {
+   "id": 5,
+   "n": "Xe máy chuyển làn",
+   "g": "Xe máy đi sát vạch phân làn, không giữ hướng ổn định",
+   "t": "Xe máy bất ngờ đánh lái sang làn của bạn",
+   "x": "Chủ động giảm tốc, giữ khoảng cách lệch sang phía an toàn để tránh va chạm"
+  },
+  {
+   "id": 6,
+   "n": "Xe buýt vượt",
+   "g": "Xe buýt phía sau tăng tốc, áp sát",
+   "t": "Xe buýt lấn sang làn của bạn để vượt",
+   "x": "Giảm tốc nhẹ để tạo khoảng trống, giữ hướng lái ổn định và quan sát gương"
+  },
+  {
+   "id": 7,
+   "n": "Người đi bộ phía trước",
+   "g": "Khu vực đông dân cư, gần vạch qua đường",
+   "t": "Xe phía trước phanh lại hoặc có người chuẩn bị sang đường",
+   "x": "Hạ tốc độ, giữ khoảng cách và chuẩn bị dừng hẳn nếu người đi bộ bước ra"
+  },
+  {
+   "id": 8,
+   "n": "Xe đạp từ đường nhánh",
+   "g": "Có lối nhỏ hoặc ngõ khuất bên đường",
+   "t": "Xe đạp bất ngờ lao ra từ bên hông",
+   "x": "Quan sát hai bên liên tục, giảm tốc sâu và giữ khoảng cách phòng va chạm ngang"
+  },
+  {
+   "id": 9,
+   "n": "Xe con vượt phía trước",
+   "g": "Xe phía trước chạy không ổn định, có xu hướng tăng tốc",
+   "t": "Xe đó lấn sang làn đối diện để vượt",
+   "x": "Không tăng tốc theo, giảm ga và giữ khoảng cách để tránh tình huống dồn xe"
+  },
+  {
+   "id": 10,
+   "n": "Xe con bên trái đi ra",
+   "g": "Có giao cắt bên trái nhưng tầm nhìn hạn chế",
+   "t": "Xe con tiến ra và có thể cắt ngang đầu xe bạn",
+   "x": "Giảm tốc chủ động, giữ chân phanh và sẵn sàng dừng nếu xe kia không nhường"
+  },
+  {
+   "id": 11,
+   "n": "Xe bê tông lấn làn",
+   "g": "Xe tải lớn chiếm nhiều diện tích mặt đường",
+   "t": "Xe bê tông lấn sang phần đường của bạn",
+   "x": "Giảm tốc và ép xe về phía an toàn (bên phải), tránh đi song song"
+  },
+  {
+   "id": 12,
+   "n": "Xe con rẽ trái",
+   "g": "Xe phía trước bật xi nhan trái",
+   "t": "Xe bắt đầu đánh lái qua hướng trái",
+   "x": "Giữ khoảng cách lớn hơn, giảm tốc để tránh bị cắt đầu"
+  },
+  {
+   "id": 13,
+   "n": "Xe đạp sang đường",
+   "g": "Có người đi xe đạp gần mép đường",
+   "t": "Xe đạp bắt đầu đi xuống lòng đường",
+   "x": "Giảm tốc sớm, không bấm còi gấp, giữ khoảng cách để họ sang hết"
+  },
+  {
+   "id": 14,
+   "n": "Đường hẹp có xe đối diện",
+   "g": "Đường hẹp, không đủ cho 2 xe tránh nhau dễ dàng",
+   "t": "Xe đối diện tiến vào đoạn hẹp cùng lúc",
+   "x": "Giảm tốc về mức an toàn, chủ động nhường nếu cần để tránh xung đột"
+  },
+  {
+   "id": 15,
+   "n": "Xe tải phanh gấp",
+   "g": "Xe tải phía trước ở khoảng cách gần",
+   "t": "Đèn phanh bật sáng đột ngột",
+   "x": "Đạp phanh dứt khoát nhưng êm, giữ khoảng cách để tránh va chạm liên hoàn"
+  },
+  {
+   "id": 16,
+   "n": "Xe từ nhánh trái đi ra",
+   "g": "Có giao lộ bên trái, tầm nhìn bị che",
+   "t": "Xe từ bên trái tiến gần ra đường chính",
+   "x": "Giảm tốc, quan sát sâu vào giao lộ và sẵn sàng dừng"
+  },
+  {
+   "id": 17,
+   "n": "Xe buýt vượt sai",
+   "g": "Xe buýt phía sau tăng tốc bất thường",
+   "t": "Xe buýt lấn làn vượt trong điều kiện không an toàn",
+   "x": "Giảm tốc để tránh đối đầu, giữ hướng xe ổn định"
+  },
+  {
+   "id": 18,
+   "n": "Xe mở cửa ven đường",
+   "g": "Có xe đỗ sát lề phải",
+   "t": "Cửa xe bất ngờ mở ra",
+   "x": "Giữ khoảng cách rộng với xe đỗ, giảm tốc khi đi sát"
+  },
+  {
+   "id": 19,
+   "n": "Xe mở cửa phía ngược chiều",
+   "g": "Xe đỗ bên kia đường, có dấu hiệu hoạt động",
+   "t": "Ánh đèn hoặc chuyển động bất thường từ xe đó",
+   "x": "Quan sát cả hai phía, giảm tốc đề phòng cửa mở hoặc người băng qua"
+  },
+  {
+   "id": 20,
+   "n": "Xe mở cửa trong khu đông",
+   "g": "Nhiều xe đỗ hai bên đường",
+   "t": "Một xe mở cửa đột ngột",
+   "x": "Đi chậm đều, giữ khoảng cách hai bên và sẵn sàng phanh"
+  },
+  {
+   "id": 21,
+   "n": "Xe phía trước lùi",
+   "g": "Xe phía trước dừng lâu bất thường",
+   "t": "Đèn lùi bật và xe bắt đầu di chuyển ngược",
+   "x": "Dừng lại ở khoảng cách an toàn, không áp sát"
+  },
+  {
+   "id": 22,
+   "n": "Xe 16 chỗ từ nhánh",
+   "g": "Có xe lớn chờ tại giao lộ",
+   "t": "Xe bắt đầu tiến ra chiếm làn",
+   "x": "Giảm tốc sớm vì xe lớn khó quan sát, sẵn sàng nhường"
+  },
+  {
+   "id": 23,
+   "n": "Xe tải dừng che khuất",
+   "g": "Xe tải dừng giữa đường gây khuất tầm nhìn",
+   "t": "Xe khác lấn làn để tránh",
+   "x": "Không vượt ngay, giảm tốc và quan sát trước khi di chuyển tiếp"
+  },
+  {
+   "id": 24,
+   "n": "Xe môi trường dừng",
+   "g": "Xe chuyên dụng hoạt động trên đường",
+   "t": "Xe phía sau phải chuyển làn",
+   "x": "Giảm tốc và giữ khoảng cách để tránh va chạm bất ngờ"
+  },
+  {
+   "id": 25,
+   "n": "Xe buýt xin đường",
+   "g": "Xe buýt bật tín hiệu xin chuyển làn",
+   "t": "Xe bắt đầu di chuyển sang làn bạn",
+   "x": "Chủ động giảm tốc để tạo khoảng trống an toàn"
+  },
+  {
+   "id": 26,
+   "n": "Đường đang thi công",
+   "g": "Có biển báo công trường từ xa",
+   "t": "Xuất hiện vật cản hoặc công nhân làm việc",
+   "x": "Giảm tốc sâu, đi đúng làn tạm và chú ý người điều tiết"
+  },
+  {
+   "id": 27,
+   "n": "Đèn đỏ chuyển xanh",
+   "g": "Đang dừng tại giao lộ",
+   "t": "Đèn tín hiệu chuyển sang xanh",
+   "x": "Không đi ngay, quan sát hai bên rồi mới tăng tốc theo đúng quy định"
+  },
+  {
+   "id": 28,
+   "n": "Đường trơn trượt",
+   "g": "Có biển cảnh báo, mặt đường bóng",
+   "t": "Xe trước có dấu hiệu trượt hoặc phanh",
+   "x": "Giảm ga từ sớm, tránh phanh gấp và giữ khoảng cách dài hơn"
+  },
+  {
+   "id": 29,
+   "n": "Đường nhiều ổ gà",
+   "g": "Mặt đường xấu, lồi lõm",
+   "t": "Xe phía trước giảm tốc hoặc né",
+   "x": "Hạ tốc độ và đi thẳng ổn định, tránh đánh lái gấp"
+  },
+  {
+   "id": 30,
+   "n": "Bò đứng giữa đường",
+   "g": "Khu vực nông thôn ít rào chắn",
+   "t": "Động vật đứng trên phần đường",
+   "x": "Giảm tốc sâu, bấm còi nhẹ nếu cần để cảnh báo"
+  },
+  {
+   "id": 31,
+   "n": "Bò di chuyển qua đường",
+   "g": "Có đàn vật nuôi gần đường",
+   "t": "Con vật bắt đầu băng qua",
+   "x": "Dừng hoặc đi rất chậm, không tăng tốc ép qua"
+  },
+  {
+   "id": 32,
+   "n": "Trẻ em sang đường",
+   "g": "Gần trường học, khu dân cư",
+   "t": "Trẻ bước xuống đường không quan sát",
+   "x": "Giảm tốc sớm, luôn sẵn sàng dừng và nhường đường"
+  },
+  {
+   "id": 33,
+   "n": "Trẻ em chơi gần đường",
+   "g": "Có trẻ chơi ở lề đường",
+   "t": "Trẻ chạy bất ngờ ra",
+   "x": "Đi rất chậm, giữ chân phanh để xử lý kịp"
+  },
+  {
+   "id": 34,
+   "n": "Xe khách vượt",
+   "g": "Xe khách phía sau tăng tốc",
+   "t": "Xe khách lấn làn để vượt",
+   "x": "Giảm tốc nhẹ, giữ ổn định để họ vượt an toàn"
+  },
+  {
+   "id": 35,
+   "n": "Xe khách tránh xe khác",
+   "g": "Xe khách phía trước di chuyển bất thường",
+   "t": "Xe khách đánh lái sang làn khác",
+   "x": "Giảm tốc và tăng khoảng cách để tránh bị ép"
+  },
+  {
+   "id": 36,
+   "n": "Xe máy từ ngõ đi ra",
+   "g": "Có nhiều ngõ nhỏ",
+   "t": "Xe máy lao ra nhanh",
+   "x": "Quan sát hai bên liên tục và giảm tốc từ trước"
+  },
+  {
+   "id": 37,
+   "n": "Xe đạp từ ngõ đi ra",
+   "g": "Khu dân cư đông",
+   "t": "Xe đạp đi ra thiếu quan sát",
+   "x": "Giảm tốc sâu vì xe đạp khó kiểm soát"
+  },
+  {
+   "id": 38,
+   "n": "Xe máy lách qua xe lớn",
+   "g": "Có xe tải che khuất",
+   "t": "Xe máy bất ngờ chui ra",
+   "x": "Không đi sát xe lớn, giữ khoảng cách và giảm tốc"
+  },
+  {
+   "id": 39,
+   "n": "Xe tải sang đường",
+   "g": "Giao lộ rộng",
+   "t": "Xe tải băng ngang",
+   "x": "Giảm tốc và ưu tiên nhường vì xe lớn khó dừng"
+  },
+  {
+   "id": 40,
+   "n": "Xe máy xuất hiện sau xe tải",
+   "g": "Xe tải che khuất tầm nhìn",
+   "t": "Xe máy bất ngờ đi ra phía trước",
+   "x": "Rà phanh trước khi vượt xe tải, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 41,
+   "n": "Xe con rẽ trái nhanh",
+   "g": "Giao lộ phía trước, xe có xu hướng tăng tốc",
+   "t": "Xe con đánh lái rẽ trái với tốc độ cao",
+   "x": "Giảm tốc, giữ khoảng cách an toàn và quan sát hướng di chuyển của xe"
+  },
+  {
+   "id": 42,
+   "n": "Xe máy rẽ trái",
+   "g": "Có phương tiện phía trước bật tín hiệu rẽ",
+   "t": "Xe máy bắt đầu chuyển hướng sang trái",
+   "x": "Giảm tốc, giữ khoảng cách an toàn và theo dõi hướng rẽ"
+  },
+  {
+   "id": 43,
+   "n": "Xe tải tránh thi công",
+   "g": "Khu vực có biển báo công trường",
+   "t": "Xe tải chuyển hướng tránh vật cản",
+   "x": "Giảm tốc, giữ khoảng cách an toàn và quan sát"
+  },
+  {
+   "id": 44,
+   "n": "Xe con vượt ẩu",
+   "g": "Đường hẹp, xe phía trước tăng tốc",
+   "t": "Xe con lấn sang làn ngược chiều để vượt",
+   "x": "Giảm tốc, giữ khoảng cách an toàn và giữ đúng phần đường"
+  },
+  {
+   "id": 45,
+   "n": "Xe tải vượt",
+   "g": "Xe tải phía sau có dấu hiệu tăng tốc",
+   "t": "Xe tải lấn làn để vượt",
+   "x": "Giảm tốc, giữ khoảng cách an toàn và quan sát"
+  },
+  {
+   "id": 46,
+   "n": "Xe con xin vượt",
+   "g": "Xe phía sau bật tín hiệu xin vượt",
+   "t": "Xe tiến sát phía sau",
+   "x": "Giảm tốc, giữ khoảng cách an toàn và quan sát gương"
+  },
+  {
+   "id": 47,
+   "n": "Xe cứu thương",
+   "g": "Nghe thấy tín hiệu còi ưu tiên",
+   "t": "Xe cứu thương tiến đến gần",
+   "x": "Giảm tốc, bật tín hiệu cảnh báo và nhường đường theo quy định"
+  },
+  {
+   "id": 48,
+   "n": "Xe chuyển làn",
+   "g": "Xe phía trước đi sát vạch kẻ đường",
+   "t": "Xe chuyển sang làn của bạn",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 49,
+   "n": "Xe tải chuyển làn",
+   "g": "Xe lớn di chuyển gần làn",
+   "t": "Xe lấn sang làn của bạn",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 50,
+   "n": "Xe tải cắt đầu",
+   "g": "Xe lớn ở phía trước bên cạnh",
+   "t": "Xe đột ngột chuyển hướng cắt ngang đầu xe",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 51,
+   "n": "Xe đi ngược chiều",
+   "g": "Đường hai chiều không có dải phân cách",
+   "t": "Xe đối diện lấn sang phần đường của bạn",
+   "x": "Giảm tốc, giữ khoảng cách an toàn và đi sát về bên phải"
+  },
+  {
+   "id": 52,
+   "n": "Xe lùi trên cao tốc",
+   "g": "Xe phía trước di chuyển bất thường",
+   "t": "Xe bật đèn lùi và di chuyển ngược",
+   "x": "Giảm tốc, giữ khoảng cách an toàn và chỉ dừng xe khi cần thiết"
+  },
+  {
+   "id": 53,
+   "n": "Xe ngược chiều bị che khuất",
+   "g": "Có xe lớn che khuất tầm nhìn phía trước",
+   "t": "Xe đối diện bất ngờ xuất hiện",
+   "x": "Giảm tốc, giữ khoảng cách an toàn và quan sát"
+  },
+  {
+   "id": 54,
+   "n": "Xe tải nhập làn",
+   "g": "Có làn đường nhập",
+   "t": "Xe tải di chuyển vào làn chính",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 55,
+   "n": "Xe tải tránh vật cản",
+   "g": "Có vật cản trên đường",
+   "t": "Xe tải đánh lái tránh",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 56,
+   "n": "Xe con xin đường",
+   "g": "Xe phía sau áp sát",
+   "t": "Có tín hiệu xin đường",
+   "x": "Giảm tốc, giữ khoảng cách an toàn và quan sát"
+  },
+  {
+   "id": 57,
+   "n": "Đường đang thi công",
+   "g": "Có biển báo công trường",
+   "t": "Xuất hiện rào chắn hoặc vật cản",
+   "x": "Giảm tốc, giữ khoảng cách an toàn và đi đúng hướng dẫn"
+  },
+  {
+   "id": 58,
+   "n": "Đường thi công tiếp",
+   "g": "Công trường kéo dài",
+   "t": "Xe phía trước di chuyển chậm",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 59,
+   "n": "Xe tải chuyển làn",
+   "g": "Xe lớn phía trước",
+   "t": "Xe chuyển sang làn khác",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 60,
+   "n": "Xe 16 chỗ vào làn",
+   "g": "Xe lớn ở đường bên",
+   "t": "Xe chuyển vào làn của bạn",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 61,
+   "n": "Xe con nhập làn",
+   "g": "Đường nhập làn",
+   "t": "Xe đi vào làn chính",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 62,
+   "n": "Xe đối diện nháy đèn",
+   "g": "Xe đối diện có tín hiệu đèn",
+   "t": "Nháy đèn liên tục",
+   "x": "Giảm tốc, giữ khoảng cách an toàn và quan sát"
+  },
+  {
+   "id": 63,
+   "n": "Bò qua đường",
+   "g": "Khu vực nông thôn",
+   "t": "Bò di chuyển qua đường",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 64,
+   "n": "Đường đèo núi",
+   "g": "Đường quanh co, dốc",
+   "t": "Xe đối diện xuất hiện",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 65,
+   "n": "Đường cong ban đêm",
+   "g": "Tầm nhìn hạn chế",
+   "t": "Không quan sát rõ phía trước",
+   "x": "Giảm tốc, giữ khoảng cách an toàn và bật tín hiệu cảnh báo"
+  },
+  {
+   "id": 66,
+   "n": "Xe tải làm rơi vật",
+   "g": "Xe tải chở hàng",
+   "t": "Vật rơi xuống đường",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 67,
+   "n": "Dê đứng ven đường",
+   "g": "Khu vực nông thôn",
+   "t": "Dê có thể lao ra",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 68,
+   "n": "Sương mù dày",
+   "g": "Tầm nhìn bị hạn chế",
+   "t": "Quan sát khó khăn",
+   "x": "Giảm tốc, giữ khoảng cách an toàn và bật tín hiệu cảnh báo"
+  },
+  {
+   "id": 69,
+   "n": "Xe chạy nhanh trong đường cong",
+   "g": "Đường cong nguy hiểm",
+   "t": "Xe đối diện lao nhanh",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 70,
+   "n": "Đường cong ban ngày",
+   "g": "Có biển cảnh báo",
+   "t": "Tầm nhìn bị khuất",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 71,
+   "n": "Đường cong liên tiếp",
+   "g": "Đường uốn lượn",
+   "t": "Khó quan sát xa",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 72,
+   "n": "Sương mù tiếp",
+   "g": "Tầm nhìn giảm",
+   "t": "Không nhìn rõ",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 73,
+   "n": "Đường cong khuất",
+   "g": "Có vật che tầm nhìn",
+   "t": "Không thấy phía trước",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 74,
+   "n": "Xe đạp sang đường",
+   "g": "Có xe đạp gần đường",
+   "t": "Xe đạp đi xuống đường",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 75,
+   "n": "Trẻ em sang đường",
+   "g": "Khu dân cư",
+   "t": "Trẻ bước ra",
+   "x": "Giảm tốc, giữ khoảng cách an toàn và nhường đường cho người đi bộ"
+  },
+  {
+   "id": 76,
+   "n": "Trẻ chạy ra đường",
+   "g": "Có trẻ gần đường",
+   "t": "Trẻ chạy ra bất ngờ",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 77,
+   "n": "Xe con sang đường",
+   "g": "Giao cắt",
+   "t": "Xe băng ngang",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 78,
+   "n": "Xe máy vượt đèn",
+   "g": "Giao lộ",
+   "t": "Xe vượt đèn tín hiệu",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 79,
+   "n": "Xe máy từ nhánh ra",
+   "g": "Có ngõ nhỏ",
+   "t": "Xe đi ra",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 80,
+   "n": "Đường ổ gà",
+   "g": "Mặt đường xấu",
+   "t": "Xe phía trước né tránh",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 81,
+   "n": "Xe phía trước giảm tốc bất thường",
+   "g": "Xe chạy không ổn định, có xu hướng chậm lại",
+   "t": "Đèn phanh bật liên tục",
+   "x": "Giảm tốc, giữ khoảng cách an toàn và quan sát tình huống phía trước"
+  },
+  {
+   "id": 82,
+   "n": "Xe phía trước dừng đột ngột",
+   "g": "Khoảng cách giữa các xe bị thu hẹp",
+   "t": "Xe phía trước dừng lại",
+   "x": "Giảm tốc kịp thời, giữ khoảng cách an toàn để tránh va chạm"
+  },
+  {
+   "id": 83,
+   "n": "Xe phía trước bật tín hiệu rẽ phải",
+   "g": "Xe đi sát lề phải",
+   "t": "Xe bật xi nhan phải và giảm tốc",
+   "x": "Giảm tốc, giữ khoảng cách an toàn và quan sát hướng rẽ"
+  },
+  {
+   "id": 84,
+   "n": "Xe phía trước bật tín hiệu rẽ trái",
+   "g": "Xe có xu hướng dịch sang trái",
+   "t": "Xe bật xi nhan trái",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 85,
+   "n": "Xe phía trước quay đầu",
+   "g": "Xe giảm tốc gần điểm quay đầu",
+   "t": "Xe đánh lái quay đầu",
+   "x": "Giảm tốc, giữ khoảng cách an toàn và quan sát"
+  },
+  {
+   "id": 86,
+   "n": "Xe taxi dừng đón khách",
+   "g": "Xe taxi chạy chậm gần lề đường",
+   "t": "Xe dừng lại đột ngột",
+   "x": "Giảm tốc, giữ khoảng cách an toàn và quan sát người lên xuống"
+  },
+  {
+   "id": 87,
+   "n": "Xe công nghệ dừng đột ngột",
+   "g": "Xe di chuyển không ổn định",
+   "t": "Xe dừng để đón trả khách",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 88,
+   "n": "Xe phía trước chuyển hướng liên tục",
+   "g": "Xe không giữ làn ổn định",
+   "t": "Xe đánh lái nhiều lần",
+   "x": "Giảm tốc, giữ khoảng cách an toàn và quan sát"
+  },
+  {
+   "id": 89,
+   "n": "Xe phía trước có dấu hiệu hỏng",
+   "g": "Xe chạy chậm bất thường",
+   "t": "Xe bật tín hiệu cảnh báo",
+   "x": "Giảm tốc, giữ khoảng cách an toàn và quan sát"
+  },
+  {
+   "id": 90,
+   "n": "Xe phía trước chở hàng cồng kềnh",
+   "g": "Hàng hóa vượt quá kích thước",
+   "t": "Hàng rung lắc",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 91,
+   "n": "Xe tải đổ dốc",
+   "g": "Đường dốc dài",
+   "t": "Xe tăng tốc nhanh",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 92,
+   "n": "Xe container quay đầu",
+   "g": "Xe lớn ở khu vực quay đầu",
+   "t": "Xe bắt đầu xoay đầu xe",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 93,
+   "n": "Xe phía trước phanh liên tục",
+   "g": "Xe chạy không đều",
+   "t": "Đèn phanh bật nhiều lần",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 94,
+   "n": "Xe phía trước tránh ổ gà",
+   "g": "Đường xấu",
+   "t": "Xe đánh lái tránh",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 95,
+   "n": "Xe phía trước bị che khuất",
+   "g": "Có xe lớn chắn tầm nhìn",
+   "t": "Không thấy rõ phía trước",
+   "x": "Giảm tốc, giữ khoảng cách an toàn và quan sát"
+  },
+  {
+   "id": 96,
+   "n": "Xe phía trước đi chậm",
+   "g": "Tốc độ thấp bất thường",
+   "t": "Xe giữ tốc độ thấp",
+   "x": "Giảm tốc phù hợp, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 97,
+   "n": "Xe phía trước dừng tại vạch",
+   "g": "Giao lộ có đèn tín hiệu",
+   "t": "Xe dừng đúng vạch",
+   "x": "Giảm tốc và dừng xe theo đúng quy định"
+  },
+  {
+   "id": 98,
+   "n": "Xe phía trước vượt đèn vàng",
+   "g": "Gần đèn tín hiệu",
+   "t": "Xe tăng tốc vượt",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 99,
+   "n": "Xe phía trước chuyển làn không tín hiệu",
+   "g": "Xe đi sát vạch",
+   "t": "Xe chuyển làn đột ngột",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 100,
+   "n": "Xe phía trước lấn làn",
+   "g": "Xe không giữ đúng phần đường",
+   "t": "Xe lấn sang làn khác",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 101,
+   "n": "Xe phía trước chở vật liệu rơi",
+   "g": "Xe chở hàng rời",
+   "t": "Vật liệu rơi xuống",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 102,
+   "n": "Xe phía trước quay đầu sai",
+   "g": "Không đúng nơi quay đầu",
+   "t": "Xe quay đầu đột ngột",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 103,
+   "n": "Xe phía trước dừng giữa đường",
+   "g": "Không vào lề",
+   "t": "Xe dừng đột ngột",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 104,
+   "n": "Xe phía trước có người xuống xe",
+   "g": "Xe dừng",
+   "t": "Cửa mở, người bước xuống",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 105,
+   "n": "Xe phía trước có trẻ em",
+   "g": "Có ghế trẻ em hoặc hành khách",
+   "t": "Trẻ có thể xuống xe",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 106,
+   "n": "Xe phía trước rẽ vào ngõ",
+   "g": "Có ngõ nhỏ",
+   "t": "Xe giảm tốc và rẽ",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 107,
+   "n": "Xe phía trước tránh người đi bộ",
+   "g": "Có người gần đường",
+   "t": "Xe phanh",
+   "x": "Giảm tốc, giữ khoảng cách an toàn và nhường đường cho người đi bộ"
+  },
+  {
+   "id": 108,
+   "n": "Xe phía trước tránh xe khác",
+   "g": "Giao thông đông",
+   "t": "Xe đánh lái",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 109,
+   "n": "Xe phía trước bị ùn tắc",
+   "g": "Xe đông dần",
+   "t": "Xe dừng hàng loạt",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 110,
+   "n": "Xe phía trước đi vào đường hẹp",
+   "g": "Đường nhỏ lại",
+   "t": "Xe giảm tốc",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 111,
+   "n": "Xe phía trước qua cầu hẹp",
+   "g": "Cầu nhỏ",
+   "t": "Xe đi chậm",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 112,
+   "n": "Xe phía trước qua đường trơn",
+   "g": "Mặt đường ướt",
+   "t": "Xe giảm tốc",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 113,
+   "n": "Xe phía trước vào khúc cua",
+   "g": "Đường cong",
+   "t": "Xe đánh lái",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 114,
+   "n": "Xe phía trước bị che khuất bởi sương",
+   "g": "Tầm nhìn hạn chế",
+   "t": "Không thấy rõ",
+   "x": "Giảm tốc, giữ khoảng cách an toàn và bật tín hiệu cảnh báo"
+  },
+  {
+   "id": 115,
+   "n": "Xe phía trước đi ban đêm",
+   "g": "Ánh sáng yếu",
+   "t": "Tầm nhìn kém",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 116,
+   "n": "Xe phía trước bật đèn pha",
+   "g": "Bị chói mắt",
+   "t": "Ánh sáng mạnh",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 117,
+   "n": "Xe phía trước đi chậm bất thường",
+   "g": "Không rõ nguyên nhân",
+   "t": "Xe giảm tốc",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 118,
+   "n": "Xe phía trước tránh chướng ngại vật",
+   "g": "Có vật trên đường",
+   "t": "Xe đánh lái",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 119,
+   "n": "Xe phía trước vào khu dân cư",
+   "g": "Có biển báo",
+   "t": "Xe giảm tốc",
+   "x": "Giảm tốc, giữ khoảng cách an toàn"
+  },
+  {
+   "id": 120,
+   "n": "Xe phía trước qua trường học",
+   "g": "Có biển cảnh báo",
+   "t": "Có học sinh",
+   "x": "Giảm tốc, giữ khoảng cách an toàn và nhường đường cho người đi bộ"
+  }
+ ]
+}

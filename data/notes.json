@@ -1,0 +1,430 @@
+[
+ {
+  "title": "Tốc độ tối đa trong khu đông dân cư",
+  "intro": "Trừ đường cao tốc. Trong khu đông dân cư, mọi loại ô tô và mô tô có chung mức tốc độ.",
+  "head": [
+   "Loại xe",
+   "Đường đôi hoặc một chiều từ 2 làn",
+   "Đường hai chiều hoặc một chiều 1 làn",
+   "Câu"
+  ],
+  "rows": [
+   [
+    "Ô tô (mọi loại), xe mô tô",
+    "60 km/h",
+    "50 km/h",
+    "145–148"
+   ],
+   [
+    "Xe gắn máy, xe máy chuyên dùng",
+    "40 km/h",
+    "40 km/h",
+    "144"
+   ],
+   [
+    "Xe chở hàng bốn bánh có gắn động cơ",
+    "50 km/h",
+    "50 km/h",
+    "157"
+   ]
+  ],
+  "checks": [
+   [
+    145,
+    "60 km/h"
+   ],
+   [
+    146,
+    "50 km/h"
+   ],
+   [
+    147,
+    "Ô tô tải"
+   ],
+   [
+    148,
+    "Ô tô tải"
+   ],
+   [
+    144,
+    "40 km/h"
+   ],
+   [
+    157,
+    "Xe chở hàng bốn bánh"
+   ]
+  ]
+ },
+ {
+  "title": "Tốc độ tối đa ngoài khu đông dân cư",
+  "intro": "Trừ đường cao tốc. Mỗi nhóm xe đi chậm hơn 10 km/h khi xuống đường hai chiều hoặc một chiều chỉ có 1 làn.",
+  "head": [
+   "Loại xe",
+   "Đường đôi hoặc một chiều từ 2 làn",
+   "Đường hai chiều hoặc một chiều 1 làn",
+   "Câu"
+  ],
+  "rows": [
+   [
+    "Ô tô chở người đến 28 chỗ (trừ xe buýt); ô tô tải đến 3,5 tấn",
+    "90 km/h",
+    "80 km/h",
+    "149, 153"
+   ],
+   [
+    "Ô tô chở người trên 28 chỗ (trừ xe buýt); ô tô tải trên 3,5 tấn (trừ xi téc)",
+    "80 km/h",
+    "70 km/h",
+    "150, 154"
+   ],
+   [
+    "Xe buýt; ô tô đầu kéo kéo sơ mi rơ moóc (trừ xi téc); xe mô tô; ô tô chuyên dùng (trừ trộn vữa, trộn bê tông)",
+    "70 km/h",
+    "60 km/h",
+    "151, 155"
+   ],
+   [
+    "Ô tô kéo rơ moóc, kéo xe khác; ô tô trộn vữa, trộn bê tông; ô tô xi téc",
+    "60 km/h",
+    "50 km/h",
+    "152, 156"
+   ]
+  ],
+  "checks": [
+   [
+    149,
+    "đến 28 chỗ"
+   ],
+   [
+    153,
+    "đến 28 chỗ"
+   ],
+   [
+    150,
+    "trên 28 chỗ"
+   ],
+   [
+    154,
+    "trên 28 chỗ"
+   ],
+   [
+    151,
+    "Xe buýt"
+   ],
+   [
+    155,
+    "Xe buýt"
+   ],
+   [
+    152,
+    "kéo rơ moóc"
+   ],
+   [
+    156,
+    "kéo rơ moóc"
+   ]
+  ]
+ },
+ {
+  "title": "Khoảng cách an toàn tối thiểu",
+  "intro": "Khi đường khô, thẳng, tầm nhìn tốt và không có biển “Cự ly tối thiểu giữa hai xe”.",
+  "head": [
+   "Tốc độ",
+   "Khoảng cách",
+   "Câu"
+  ],
+  "rows": [
+   [
+    "Đúng 60 km/h",
+    "35 m",
+    "161"
+   ],
+   [
+    "Trên 60 đến 80 km/h",
+    "55 m",
+    "160"
+   ],
+   [
+    "Trên 80 đến 100 km/h",
+    "70 m",
+    "158"
+   ],
+   [
+    "Trên 100 đến 120 km/h",
+    "100 m",
+    "159"
+   ],
+   [
+    "Dưới 60 km/h",
+    "Tự giữ khoảng cách phù hợp với xe trước và mật độ giao thông",
+    "162"
+   ]
+  ],
+  "checks": [
+   [
+    161,
+    "35 m"
+   ],
+   [
+    160,
+    "55 m"
+   ],
+   [
+    158,
+    "70 m"
+   ],
+   [
+    159,
+    "100 m"
+   ]
+  ]
+ },
+ {
+  "title": "Độ tuổi theo hạng xe",
+  "head": [
+   "Hạng hoặc loại xe",
+   "Tuổi",
+   "Câu"
+  ],
+  "rows": [
+   [
+    "B (ô tô đến 8 chỗ, tải đến 3.500 kg), A (mô tô trên 125 cm³)",
+    "Đủ 18",
+    "119"
+   ],
+   [
+    "C1 (tải trên 3.500 kg đến 7.500 kg)",
+    "Đủ 18",
+    "118"
+   ],
+   [
+    "D2 (chở người trên 16 đến 29 chỗ)",
+    "Đủ 24",
+    "122"
+   ],
+   [
+    "D (chở người trên 29 chỗ, giường nằm)",
+    "Đủ 27",
+    "120"
+   ],
+   [
+    "Tuổi tối đa lái xe trên 29 chỗ, giường nằm",
+    "Nam 57, nữ 55",
+    "121"
+   ]
+  ],
+  "checks": [
+   [
+    119,
+    "18"
+   ],
+   [
+    118,
+    "18"
+   ],
+   [
+    122,
+    "24"
+   ],
+   [
+    120,
+    "27"
+   ],
+   [
+    121,
+    "57"
+   ]
+  ]
+ },
+ {
+  "title": "Các con số hay bị hỏi",
+  "head": [
+   "Nội dung",
+   "Con số",
+   "Câu"
+  ],
+  "rows": [
+   [
+    "Được bấm còi trong khu đông dân cư, gần cơ sở khám chữa bệnh",
+    "Từ 5 giờ đến 22 giờ",
+    "49"
+   ],
+   [
+    "Vượt xe trong đô thị từ 22 giờ đến 5 giờ",
+    "Chỉ báo hiệu bằng đèn",
+    "80"
+   ],
+   [
+    "Bánh xe khi dừng, đỗ sát lề đường phố",
+    "Cách lề không quá 0,25 m",
+    "60"
+   ],
+   [
+    "Dừng, đỗ trên phố hẹp, cách xe đỗ ngược chiều",
+    "Tối thiểu 20 m",
+    "61"
+   ],
+   [
+    "Xe hỏng trên cao tốc không vào được làn khẩn cấp: đặt biển hoặc đèn cảnh báo phía sau",
+    "Tối thiểu 150 m",
+    "114"
+   ],
+   [
+    "Trẻ em không ngồi cùng hàng ghế người lái",
+    "Dưới 10 tuổi và cao dưới 1,35 m",
+    "42"
+   ],
+   [
+    "Lái xe kinh doanh vận tải liên tục",
+    "Không quá 4 giờ",
+    "171"
+   ],
+   [
+    "Thời gian làm việc của lái xe kinh doanh vận tải",
+    "Không quá 10 giờ một ngày",
+    "172"
+   ],
+   [
+    "GPLX chưa bị trừ hết điểm được phục hồi đủ 12 điểm",
+    "Sau 12 tháng không bị trừ điểm",
+    "140"
+   ],
+   [
+    "GPLX bị trừ hết điểm được thi kiến thức pháp luật để phục hồi",
+    "Sau ít nhất 6 tháng",
+    "141"
+   ],
+   [
+    "Kéo xe hỏng phanh",
+    "Phải dùng thanh nối cứng",
+    "104"
+   ]
+  ],
+  "checks": [
+   [
+    49,
+    "05 giờ đến 22 giờ"
+   ],
+   [
+    80,
+    "đèn"
+   ],
+   [
+    60,
+    "0,25"
+   ],
+   [
+    61,
+    "20"
+   ],
+   [
+    114,
+    "150 mét"
+   ],
+   [
+    42,
+    "Không được cho trẻ em ngồi cùng hàng ghế"
+   ],
+   [
+    171,
+    "4 giờ"
+   ],
+   [
+    172,
+    "10 giờ"
+   ],
+   [
+    140,
+    "12 tháng"
+   ],
+   [
+    141,
+    "06 tháng"
+   ],
+   [
+    104,
+    "thanh nối cứng"
+   ]
+  ]
+ },
+ {
+  "title": "Thứ tự ưu tiên khi giải sa hình",
+  "intro": "Xét lần lượt từ trên xuống. Dừng ở bước đầu tiên phân biệt được các xe.",
+  "list": [
+   "Xe đã ở trong nút giao được đi trước. Khi CSGT ra hiệu dừng, các hướng phải dừng, trừ xe đã ở trong khu vực giao nhau (câu 37).",
+   "Hiệu lệnh của người điều khiển giao thông đứng trên đèn tín hiệu và biển báo (câu 38). Biển tạm thời đứng trên biển cố định (câu 39).",
+   "Xe ưu tiên đang làm nhiệm vụ: xe chữa cháy, xe quân sự, công an, kiểm sát, đoàn xe có CSGT dẫn đường, xe cứu thương, xe hộ đê, xe cứu nạn cứu hộ, đoàn xe tang (câu 94).",
+   "Xe trên đường ưu tiên hoặc đường chính đi trước xe từ đường nhánh, đường không ưu tiên, bất kể hướng nào tới (câu 91).",
+   "Các đường ngang cấp, không có vòng xuyến: nhường xe đến từ bên phải (câu 93). Có báo hiệu vòng xuyến: nhường xe đến từ bên trái (câu 92).",
+   "Các xe còn lại ngang điều kiện: thường xét rẽ phải, rồi đi thẳng, rồi rẽ trái. Đây là cách giải phổ biến, nên đối chiếu với đáp án khi luyện."
+  ],
+  "checks": [
+   [
+    37,
+    "trừ các xe đã ở trong khu vực giao nhau"
+   ],
+   [
+    38,
+    "người điều khiển giao thông"
+   ],
+   [
+    39,
+    "tạm thời"
+   ],
+   [
+    91,
+    "đường ưu tiên"
+   ],
+   [
+    93,
+    "bên phải"
+   ],
+   [
+    92,
+    "bên trái"
+   ]
+  ]
+ },
+ {
+  "title": "Nhận diện 5 nhóm biển báo",
+  "intro": "Bộ đề chia biển báo thành 5 nhóm (câu 33). Nhìn hình dạng và màu trước khi đọc chữ.",
+  "head": [
+   "Nhóm",
+   "Hình dạng, màu",
+   "Ý nghĩa"
+  ],
+  "rows": [
+   [
+    "Biển cấm",
+    "Tròn, viền đỏ, nền trắng",
+    "Không được làm"
+   ],
+   [
+    "Biển nguy hiểm và cảnh báo",
+    "Tam giác, viền đỏ, nền vàng",
+    "Chú ý, giảm tốc"
+   ],
+   [
+    "Biển hiệu lệnh",
+    "Tròn, nền xanh lam",
+    "Bắt buộc phải làm"
+   ],
+   [
+    "Biển chỉ dẫn",
+    "Vuông hoặc chữ nhật, nền xanh lam",
+    "Thông tin, hướng đi"
+   ],
+   [
+    "Biển phụ",
+    "Vuông hoặc chữ nhật, nền trắng",
+    "Bổ sung ý nghĩa cho biển chính"
+   ]
+  ],
+  "checks": [
+   [
+    33,
+    "Năm nhóm"
+   ]
+  ]
+ }
+]
