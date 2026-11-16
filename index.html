@@ -507,7 +507,7 @@ function simVideo(id){
   return '<div class="vid" data-v="'+esc(v)+'"><button class="play" type="button"><span aria-hidden="true">▶</span> Xem video tình huống</button><p>Video từ kênh YouTube “Ôn Thi Lái Xe - Lý thuyết &amp; Mô phỏng”, quay từ phần mềm mô phỏng v2.0.0. Khi khác Thông tư, theo đáp án trên trang này.</p></div>';
 }
 function bindVideo(){const box=app.querySelector('.vid'); if(!box) return; box.querySelector('.play').onclick=()=>{
-  box.querySelector('.play').outerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+box.dataset.v+'?autoplay=1&rel=0&playsinline=1" title="Video tình huống mô phỏng" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>';};}
+  box.querySelector('.play').outerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+box.dataset.v+'?autoplay=1&rel=0&playsinline=1" title="Video tình huống mô phỏng" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>'; box.querySelector('iframe').focus();};}
 const FIELD={g:'Dấu hiệu nhận biết gián tiếp',t:'Dấu hiệu nhận biết trực tiếp',x:'Phương án xử lý'};
 function simLabel(id){return 'Tình huống '+id+': '+SIM[id-1].n;}
 function pick(arr,n){return shuffle(arr).slice(0,n);}
