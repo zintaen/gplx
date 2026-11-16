@@ -107,6 +107,11 @@ p{margin:0 0 10px}
 .qtext{font-size:18px;font-weight:600;line-height:1.45;margin:0 0 12px}
 .qimgs{display:flex;flex-direction:column;gap:8px;margin:0 0 14px}
 .qimgs img{border-radius:8px;border:1px solid var(--line);background:#fff;margin:0 auto}
+.vid{margin:4px 0 14px}
+.vid .play{display:flex;align-items:center;gap:10px;width:100%;background:var(--asphalt);color:#fff;border:0;border-radius:10px;padding:12px 14px;font-weight:700;text-align:left}
+.vid .play span{color:var(--stripe);font-size:18px}
+.vid iframe{display:block;width:100%;aspect-ratio:16/9;border:0;border-radius:10px;background:#000}
+.vid p{font-size:12px;color:var(--muted);margin:6px 0 0}
 .opts{display:flex;flex-direction:column;gap:8px}
 .opt{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;background:var(--surface);border:2px solid var(--line);border-radius:10px;padding:11px 12px;font-size:16px;line-height:1.45}
 .opt .n{flex:none;width:24px;height:24px;border-radius:50%;background:var(--bg);display:grid;place-items:center;font-size:13px;font-weight:800;margin-top:1px}
@@ -181,10 +186,12 @@ td:first-child{min-width:150px}
 <script>
 (async function(){
 'use strict';
-let D, SIMDATA;
+let D, SIMDATA, VIDEOS={};
 try{
   const [a,b]=await Promise.all(['data/app.json','data/sim.json'].map(u=>fetch(u).then(r=>{if(!r.ok) throw new Error(u+': '+r.status); return r.json();})));
   D=a; SIMDATA=b;
+  // videos are optional: a failed load just hides them
+  try{const r=await fetch('data/videos.json'); if(r.ok) VIDEOS=(await r.json()).videos||{};}catch(e){}
 }catch(e){document.getElementById('app').innerHTML='<div class="empty"><p><b>Không tải được dữ liệu.</b></p><p class="small muted">'+String(e.message).replace(/[<>&]/g,'')+'. Tải lại trang; nếu mở file trực tiếp trên máy, hãy chạy qua một máy chủ web (xem README).</p></div>'; return;}
 const Q={}; D.Q.forEach(q=>Q[q.id]=q);
 const ALL=D.Q.map(q=>q.id);
@@ -243,18 +250,23 @@ function header(opts){
 }
 /* ---------- navigation: each screen has a #hash so the browser/phone back button works ---------- */
 // history.state.d = how many in-app screens sit behind this entry, so ‹ never steps out of the site
-let backTo=null, active=null, keyHandler=null;
+let backTo=null, active=null, keyHandler=null, curD=0;
 const depth=()=>(history.state&&history.state.d)||0;
 const url=h=>h?'#'+h:location.pathname+location.search;
-function push(h){history.pushState({d:depth()+1},'',url(h));}
+function push(h){history.pushState({d:depth()+1},'',url(h)); curD=depth();}
 function nav(h){if(location.hash.slice(1)!==h) push(h); route();}
-function goBack(){if(depth()>0) history.back(); else {history.replaceState(null,'',url(backTo)); route();}}
-function startRun(hash,msg){active={hash,msg}; push(hash);}
+function goBack(){if(depth()>0) history.back(); else {history.replaceState({d:0},'',url(backTo)); route();}}
+function startRun(hash,msg){active={hash,msg,d:depth()+1}; push(hash);}
 function endRun(hash){active=null; stopTimer(); history.replaceState(history.state,'',url(hash));}
 const RUN_HOME={'dang-thi':'thi-thu','mp-kiem-tra':'mo-phong'};
 function route(){
   const h=location.hash.slice(1), [v,arg]=h.split('/');
-  if(active){if(h===active.hash) return; if(!confirm(active.msg)){history.forward(); return;} active=null; stopTimer();}
+  // a URL typed into the address bar has no state: stamp it one deeper than the screen it was typed over
+  if(!history.state) history.replaceState({d:curD+1},'',location.href);
+  curD=depth();
+  if(active){if(h===active.hash) return; if(!confirm(active.msg)){
+    if(active.d!==depth()) history.go(active.d-depth()); // jump straight back to the exam entry, however far away
+    return;} active=null; stopTimer();}
   if(RUN_HOME[h]){history.replaceState(history.state,'',url(RUN_HOME[h])); return route();}
   keyHandler=null;
   const SCREENS={'':home,'thi-thu':examIntro,'mo-phong':simHome,'cau-sai':wrong,'so-tay':notes,'mp-ten':nameDrill};
@@ -266,7 +278,7 @@ function route(){
 $('#back').onclick=goBack;
 $('#tabs').onclick=e=>{const b=e.target.closest('button'); if(b) nav(b.dataset.v);};
 window.addEventListener('keydown',e=>{
-  if(!keyHandler||e.ctrlKey||e.metaKey||e.altKey) return;
+  if(!keyHandler||e.repeat||e.ctrlKey||e.metaKey||e.altKey) return;
   if((e.key==='Enter'||e.key===' ')&&e.target.closest('button,input,a,summary,label')) return;
   keyHandler(e);
 });
@@ -295,7 +307,7 @@ function home(){
    '<p class="muted">Đề thi hạng B có 30 câu, làm trong 20 phút. Muốn đạt phải đúng ít nhất 27 câu và không sai câu điểm liệt nào. Học theo thứ tự dưới đây: phần dễ làm trượt nhất đi trước.</p>'+cta+
    '<h2>Các chặng</h2><ol class="route">';
   PLAN.forEach((p,i)=>{
-    const done=p.keys.length&&p.keys.every(k=>G[k].ids.every(known));
+    const done=p.sim?simIds(simKnown).length===SIM.length:p.keys.length&&p.keys.every(k=>G[k].ids.every(known));
     h+='<li class="stop'+(done?' done':'')+'"><span class="dot">'+(done?'✓':i+1)+'</span><h3>'+p.title+'</h3><p class="small muted">'+p.text+'</p><div class="groups">'+
       p.keys.map(k=>grpBtn(G[k])).join('')+
       (p.sim?'<button class="grp" data-simgo="1">'+icon('cmd','')+'<span class="t"><b>Mở phần Mô phỏng</b><span>Không còn trong kỳ sát hạch nhưng cơ sở đào tạo vẫn kiểm tra. 4 nhóm học, luyện nhận diện tên, kiểm tra thử 10 tình huống</span></span><span class="meter">'+simIds(simKnown).length+'/120</span></button>':'')+
@@ -419,7 +431,7 @@ function runExam(ids){
   startRun('dang-thi','Thoát bài thi? Bài đang làm sẽ không được lưu.');
   header({hideTabs:true,timer:true,back:'thi-thu',title:'Đề thi thử'});
   // wall-clock deadline: interval ticks pause while the phone is locked, the exam clock must not
-  function tick(){const left=Math.max(0,Math.ceil((end-Date.now())/1000)),m=Math.floor(left/60),s=left%60; $('#timer').textContent=m+':'+String(s).padStart(2,'0'); if(!left) finish();}
+  function tick(){const left=Math.max(0,Math.ceil((end-Date.now())/1000)),m=Math.floor(left/60),s=left%60; $('#timer').textContent=m+':'+String(s).padStart(2,'0'); if(!left&&location.hash.slice(1)===active?.hash) finish();}
   tick(); tInt=setInterval(tick,1000);
   function render(){
     const id=ids[cur];
@@ -488,6 +500,14 @@ const SG={
   trung:{title:'Trùng tên, khác dấu hiệu',ids:Object.keys(simTwin).map(Number).sort((a,b)=>a-b),icon:'warn',desc:'Cùng tên nhưng dấu hiệu và xử lý khác nhau'}
 };
 SG.trung.ids=[13,74,26,57,32,75,49,59].filter(i=>simTwin[i]);
+// click-to-load: YouTube is contacted only when the viewer asks for the video
+function simVideo(id){
+  const v=VIDEOS[id];
+  if(!v) return '<p class="small muted" style="margin:0 0 12px">Chưa có video khớp nội dung Thông tư 17/2026 cho tình huống này. Hãy xem trên phần mềm của cơ sở đào tạo.</p>';
+  return '<div class="vid" data-v="'+esc(v)+'"><button class="play" type="button"><span aria-hidden="true">▶</span> Xem video tình huống</button><p>Video từ kênh YouTube “Ôn Thi Lái Xe - Lý thuyết &amp; Mô phỏng”, quay từ phần mềm mô phỏng v2.0.0. Khi khác Thông tư, theo đáp án trên trang này.</p></div>';
+}
+function bindVideo(){const box=app.querySelector('.vid'); if(!box) return; box.querySelector('.play').onclick=()=>{
+  box.querySelector('.play').outerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+box.dataset.v+'?autoplay=1&rel=0&playsinline=1" title="Video tình huống mô phỏng" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>';};}
 const FIELD={g:'Dấu hiệu nhận biết gián tiếp',t:'Dấu hiệu nhận biết trực tiếp',x:'Phương án xử lý'};
 function simLabel(id){return 'Tình huống '+id+': '+SIM[id-1].n;}
 function pick(arr,n){return shuffle(arr).slice(0,n);}
@@ -529,7 +549,7 @@ function simHome(){
     '<div class="fact"><b>'+SG.duoi.ids.length+'</b><span>dùng công thức nhưng có thêm phần đuôi</span></div>'+
     '<div class="fact"><b>'+SG.tron.ids.length+'</b><span>xử lý chỉ là “'+SF+'”</span></div>'+
     '<div class="fact"><b>4 cặp</b><span>trùng tên nhưng khác dấu hiệu</span></div>'+
-   '</div><p class="small muted">Trang không có video. Mỗi tình huống được gọi bằng số và tên thay cho đoạn phim; phần nhận biết tên được luyện riêng bằng cách đọc dấu hiệu.</p>'+
+   '</div><p class="small muted">'+Object.keys(VIDEOS).length+'/120 tình huống có video minh họa trong phần Học theo nhóm. Video quay từ phần mềm v2.0.0, chỉ gắn khi cảnh quay khớp nội dung Thông tư; các tình huống còn lại hãy xem trên phần mềm của cơ sở đào tạo.</p>'+
    '<h2>Học theo nhóm</h2><div class="groups">'+
    ['rieng','duoi','trung','tron'].map(key=>{const g=SG[key],kk=g.ids.filter(simKnown).length;
      return '<button class="grp" data-s="'+key+'">'+icon(g.icon,'')+'<span class="t"><b>'+esc(g.title)+'</b><span>'+esc(g.desc)+'</span></span><span class="meter'+(kk===g.ids.length?' done':'')+'">'+kk+'/'+g.ids.length+'</span></button>';}).join('')+
@@ -547,12 +567,12 @@ function simStudy(key){
   function render(){
     header({back:'mo-phong',hideTabs:true,title:g.title});
     let h='<label class="toggle"><input type="checkbox" id="only"'+(onlyNew?' checked':'')+'> Chỉ tình huống chưa thuộc</label>';
-    if(!list.length){h+='<div class="empty"><p><b>Đã thuộc hết nhóm này.</b></p><button class="btn" id="bk">Về Mô phỏng</button></div>'; view(h); $('#only').onchange=e=>{onlyNew=e.target.checked;build();render();}; $('#bk').onclick=()=>nav('mo-phong'); return;}
+    if(!list.length){h+='<div class="empty"><p><b>Đã thuộc hết nhóm này.</b></p><button class="btn" id="bk">Về Mô phỏng</button></div>'; view(h); $('#only').onchange=e=>{onlyNew=e.target.checked;build();render();}; $('#bk').onclick=()=>nav('mo-phong'); keyHandler=null; return;}
     const id=list[pos]; const qs={g:simOptions(id,'g'),t:simOptions(id,'t'),x:simOptions(id,'x')}; const got={};
-    h+='<div class="count">'+(pos+1)+' / '+list.length+'</div><p class="qtext">'+esc(simLabel(id))+'</p>';
+    h+='<div class="count">'+(pos+1)+' / '+list.length+'</div><p class="qtext">'+esc(simLabel(id))+'</p>'+simVideo(id);
     ['g','t','x'].forEach(f=>{h+='<h3 style="margin:14px 0 8px">'+FIELD[f]+'</h3>'+optsHtml(f,qs[f]);});
     h+='<div id="fb"></div><div class="bar"><button class="btn ghost" id="prev"'+(pos?'':' disabled')+'>Trước</button><span class="grow"></span><button class="btn" id="next">'+(pos<list.length-1?'Tình huống tiếp':'Xong nhóm')+'</button></div>';
-    view(h);
+    view(h); bindVideo();
     $('#only').onchange=e=>{onlyNew=e.target.checked;build();render();};
     app.querySelectorAll('.opts').forEach(box=>{const f=box.dataset.q; box.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
       if(got[f]!==undefined) return; got[f]=+b.dataset.i; lockOpts(box,qs[f].c,got[f]);
@@ -623,6 +643,7 @@ function simExam(){
   keyHandler=null; render();
 }
 
+if(!history.state) history.replaceState({d:0},'',location.href);
 window.addEventListener('popstate',route);
 route();
 })();

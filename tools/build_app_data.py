@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Gộp dữ liệu cho trang web và chạy các kiểm tra chất lượng.
 
-Đầu vào : data/questions.json, data/critical.json, data/groups.json, data/notes.json, data/sim.json
+Đầu vào : data/questions.json, data/critical.json, data/groups.json, data/notes.json, data/sim.json, data/videos.json
 Đầu ra  : data/app.json
 Dừng với mã lỗi nếu có kiểm tra không đạt (dùng trong GitHub Actions).
 """
@@ -38,6 +38,9 @@ for sec in notes:
 
 # 4. mô phỏng
 if len(sim) != 120 or any(not all(s[k] for k in "ngtx") for s in sim): err.append("Dữ liệu mô phỏng phải đủ 120 tình huống, 4 trường")
+videos = load("videos.json")["videos"]
+for k, v in videos.items():
+    if not (k.isdigit() and 1 <= int(k) <= 120 and re.fullmatch(r"[\w-]{11}", v)): err.append(f"videos.json: mục lỗi {k}: {v}")
 
 # thống kê
 CA = re.compile(r"^(Cả (hai|ba) ý trên|Ý \d và ý \d)")

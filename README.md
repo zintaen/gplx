@@ -16,7 +16,8 @@ Trang web tĩnh để ôn bộ 600 câu hỏi sát hạch lý thuyết (Cục CS
 | --- | --- | --- |
 | `data/questions.json`, `assets/q/*.jpg` | PDF 600 câu (`data/source/`) | `tools/extract_600.py`: đọc chữ, đáp án = phương án gạch chân, cắt vùng hình |
 | `data/critical.json` | Phụ lục III Công văn 2262/CSGT-P5 | nhập tay 60 số câu |
-| `data/sim.json` | Phụ lục I Thông tư 17/2026/TT-BXD | chép từ văn bản |
+| `data/sim.json` | Phụ lục I Thông tư 17/2026/TT-BXD | chép từ văn bản (480/480 trường khớp nguyên văn) |
+| `data/videos.json` | YouTube, kênh “Ôn Thi Lái Xe - Lý thuyết & Mô phỏng” | đối chiếu thủ công cảnh quay với nội dung từng tình huống |
 | `data/groups.json` | tự biên soạn | chủ đề điểm liệt, chùm song sinh |
 | `data/notes.json` | tự biên soạn | sổ tay; mọi con số có `checks` đối chiếu với đáp án gốc |
 | `data/app.json` | gộp các tệp trên | `tools/build_app_data.py` |
@@ -52,7 +53,7 @@ Sau đó vào **Settings → Pages → Build and deployment → Source: GitHub A
 
 ## Giới hạn
 
-- **Không có video mô phỏng.** Video thuộc phần mềm mô phỏng chính thức nên không đưa vào repo. Hãy xem video trên phần mềm của cơ sở đào tạo.
+- **Video mô phỏng có cho 53/120 tình huống**, nhúng từ YouTube (kênh “Ôn Thi Lái Xe - Lý thuyết & Mô phỏng”, quay từ phần mềm v2.0.0), chỉ tải khi bấm xem. Phần mềm v2.0.0 khác Phụ lục I Thông tư 17/2026 ở nhiều tình huống (nhất là 80–120), nên chỉ gắn video khi cảnh quay khớp nội dung; danh sách ở `data/videos.json`. Không lưu video trong repo.
 - Cục Đường bộ Việt Nam đang rà soát đáp án một số tình huống Chương 6 trong Thông tư 17/2026 (tin ngày 29/7/2026). Nếu khác với hướng dẫn của giáo viên, theo giáo viên.
 - Từ 01/3/2027 đề hạng B tăng lên 50 câu, 33 phút, đạt 45 câu, kèm ngân hàng câu hỏi mới (Thông tư 108/2026/TT-BCA). Khi đó cần thay PDF và cập nhật cấu trúc đề trong `index.html`.
 - Ngưỡng đạt bài kiểm tra mô phỏng do cơ sở đào tạo quy định.
