@@ -300,9 +300,12 @@ function grpBtn(g){
 function home(){
   header({tab:''});
   const critK=crit.filter(known).length;
-  const next=PLAN.flatMap(p=>p.keys).map(k=>G[k]).find(g=>g.ids.some(id=>!known(id)));
-  const cta=next?'<button class="cta" data-g="'+next.key+'"><span class="t"><small>Học tiếp</small><b>'+esc(next.title)+'</b><small>'+next.ids.filter(known).length+'/'+next.ids.length+' câu đã thuộc</small></span><span class="go" aria-hidden="true">›</span></button>'
-    :'<button class="cta" data-exam="1"><span class="t"><small>Đã thuộc cả 600 câu</small><b>Làm đề thi thử</b></span><span class="go" aria-hidden="true">›</span></button>';
+  // first unfinished stage, in order; inside it, the first unfinished group (the sim stage opens Mô phỏng)
+  const stage=PLAN.find(p=>p.sim?simIds(simKnown).length<SIM.length:p.keys.some(k=>G[k].ids.some(id=>!known(id))));
+  const next=stage&&!stage.sim?stage.keys.map(k=>G[k]).find(g=>g.ids.some(id=>!known(id))):null;
+  const cta=stage&&stage.sim?'<button class="cta" data-simgo="1"><span class="t"><small>Học tiếp</small><b>Mô phỏng 120 tình huống</b><small>'+simIds(simKnown).length+'/120 tình huống đã thuộc</small></span><span class="go" aria-hidden="true">›</span></button>'
+    :next?'<button class="cta" data-g="'+next.key+'"><span class="t"><small>Học tiếp</small><b>'+esc(next.title)+'</b><small>'+next.ids.filter(known).length+'/'+next.ids.length+' câu đã thuộc</small></span><span class="go" aria-hidden="true">›</span></button>'
+    :'<button class="cta" data-exam="1"><span class="t"><small>Đã thuộc cả 600 câu và 120 tình huống</small><b>Làm đề thi thử</b></span><span class="go" aria-hidden="true">›</span></button>';
   let h='<h1>Lộ trình ôn</h1>'+
    '<p class="muted">Đề thi hạng B có 30 câu, làm trong 20 phút. Muốn đạt phải đúng ít nhất 27 câu và không sai câu điểm liệt nào. Học theo thứ tự dưới đây: phần dễ làm trượt nhất đi trước.</p>'+cta+
    '<h2>Các chặng</h2><ol class="route">';
