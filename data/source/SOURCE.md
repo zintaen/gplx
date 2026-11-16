@@ -6,7 +6,8 @@
 - Bản trong repo: 186 trang, 6.062.495 byte, xuất từ Microsoft Word ngày 12/5/2025.
 - SHA-256: `d473be679b53458a33acc52057f3a4fe532ea489e91d88fb86789073cd98a9c5`
 - Lấy từ đâu: bản lưu công khai trong repo `anhvh6/LuatGiaothong` (`data/official-600.pdf`), repo này ghi nguồn là bản đăng trên HoaTieu: https://f.hoatieu.vn/data/pdf/2025/05/14/cau-hoi-thi-giay-phep-lai-xe.pdf
-- Chưa đối chiếu byte-to-byte với bản trên csgt.vn. Nếu tải được bản từ Cục CSGT, thay file này, chạy `make data` và xem diff.
+- Ngày 17/11/2026 đã đối chiếu: bản trong repo trùng từng byte với bản trên HoaTieu (cùng SHA-256). Chưa có bản trên csgt.vn để đối chiếu; nếu tải được bản từ Cục CSGT, thay file này, chạy `make data` và xem diff.
+- `tools/watch_sources.py` (chạy hằng tuần) tải lại các văn bản nguồn và báo nếu mã băm thay đổi; danh sách và mã băm ở `data/source/watch.json`.
 
 Đáp án đúng trong tài liệu là phần được gạch chân. Tài liệu không đánh dấu câu điểm liệt; danh sách 60 câu lấy từ Phụ lục III Công văn 2262/CSGT-P5 (xem `data/critical.json`), bản đăng tại https://cdn.thuvienphapluat.vn/uploads/tintuc/2025/05/12/CV-2262-trang-2.pdf
 

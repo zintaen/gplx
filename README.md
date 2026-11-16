@@ -56,6 +56,8 @@ git diff            # xem thay đổi trước khi commit
 
 GitHub Actions trích xuất lại từ PDF ở mỗi lần push và chặn đăng nếu dữ liệu commit không khớp PDF hoặc kiểm tra không đạt.
 
+Mỗi sáng thứ Hai, workflow `watch.yml` chạy `tools/watch_sources.py`: tải lại các văn bản nguồn trong `data/source/watch.json` và báo nếu văn bản bị thay (mã băm khác), đồng thời kiểm tra các video trong `data/videos.json` còn nhúng được. Lần chạy lỗi không chặn deploy, GitHub gửi email báo. Việc cập nhật dữ liệu theo văn bản mới vẫn làm tay.
+
 ## Đăng lên GitHub Pages
 
 ```sh

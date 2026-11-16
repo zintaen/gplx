@@ -1,0 +1,9 @@
+{
+ "note": "Bản văn bản nguồn đã dùng để dựng dữ liệu. tools/watch_sources.py tải lại hằng tuần; mã băm khác nghĩa là văn bản đã bị thay hoặc sửa: đọc lại, cập nhật dữ liệu, rồi cập nhật sha256 ở đây.",
+ "sources": [
+  {"name": "Công văn 2262/CSGT-P5 (bộ câu, câu điểm liệt, cấu trúc đề)", "url": "https://cdn.thuvienphapluat.vn/uploads/khoinghiep/2025/05/14/huong-dan-so-2262-csgt-p5.pdf", "sha256": "dcb0b42473a23af3b006ed07cfd3a728254eb3d5263f6a26d0536c576d69e634", "used_by": ["data/critical.json", "data/classes.json"]},
+  {"name": "Thông tư 12/2025/TT-BCA (thời gian làm bài, điểm đạt)", "url": "https://storage-vnportal.vnpt.vn/gov-bpc/3167/Images/document/Thong%20tu%2012.2025.TT.BCA.pdf", "sha256": "995629ef421d6b724997dee5b2dcae4529bb2b7231647575607e1d92e7b2dcc0", "used_by": ["data/classes.json"]},
+  {"name": "Phụ lục Thông tư 17/2026/TT-BXD (120 tình huống mô phỏng)", "url": "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/4/17-bxd-kem.pdf", "sha256": "69d408cd8bece863487f240d82a413de5b3cd9e0e7c8fd7f7fdb8f710b50be66", "used_by": ["data/sim.json"]},
+  {"name": "PDF 600 câu hỏi (bản đăng HoaTieu, trùng data/source/600-cau-hoi.pdf)", "url": "https://f.hoatieu.vn/data/pdf/2025/05/14/cau-hoi-thi-giay-phep-lai-xe.pdf", "sha256": "d473be679b53458a33acc52057f3a4fe532ea489e91d88fb86789073cd98a9c5", "used_by": ["data/source/600-cau-hoi.pdf"]}
+ ]
+}

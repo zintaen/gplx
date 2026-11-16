@@ -1,0 +1,21 @@
+name: Kiểm tra nguồn dữ liệu hằng tuần
+
+# Văn bản nguồn còn nguyên và video YouTube còn nhúng được.
+# Lỗi ở đây không chặn deploy; GitHub gửi email báo lần chạy theo lịch bị lỗi.
+on:
+  schedule:
+    - cron: "0 1 * * 1"   # 8:00 sáng thứ Hai, giờ Việt Nam
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python tools/watch_sources.py
