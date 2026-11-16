@@ -36,6 +36,9 @@ for sec in notes:
     for qid, needle in sec.get("checks", []):
         ans = byid[qid]["a"][byid[qid]["c"]]
         if needle not in ans: err.append(f"Sổ tay '{sec['title']}': câu {qid} không chứa “{needle}” (đáp án: {ans})")
+    # qchecks: nhãn của dòng (vd. hạng xe) phải khớp nội dung chính câu hỏi được dẫn, không chỉ đáp án
+    for qid, needle in sec.get("qchecks", []):
+        if needle not in byid[qid]["q"]: err.append(f"Sổ tay '{sec['title']}': đề câu {qid} không chứa “{needle}”")
     # trang lọc cột "Câu" theo bộ câu của từng hạng, nên ô phải là số, khoảng "a–b" hoặc danh sách cách nhau bởi dấu phẩy
     if sec.get("head") and "Câu" in sec["head"]:
         qc = sec["head"].index("Câu")
@@ -74,7 +77,7 @@ if err:
 app = {"Q": [{k: q[k] for k in ("id", "ch", "q", "a", "c", "k", "im", "page")} for q in Q],
        "traps": traps, "twins": groups["twins"], "critThemes": groups["critThemes"],
        "stats": {"caTotal": len(ca), "longPct": round(100 * longest / len(plain))},
-       "notes": [{k: v for k, v in s.items() if k != "checks"} for s in notes],
+       "notes": [{k: v for k, v in s.items() if k not in ("checks", "qchecks")} for s in notes],
        "pools": CL["pools"], "classes": CL["classes"]}
 (ROOT / "data" / "app.json").write_text(json.dumps(app, ensure_ascii=False, separators=(",", ":")))
 print(f"Kiểm tra đạt. {len(Q)} câu, {len(traps)} câu bẫy, {len(groups['twins'])} chùm song sinh, {len(sim)} tình huống mô phỏng, {len(CL['classes'])} hạng bằng.")
