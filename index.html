@@ -240,7 +240,7 @@ function setClass(code){
   const grp=(key,o)=>{if(o.ids.length) G[key]=Object.assign({key},o);};
   D.critThemes.forEach((t,i)=>{const ids=t.ids.filter(id=>CRIT.has(id)); grp('c'+i,{title:t.title,ids,icon:'ban',desc:ids.length+' câu điểm liệt'});});
   grp('twins',{title:'Câu song sinh dễ nhầm',ids:TW.flatMap(t=>t.ids),icon:'warn',desc:TW.length+' chùm, học liền nhau để thấy chỗ khác'});
-  grp('traps',{title:'Bẫy “Cả … ý trên”',ids:[...TRAPS].sort((a,b)=>a-b),icon:'warn',desc:'Có phương án “Cả … ý trên” nhưng đáp án lại khác'});
+  grp('traps',{title:'Bẫy “Cả … ý trên”',ids:[...TRAPS].sort((a,b)=>a-b),icon:'warn',desc:'Có phương án gộp (“Cả … ý trên”, “Ý … và ý …”) nhưng đáp án lại khác'});
   grp('sh',{title:'Sa hình',ids:rest([6]),icon:'cmd',desc:'Học theo thứ tự ưu tiên trong Sổ tay'});
   grp('bb',{title:'Biển báo, vạch kẻ',ids:rest([5]),icon:'info',desc:'Nhận diện theo nhóm biển'});
   grp('qt',{title:'Quy tắc còn lại',ids:rest([1]),icon:'grey',desc:'Đọc kỹ câu hỏi, chọn phương án an toàn, đúng luật'});
@@ -393,7 +393,7 @@ function home(){
   h+='</ol><h2>Vì sao không học mẹo</h2><div class="facts">'+
     '<div class="fact"><b>'+CRIT.size+'</b><span>câu điểm liệt, mỗi đề có 1 câu</span></div>'+
     '<div class="fact"><b>'+TW.length+'</b><span>chùm câu song sinh dễ nhầm</span></div>'+
-    '<div class="fact"><b>'+TRAPS.size+'</b><span>câu có phương án “Cả … ý trên” mà đáp án lại là ý khác</span></div>'+
+    '<div class="fact"><b>'+TRAPS.size+'</b><span>câu có phương án gộp (“Cả … ý trên”, “Ý … và ý …”) mà đáp án lại là ý khác</span></div>'+
     '<div class="fact"><b>'+D.stats.longPct+'%</b><span>tỷ lệ đúng của mẹo “chọn câu dài nhất” trên cả bộ 600 câu</span></div>'+
    '</div><p class="small muted">Hai con số cuối cho thấy học mẹo với bộ đề mới không còn an toàn. Hãy hiểu câu hỏi.</p>'+
    '<p class="foot">Dữ liệu trích tự động từ PDF “600 câu hỏi dùng cho sát hạch lái xe cơ giới đường bộ” của Cục CSGT – Bộ Công an (2025); đáp án là phương án được gạch chân trong tài liệu gốc. Bộ câu và câu điểm liệt của hạng '+esc(CL.code)+' theo Công văn 2262/CSGT-P5. Tiến độ chỉ lưu trên trình duyệt này.</p>'+
@@ -420,7 +420,8 @@ function qBlock(id,opts){
 function feedback(id,chosen){
   const q=Q[id], ok=chosen===q.c;
   let h='<div class="note '+(ok?'res-ok':'res-bad')+'">'+(ok?'Đúng.':'Chưa đúng. Đáp án là ý '+(q.c+1)+'.')+'</div>';
-  if(TRAPS.has(id)) h+='<div class="note trap">Câu bẫy: “Cả … ý trên” không phải đáp án ở câu này.</div>';
+  // quote this question's own combined option ("Cả hai ý trên", "Ý 2 và ý 3"…), which is the tempting wrong pick
+  if(TRAPS.has(id)){const combo=q.a.find(a=>/^(Cả (hai|ba) ý trên|Ý \d và ý \d)/.test(a)); h+='<div class="note trap">Câu bẫy: phương án gộp “'+esc((combo||'').replace(/\.$/,''))+'” không phải đáp án ở câu này.</div>';}
   if(TWIN_OF[id]!==undefined){const t=TW[TWIN_OF[id]]; const o=t.ids.filter(x=>x!==id);
     h+='<div class="note twin">Song sinh với câu '+o.join(', ')+' ('+esc(t.label)+'). Nhớ chỗ khác nhau giữa các câu.</div>';}
   h+='<p class="small" style="margin-top:10px"><a href="data/source/600-cau-hoi.pdf#page='+q.page+'" target="_blank" rel="noopener">Xem câu '+id+' trong tài liệu gốc, trang '+q.page+' của PDF</a></p>';
@@ -436,6 +437,7 @@ function study(key){
   const g=groupOf(key), up=key==='wrong'?'cau-sai':'lo-trinh'; let onlyNew=false; let list=[], pos=0;
   function build(){list=g.ids.filter(id=>!onlyNew||!known(id)); pos=0;}
   build();
+  pos=Math.max(0,list.findIndex(id=>!known(id))); // pick up where the learner stopped instead of replaying known questions
   function render(){
     header({back:up,hideTabs:true,title:g.title});
     let h='<label class="toggle"><input type="checkbox" id="only"'+(onlyNew?' checked':'')+'> Chỉ câu chưa thuộc</label>';
